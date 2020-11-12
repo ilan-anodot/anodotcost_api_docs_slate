@@ -1,0 +1,199 @@
+# Feedback
+
+> End Point **GET /api/v2/feedbacks**
+
+Our users and trigger recipients give feedback (Not Interesting/Good Catch) to anomaly alert triggers via:
+
+* The Alert console
+* The trigger investigation page
+* Directly from the received trigger, via Email, Slack and other channels that support it.
+
+Use the feedback API endpoint to get the feedback instances given by your organization members, tune your alerts, map your anomalies to business cases and improve the use of Anodot by your teams.
+
+Authentication type: [Access Token Authentication] (#access-tokens).
+
+## Get Feedback
+
+> Request Example: 
+
+```shell
+curl -X GET \
+https://app.anodot.com/api/v2/feedbacks \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-d '{"startTime" : 1578391000, "endTime": 1578392000}'
+```
+
+### Request Arguments
+
+Argument | Type | Description
+---------|------|------------
+startTime [**Required**] | Epoch | Time the feedback was given.<br/>Default value is "Now minus 24 hours"
+endTime [**Required**] | Epoch | Time the feedback was given.<br/>Default value is "Now".
+
+> Response Example:
+
+```json
+{
+  "total": 1,
+  "feedbacks": [
+    {
+      "id": "a9b6d1ea-70bd-4bab-b567-a16ce60a91f2",
+      "type": "GOOD_CATCH",
+      "comment": "Reason and Commnet combined, comma separated",
+      "createdTime": 1578391511,
+      "userName": "test@anodot.com",
+      "anomalyId": "http://test.anodot.com/#!/anomalies?ref=pd&tabs=main;0&activeTab=1&anomalies=;0(d863a79ec48b407a808379facc89df7e)&duration=;1(1)&durationScale=;minutes(minutes)&delta=;0(0)&deltaType=;percentage(percentage)&resolution=;medium(medium)&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;(1e0fbe4d-a5af-4ba5-8b40-9930d48f5008)&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
+      "alerts": [
+        {
+          "Id": "http://test.anodot.com/#!/alerts/6d59552d-7d61-44ae-bf20-2d39555af8c7",
+          "emailId": "d863a",
+          "alertName": "NewAlert1 {{component}}",
+          "startTime": 1578381300,
+          "endTime": 1578390300,
+          "status": "CLOSE",
+          "alertOwner": "automation testing"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Response Fields
+
+Field | Type | Description / Example
+-|-|-
+total | Number | Number of feedback instances included in the response
+feedbacks[] | Array | An array of feedback instances
+id | String ($uuid) | Feedback id
+type | String | Type of feedback. Possible values:<br/>* Good Catch<br/>* Not Interesting
+comment | String | Optional reason and comment, if provided by the user while giving the feedback.
+createdTime | Epoch | Feedback creation time.
+username | String | Email of the user who provided the feedback
+anomalyId | String | Link to the anomaly *Investigate* page in the Anodot platform.
+alerts[] | Array | An array of alerts related to the feedback instance.
+
+#### Alerts Array Fields
+Field | Type | Description / Example
+-|-|-
+Id | String | Link to the *alert settings* in the Anodot platform.
+emailId | String | 5 characters used to identify the email.<br/>These are also the first 5 chars of the AnomalyId.
+alertName | String | Alert name in Anodot
+startTime | Epoch | Alert start time
+endTime | Epoch | [**Optional**] Alert end time, relevant if the alert is closed.
+status | String | The alert status. Possible values:<br/>* OPEN<br/>* CLOSE.
+alertOwner | String | The alert owner in Anodot. Possible values are:<br/>* User first and Last name.<br/>* Group name.
+
+## POST Feedback
+
+> Request Example:
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/feedbacks \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-d '{
+  "userId":"5e662ecxxxx61e000eaa0de8",
+  "userName":"demo user",
+  "triggerIds":["9e701a4b-xxxx-42e6-8799-7b6cde40b69e"],
+  "type":"GOOD_CATCH",
+  "origin":"api"
+  }'
+```
+
+Feedback can be submitted in the Anodot app from The alert console, the investigation page, the insights widget and from the triggers you recieve to your inbox, slack or other channels.
+Use the POST call to provide your feedback using an API.
+
+### Request Arguments
+
+Argument | Type | Description
+---------|------|------------
+userId | String ($uuid)| The ID of the user giving the feedback. Find this ID from your browser developer window.
+userName | String | The first and last names of the user giving the feedback.
+triggerIds | Array of Strings ($uuid) | A list of trigger IDs the feedback is given on, provide a single value.
+type | Enum | Possible values:</br>GOOD_CATCH</br>NOT_INTERESETING
+origin | Enum | Possible value:</br>api</br>
+
+> Response Example
+
+```json
+{
+    "id": "ef66297a-48e8-4899-xxyy-d6b1612b1392",
+    "meta": {
+        "userId": "58e5f7893xxxyyyc736e701",
+        "modifiedTime": 1600020701,
+        "createdTime": 1600020701,
+        "origin": "api"
+    }
+}
+```
+
+### Response Fields
+
+Field | Type | Description / Example
+-|-|-
+id | string | The specific feedback entry id, generated by Anodot.
+meta (Object)| JSON Object | the fields related to the feedback entry
+userId | string | ID of the user giving the feedback.
+modifiedTime | epoch | Feedback entry modification time.
+createdTime | epoch | Feedback entry creation time.
+origin | Enum | The method this feedback entry was provided. For API calls, the value is "api"
+
+
+## PUT Feedback
+
+> Request Example
+
+```shell
+curl -X PUT \
+https://app.anodot.com/api/v2/feedbacks/{feedbackId} \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-d '{
+  "userId":"5e662ecxxxx61e000eaa0de8",
+  "userName":"demo user",
+  "triggerIds":["9e701a4b-xxxx-42e6-8799-7b6cde40b69e"],
+  "type":"GOOD_CATCH",
+  "comment": "demo comment",
+  "reason": "demo reason",
+  "origin":"api"
+  }'
+```
+
+To update the feedback entry with a reason and a comment:
+
+* Use the PUT call with the feedback id in the URL</br>
+
+To find the feedback id you with to update:
+
+* Use the feedback id you have received in the response to the original POST call
+* Or, find the relevant feedback entry using the GET feedback call.
+
+### Request Fields
+
+Two additional fields can be used in the PUT call:
+
+Argument | Type | Description
+---------|------|------------
+reason | string (Enum)| Relevant only in NOT_INTERESTING feedback entries. Possible values:</br>* No Business Impact</br>* Incorrect Data</br>* Not an Anomaly
+comment | string | Optional free text comment.
+
+> Response Example
+
+```json
+{
+    "id": "9e253017-741a-xxxx-913e-5ea250172921",
+    "meta": {
+        "userId": "58e5f7893xxxx2bc736e701",
+        "modifiedTime": 1600021808,
+        "createdTime": 1600020257,
+        "origin": "api"
+    }
+}
+```
+
+### Response Fields
+
+The same fields are returned.</br>The modifiedTime field is updated with the PUT time.
