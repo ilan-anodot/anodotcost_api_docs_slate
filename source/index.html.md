@@ -16,6 +16,7 @@ includes:
   - Authentication
   - Alert configuration
   - Feedback
+  - Stop the learning
   - Streams
   - Lookup Tables
   - Dynamic Routing Tables
