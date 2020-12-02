@@ -132,6 +132,7 @@ channels| object array | Array of channels associated with the alert.<br/>See de
 metrics | object array | Array of metrics different types of alerts hold different metric interval objects.<br/>See details below
 
 ### Channels Array
+
 Field | Type | Description / Example
 -|-|-
 id | string | example: 20262fb3-00ba-412c-a515-aec74c4824ca. <br/>Channel Id.
@@ -139,6 +140,7 @@ type | string(Enum - user - email - webhook - slack)|example: email.
 name |string |example: NOC Channel. Channel name.
 
 ### Metrics Array
+
 Field | Type | Description / Example
 -|-|-
 id |string |example: 20262fb3-00ba-412c-a515-aec74c4824ca. Metric Id.
@@ -155,12 +157,14 @@ displayEndTime |integer |example: 1512982919<br/>The recommend time to display t
 intervals | Array | Array of metric interval breaches.<br/>One of:<br/>* AnomalyMetricInterval<br>* NoDataMetricInterval<br/>* StaticTHMetricInterval
 
 ### Properties/Tags Array
+
 Field | Type | Description / Example
 -|-|-
 key | string | example: server. Property key.
 value| string |example: anodot32. Property value.
 
 ### Metric Snooze Object
+
 Field | Type | Description / Example
 -|-|-
 userId | string |example: 20262fb3-00ba-412c-a515-aec74c4824ca.<br/>The Id of the user that snoozed the metric
@@ -168,6 +172,7 @@ snoozeTime | integer |example: 1525586116.<br/>Epoch time (seconds) of when the 
 resumeTime | integer |example: 1525586116<br/>Epoch time (seconds) of when the metric should resume after snooze
 
 ### Metric Origin Object
+
 Field | Type | Description / Example
 -|-|-
 type | string(Enum - alert - composite - stream) | example: alert. Origin type.
@@ -289,9 +294,7 @@ These requests get alert triggers by filtering the groups they belong to.
 > Example Request:
 
 ```json
-Content-type=application/json
-
-
+{"status": "This example it yet to Be Added"}
 ```
 
 Fetch alert triggers for a specific time frame based on a given set of filters.

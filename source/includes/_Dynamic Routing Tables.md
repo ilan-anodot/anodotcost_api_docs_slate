@@ -98,3 +98,30 @@ Column 1 | Column 2
 -|-
 Dimension Value | Email destination
 
+## POST to upload a new table
+
+> Request Example: 
+
+```shell
+curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing' \
+-H 'Authorization: Bearer ${TOKEN}' \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+--form 'file=@/Users/myuser/Downloads/routing_table_sample.csv'
+```
+
+To upload a routing table, prepare a CSV file with the required routing rules and upload it as shown in this example.</br>
+Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
+
+## POST to replace an existing table
+
+> Request Example:
+
+```shell
+curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing/{table_id}/csv' \
+-H 'Authorization: Bearer ${TOKEN}' \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+--form 'File=@/Users/myuser/Downloads/routing_table_sample.csv'
+```
+
+To update the information in an existing routing table, first update the information in a CSV using the same name, the upload it using the original table id.</br>
+Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
