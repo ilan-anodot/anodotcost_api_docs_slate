@@ -6,11 +6,13 @@ Authentication type: [Access Token Authentication] (#access-tokens).
 
 When should you use the *STL API* ?
 
-On occassions, metrics become very noisy, or out of their regular bounds. This may create several effects:</br>
+On occassions, metrics become very noisy, or out of their regular bounds. This may create several effects:
+
 * The number of alerts sent on account of such metrics might increase, resulting in alert overflow, and possibly hiding alerts occuring on other metrics.
 * The baseline learnt by Anodot may be convoluted due to the different values the metric gets.
 
 To handle these scenarios, the *STL API* allows you to:
+
 * Snooze the learning of noisy metrics, thus prevening the side effects.
 * Resume the learning when the metrics resume close to normal values.
 

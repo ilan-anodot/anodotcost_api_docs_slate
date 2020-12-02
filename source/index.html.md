@@ -15,6 +15,7 @@ includes:
   - Resources
   - Authentication
   - Alert configuration
+  - Alert Triggers
   - Feedback
   - Stop the learning
   - Streams
