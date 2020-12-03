@@ -65,7 +65,7 @@ editTime | epoch | Time the last update was done on the table in Anodot
 csv | String | TBD
 version | String | TBD
 
-## GET routing table
+## GET Routing table
 
 > Request Example: 
 
@@ -79,7 +79,7 @@ Get a single table based on its id.
 
 ### Request Arguments
 
-Replace {id} with the requested table id you received from the [GET routing tables] (## GET Routing Tables) request.
+Replace {id} with the requested table id you received from the [GET Routing Tables] (#get-routing-tables) request.
 
 > Response Example:
 
@@ -96,7 +96,7 @@ The routing table content.
 
 Column 1 | Column 2
 -|-
-Dimension Value | Email destination
+Dimension Value | Email destination(s)
 
 ## POST to upload a new table
 
@@ -112,6 +112,21 @@ curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing' \
 To upload a routing table, prepare a CSV file with the required routing rules and upload it as shown in this example.</br>
 Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
 
+### Request Arguments
+
+Argument | Type | Description
+---------|------|------------
+File Field | file reference | Specify the filename starting with @, and using the full path to the file location
+
+<aside class="notice">
+The CSV file format:</br>
+- Do not use column headers. The first row is already a data row used for routing.</br>
+- To route to several emails, separate them with a semi-colon.</br>
+- Example:</br>
+- "US", "us_ae1@myorg.com"; "us_ae2@myorg.com"</br>
+- "UK", "uk_ae1@myorg.com"; "uk_ae2@myorg.com"</br>
+</aside>
+
 ## POST to replace an existing table
 
 > Request Example:
@@ -125,3 +140,10 @@ curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing/{t
 
 To update the information in an existing routing table, first update the information in a CSV using the same name, the upload it using the original table id.</br>
 Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
+
+### Request Arguments
+
+Argument | Type | Description
+---------|------|------------
+table_id | uuid |  Get the table id from the GET calls
+File Field | file reference | Specify the filename starting with @, and using the full path to the file location
