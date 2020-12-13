@@ -72,7 +72,7 @@ version | String | TBD
 ```shell
 curl -X GET 'https://app.anodot.com/api/v2/dynamic-routing/{id}/csv' \
 -H 'Authorization: Bearer ${TOKEN}' \
--H 'Content-Type: application/x-www-form-urlencoded'
+-H 'Content-Type: multipart/form-data'
 ```
 
 Get a single table based on its id.
@@ -105,7 +105,7 @@ Dimension Value | Email destination(s)
 ```shell
 curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing' \
 -H 'Authorization: Bearer ${TOKEN}' \
--H 'Content-Type: application/x-www-form-urlencoded' \
+-H 'Content-Type: multipart/form-data' \
 --form 'file=@/Users/myuser/Downloads/routing_table_sample.csv'
 ```
 
@@ -134,7 +134,7 @@ The CSV file format:</br>
 ```shell
 curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing/{table_id}/csv' \
 -H 'Authorization: Bearer ${TOKEN}' \
--H 'Content-Type: application/x-www-form-urlencoded' \
+-H 'Content-Type: multipart/form-data' \
 --form 'File=@/Users/myuser/Downloads/routing_table_sample.csv'
 ```
 
