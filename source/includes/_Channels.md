@@ -2,10 +2,10 @@
 
 > End Point **GET /api/v2/channels**
 
-Channels are the outgoing integrations used to send alerts to their destinations.
-Anodot supports multiple channel types.
+Channels are the outgoing integrations used to send alert triggers to their destinations.
+Anodot supports multiple channel types. For a full list of supported channel types, please see <a href='https://support.anodot.com/hc/en-us/articles/207168999-Managing-Alert-Channels'>here</a>
 
-Use the channel API endpoint to get the channels available in your account and link them to alerts you create using the alerts API.
+Use the channel API endpoint to get the channels available in your account and link them to alerts you create using the alerts API. You may also use the same endpoint to create new channels programmaticaly. 
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
@@ -45,19 +45,6 @@ Argument | Type | Description
 type [**Optional**] | string | Limit the response to this channel type.<br/>Use single, lowercase word. Possible values are listed in the [channel list] (#channel-list) below.
 name [**Optional**] | string | Limit the response to anodot channel names containing this string
 
-### Channel List
-
-Type | Description
------| -----------
-email | Create an email and send to participants in the email distribution list
-webhook | Send the alert as a JSON object to a webhook server
-slack | Post the alert as a slack message on a slack channel
-pagerduty | Create an event in a PagerDuty service
-jira | Open the alert as ticket in a JIRA project
-opsgenie | Create an OpsGenie alert
-msteams | Post the alert as an MS Teams message on an MS Teams channel
-tamtam | Send the alert as a TamTam message
-
 > Response Example:
 
 ```json
@@ -85,3 +72,117 @@ id | String ($uuid) | channel id. Use this id when you create alerts via API and
 type | String | Channel type. See possible values in [channel list] (#channel-list)
 name | String | Channel name.
 
+## Create channel
+
+> Request Example: Create a webhook channel in the account
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/channels/webhook \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-D '{
+    "channelData":
+    {
+        "url":"https://www.acme.corp/webhookurl/"
+    },
+    "name":"hudson hook"
+}'
+```
+
+> Request Example: Create a slack channel in the account 
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/channels/slack \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-D '{
+    "channelData": {
+        "url": "https://acme.slack/com/webhookurl",
+        "channel": "#nocnoc"
+    },
+    "name": "noc slack channel"
+}'
+```
+
+
+
+### Request Arguments
+
+Argument | Type | Description
+---------|------|------------
+type | string [Enum] | Type of channel to be created (appended to the request URL)<br/>Use single, lowercase word. Possible values are listed in the [channel list] (#channel-list) below.
+parameters  | JSON Object | A JSON object with the required parameters for the creating the relevant channel type. See examples on the right for the relevant paylod for each type. 
+
+> Response Example (creating a webhook channel):
+
+```json
+{
+    "id": "70eec7d8-da35-453a-9e84-5924abe810ec",
+    "name": "hudson hook",
+    "tags": "{\"type\":\"webhook\",\"owner\":\"coyote@acme.corp\"}",
+    "channelData": {
+        "url": "https://www.acme.corp/webhookurl/",
+        "authenticate": false
+    },
+    "state": "ACTIVE",
+    "channelMeta": {
+        "id": "webhook",
+        "userId": "0",
+        "templateId": "1",
+        "type": "WEBHOOK"
+    },
+    "timezone": "UTC"
+}
+```
+
+> Response Example (creating a slack channel):
+
+```json
+{
+    "id": "360f3c20-122d-4617-b0a2-fa766470360e",
+    "name": "noc slack channel",
+    "tags": "{\"type\":\"slack\",\"owner\":\"coyote@acme.corp\"}",
+    "channelData": {
+        "url": "https://acme.slack.com/webhookurl",
+        "channel": "#nocnoc"
+    },
+    "state": "ACTIVE",
+    "channelMeta": {
+        "id": "slack",
+        "userId": "0",
+        "templateId": "2",
+        "type": "SLACK"
+    },
+    "timezone": "UTC"
+}
+```
+
+### Response Fields
+
+The response is a list of channels
+
+Field | Type | Description / Example
+-|-|-
+id | String ($uuid) | channel id. 
+type | String | Channel type. See possible values in [channel list] (#channel-list)
+name | String | Channel name.
+tags | String | Tags automatically assigned to the channel (based on the API token used when creating it)
+channelData | JSON | Channel parameters as they appear in Anodot
+state | String| Channel state (Should be "Active" when just created)
+channelMeta | JSON | Channel metadata as stored in Anodot
+timezone | String | the time zone definition of the channel.
+
+### Channel List
+
+Type | Description
+-----| -----------
+email | Create an email and send to participants in the email distribution list
+webhook | Send the alert as a JSON object to a webhook server
+slack | Post the alert as a slack message on a slack channel
+pagerduty | Create an event in a PagerDuty service
+jira | Open the alert as ticket in a JIRA project
+opsgenie | Create an OpsGenie alert
+msteams | Post the alert as an MS Teams message on an MS Teams channel
+tamtam | Send the alert as a TamTam message
