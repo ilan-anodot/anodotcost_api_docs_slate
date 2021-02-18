@@ -15,6 +15,7 @@ Use the *data streams API* to:
 * Get the available data streams in your account
 * Create a new data stream
 * Pause / Resume a data stream
+* Edit a data stream
 * Delete a data stream
 
 Authentication type: [Access Token Authentication] (#access-tokens).
@@ -218,6 +219,7 @@ createTime | epoch | epoch time the data source was created
 * Get the available data streams in your account
 * Create a new data stream
 * Pause / Resume a data stream
+* Edit a data stream
 * Delete a data stream
 
 ## GET data-streams
@@ -1026,6 +1028,34 @@ Field | Type | Description / Example
 name | String | Data stream name
 id | String | Data stream id
 paused | boolean | true - Data stream is paused, false - Data stream activity is resumed
+
+## Edit data stream
+
+> Request Example:
+
+```shell
+curl -X PUT \
+"https://app.anodot.com/api/v2/bc/data-streams/{id}" \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}" \
+-d "{stream json from GET request}"
+```
+
+To edit stream parameters:
+
+1. Use a GET request to get the stream current settings.
+2. Edit the required settings to the new settings (schedule, measures, dimensions) in the structure you've received 
+3. Use a PUT request using the stream id and the updated settings as the request body.
+
+<aside class="notice">
+Anodot supports two modes of editing a live stream:</br>
+A. Using the new settings from the update onwards.</br>
+B. Recollecting the metrics using the new settings.</br>
+The default option is A.</br>
+</aside>
+
+To force recollecting the data. Use:</br>
+`https://app.anodot.com/api/v2/bc/data-streams/{id}?shouldRewind=true` 
 
 
 ## Delete data Stream
