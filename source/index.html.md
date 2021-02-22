@@ -22,6 +22,7 @@ includes:
   - Lookup Tables
   - Dynamic Routing Tables
   - Channels
+  - User Events
   - Webhook
  # - Forecast
   - Need to know
