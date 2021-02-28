@@ -16,6 +16,7 @@ includes:
   - Authentication
   - Alert configuration
   - Alert Triggers
+  - Anomaly
   - Feedback
   - Stop the learning
   - Streams
