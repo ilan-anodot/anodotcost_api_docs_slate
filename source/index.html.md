@@ -25,6 +25,7 @@ includes:
   - Channels
   - User Events
   - Webhook
+  - Schema
  # - Forecast
   - Need to know
   - Limits
