@@ -545,69 +545,33 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 > No Data Alert Response Example (With Multiple Metrics):
 
 ```json
- {
-  "subject": "Alert Close: Static Alert Sample 1479763487178[critical][fcc7a]",
-  "severity": "critical",
-  "description": "Sample Static Alert", 
-  "startTime": "11/19/2016 22:27:00 (UTC)",
-  "startTimeEpoch": "1479594420",
-  "type": "static",
-  "alerts": [
+{
+"subject": "Alert Open: No Data Reported Sample No Data Alert 1479763791301[critical][576ff]",
+"severity": "critical",
+"description": "should generate one alert on no data",
+"startTime": "11/21/2016 21:32:12 (UTC)",
+"startTimeEpoch": "1479763932",
+"type": "No Data",
+"alerts": [
     {
-      "title": "“Static Alert Sample 1479763487178",
-      "metrics": [
+    "title": "Sample No Data Alert 1479763791301",
+    "metrics": [   
         {
-          "duration": "16h 42m",
-          "durationInSeconds": "60120",
-          "startTime": "11/19/2016 22:27:00 (UTC)",
-          "startTimeEpoch": "1479594420",
-          "imageUrl": "https://alert-images-staging.s3.amazonaws.com/i:04410c3e-9364-46d2-9db5-c71777429254e:7d70fa50f1f0060f2e1176c5d207eb1b.png",
-          "peak": "1000.0000",
-          "direction": "UP",
-          "name": "what=total_sales.country=us.device=mobile.source=db.state=ca.1448141087178",
-          "state": "CLOSED",
-          "threshold": 500
-        }
-      ],
-      "events": {
-        "total": "2",
-        "buckets": [
-          {
-            "date": "1472626800",
-            "total": "1",
-            "topEvents": [
-              {
-                "title": "Sample event 1",
-                "description": "Event 1",
-                "source": "jenkins",
-                "category": "deployments",
-                "startDate": "1472626597",
-                "endDate": "1472626597"
-              }
-            ]
-          },
-          {
-            "date": "1472626200",
-            "total": "1",
-            "topEvents": [
-              {
-                "title": "Sample Event 2",
-                "description": "Event 2",
-                "source": "jenkins",
-                "category": "deployments",
-                "startDate": "1472625982",
-                "endDate": "1472625982"
-              }
-            ]
-          }
-        ]
-      },
-      "alertId": "fcc7a04e-b9ac-413f-841d-8c69ba24b384",
-      "alertSettingsUrl": "https://yourdomain.anodot.com/#!/alert/fcc7a04e-b9ac-413f-841d-8c69ba24b384",      
-      "description": "Sample Static Alert",
-      "severity": "critical"
+        "lastSeen":"11/21/2016 20:50:12",
+        "lastSeenEpoch":"1479761412",
+        "duration": "2m",
+        "durationInSeconds": "120",
+        "startTime": "11/21/2016 21:32:12 (UTC)",
+        "startTimeEpoch": "1479763932",
+        "name": "what=total_sales.country=us.device=mobile.source=db.state=ca.1479763791301",
+        "state": "OPEN"
+        } 
+    ],
+    "alertId": "576ff33f-3a7a-4396-888f-16edc20b98ad",
+    "alertSettingsUrl": "https://app.staging.anodot.com/#!/alert/576ff33f-3a7a-4396-888f-16edc20b98ad",    "description": "should generate one alert on no data",
+    "severity": "critical"
     }
-  ]
+]
 } 
 ```
 
