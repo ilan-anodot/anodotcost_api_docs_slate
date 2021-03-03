@@ -14,6 +14,7 @@ toc_footers:
 includes:
   - Resources
   - Authentication
+  - Post Metrics
   - Alert configuration
   - Alert Triggers
   - Anomaly

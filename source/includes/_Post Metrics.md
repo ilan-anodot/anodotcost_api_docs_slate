@@ -2,9 +2,16 @@
 
 > End Point prefix is **/api/v1/metrics**
 
-Send data samples to Anodot using Metric 2.0/3.0 protocols
+Send data samples to Anodot using Metric 2.0/3.0 protocols. 
 Both the version 2.0 and 3.0 protocols work with a **schema** - this means that the data is structured into key-value pairs and enables Anodot to better 'understand' and interact the metrics sent to it. 
 The main difference between 2.0 and 3.0 is that 3.0 enable sending a '**watermark**' notification to Anodot, enabling a better detection and assignment of data points to a time frame.
+
+<aside class="warning">
+Using the Metrics 1.0 Protocol:</br>
+In cases where the metrics cannot be represented in Metric 2.0 Format,
+Anodot continues to support legacy formats such as Graphite and Graphite collectors, see Anodot Protocol 1.0 below. 
+</aside>
+
 
 **High Level Flow**
 
@@ -18,7 +25,7 @@ The main difference between 2.0 and 3.0 is that 3.0 enable sending a '**watermar
 > Request Example - Sending metrics (3.0)
 
 ```shell
-curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=anodot30&token={{data-token}} \
+curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=anodot30&token={{data-token}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
  {
@@ -64,7 +71,7 @@ tags | (Optional) List of tags attached to the measure. Key value pairs. Notice 
 > Request Example - Sending metrics (2.0)
 
 ```shell
-curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=anodot20&token={{data-token}} \
+curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=anodot20&token={{data-token}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
   {
@@ -91,7 +98,6 @@ curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=an
 ```
 
 Use this API to send metrics to Anodot based on a schema you're defined (Protocol 2.0)
-Please note that the maximal number of entries is 10K per request. 
 
 ### Request
 
@@ -103,6 +109,7 @@ timestamp | Integer - The data sample's timestamp (Unix epoc time in seconds). T
 value | decimal double precision number, without a thousands seperator. 
 
 Some notes on the 'properties' array sent using the protocol:
+
 * Key value pairs should contain ascii characters only.
 * The following characters are not allowed: “.”, “=” and space. (Remove them or replace then with "_".
 * The "what" property must be set ("what" represents what is actually being measured).
@@ -113,6 +120,54 @@ Some notes on the 'properties' array sent using the protocol:
 * The target_type property represents how samples of the same metric are aggregated in Anodot valid values are:
 gauge (average aggregation), counter sum aggregation). (default is gauge)
 * target_type is a string representing how a sample of this metric is aggregated in Anodot. use 'counter' for aggregations using **sum** and 'gauge' for aggreagations using **average**. 
+
+## Send Data Samples (1.0)
+
+> Request Example - Sending metrics (1.0)
+
+```shell
+curl --location --request POST 'http://app.anodot.com/api/v1/metrics&token={{data-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+  {
+    "name": "company=anodot.device=test.what=hello_world_count",
+    "timestamp": 1520325400,
+    "value": 100,
+    "tags": {
+      "target_type": "counter"
+    }
+  }
+]'
+```
+
+<aside class="warning">
+Using the Metrics 1.0 Protocol:</br>
+Please keep in mind that this protocol is deprecated. While it is still supported - we do not encourage its use.
+</aside>
+
+Use this API to send metrics to Anodot based on the 1.0 Metric protocol. You may use this protocol to create new metrics or submit data poitns for new or existing metrics. You can submit data points for multiple metrics in a single request. 
+
+* As a rule of thumb it is recommended not to send more than 1000 samples in a single http request, although it can handle more but the latency will be higher.
+* Data points should send in chronological order, otherwise data point which is out of order will be dropped.
+* To assign one or more tags to a metric add the tags to the metric name with a prefix of a hashtag (#).
+
+### Request
+
+In the request body you need to send an array of time series data points. The data points have the following parameters: 
+
+Field | Description
+------|------------
+name | (Mandatory) The unique identifying name of the metric being tracked. See below notes on metric names. 
+timestamp | Integer - The data sample's timestamp (Unix epoc time in seconds). 
+value | decimal double precision number, without a thousands seperator. 
+tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniquness. See in the 2.0 notes an explanation on target_type.
+
+Legal Metric Names: 
+
+* Any ascii printable character from the range 32-126
+* except for ' (single quote} and space.
+* The following characters will require using escape characters when searching for metrics in Anodot: + - ! ^ && [ ] { } < > ~ || " ? =
+* Special characters: . - Separator between key/values pairs | # - metric tag – add a tag to a metric, doesn’t impact metric uniqueness | = - key value separator
 
 ## Send Stream Watermark
 
