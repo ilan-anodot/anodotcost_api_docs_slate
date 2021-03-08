@@ -12,14 +12,13 @@ toc_footers:
   - <a href='mailto:support@anodot.com'>Contact us</a>
 
 includes:
-  - Resources
+  # - Resources
   - Authentication
   - Post Metrics
   - Alert configuration
   - Alert Triggers
   - Anomaly
   - Feedback
-  - Stop the learning
   - Streams
   - Lookup Tables
   - Dynamic Routing Tables
@@ -27,6 +26,7 @@ includes:
   - User Events
   - Webhook
   - Schema
+  - Metrics Operations
  # - Forecast
   - Need to know
   - Limits
