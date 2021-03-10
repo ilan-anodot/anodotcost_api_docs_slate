@@ -212,6 +212,7 @@ upperAbsoluteDelta</br>lowerAbsoluteDelta | The upper/lower absolute delta value
 from | The initial delta value
 to | The final delta value
 impact | Business impact data. An object containing the impact, currency and effect of an anomaly. For a deeper explanation on business impact, please read [here](https://support.anodot.com/hc/en-us/articles/360016317859-Measuring-Business-Impact)
+actions | An array of actions defined by the alert owner. Each element in the array has a name, URL, buttonName and type. For a deeper explanation on actions, please read [here](https://support.anodot.com/hc/en-us/articles/360019505219-Actions). 
 
 > Anomaly Alert Extended Template: 
 
@@ -342,6 +343,20 @@ impact | Business impact data. An object containing the impact, currency and eff
   "total": "0",
   "buckets": []
   },
+  "actions": [
+      {
+        "name": "Run Remediation Script",
+        "url": "jenkins://whatever",
+        "buttonName": "Fix",
+        "type": "OUTSIDE_LINK"
+      },
+      {
+        "name": "Call 911",
+        "url": "Someone please call 911",
+        "buttonName": "Call 911",
+        "type": "OUTSIDE_LINK"
+      }
+    ],
   "alertId": "7feaee91-0197-4278-a840-6f3fe832a7da",
   "alertSettingsUrl": "http://yourdomain.anodot.com/#!/alerts/7feaee91-0197-4211-a840-4fdfe832a7da",
   "description": "",
