@@ -64,7 +64,7 @@ schemaId | Id recieved from the create schema call
 timestamp | Integer - The data sample's timestamp (Unix epoc time in seconds). This has to be at most one hour in the future. 
 dimensions | an array of key-value pairs of the metric dimensions.
 measurements | an array of a measurements - decimal double precision number, without a thousands seperator. 
-tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniquness.
+tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniqueness.
 
 ## Send Data Samples (2.0)
 
@@ -97,14 +97,14 @@ curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=an
 ]'
 ```
 
-Use this API to send metrics to Anodot based on a schema you're defined (Protocol 2.0)
+Use this API to send metrics to Anodot based on a schema you've defined (Protocol 2.0)
 
 ### Request
 
 Field | Description
 ------|------------
 properties | list of properties of the metrics in a key-pair value array. This array should always contain a 'what' property. See notes below on best practices using this. 
-tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniquness.
+tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniqueness.
 timestamp | Integer - The data sample's timestamp (Unix epoc time in seconds). This has to be at most one hour in the future. 
 value | decimal double precision number, without a thousands seperator. 
 
@@ -117,9 +117,8 @@ Some notes on the 'properties' array sent using the protocol:
 * property key must be a non empty string no longer than 50 characters.
 * property value must be a non empty string no longer than 150 characters.
 * The combination of all property names and values determines the uniqueness of the metric in Anodot.
-* The target_type property represents how samples of the same metric are aggregated in Anodot valid values are:
-gauge (average aggregation), counter sum aggregation). (default is gauge)
-* target_type is a string representing how a sample of this metric is aggregated in Anodot. use 'counter' for aggregations using **sum** and 'gauge' for aggreagations using **average**. 
+* The target_type property represents how samples of the same metric are aggregated in Anodot valid values are:</br>
+gauge (average aggregation), counter (sum aggregation). (default is gauge)
 
 ## Send Data Samples (1.0)
 
@@ -145,10 +144,10 @@ Using the Metrics 1.0 Protocol:</br>
 Please keep in mind that this protocol is deprecated. While it is still supported - we do not encourage its use.
 </aside>
 
-Use this API to send metrics to Anodot based on the 1.0 Metric protocol. You may use this protocol to create new metrics or submit data poitns for new or existing metrics. You can submit data points for multiple metrics in a single request. 
+Use this API to send metrics to Anodot based on the 1.0 Metric protocol. You may use this protocol to create new metrics or submit data points for new or existing metrics. You can submit data points for multiple metrics in a single request. 
 
 * As a rule of thumb it is recommended not to send more than 1000 samples in a single http request, although it can handle more but the latency will be higher.
-* Data points should send in chronological order, otherwise data point which is out of order will be dropped.
+* Data points should be sent in chronological order, otherwise data points which are out of order will be dropped.
 * To assign one or more tags to a metric add the tags to the metric name with a prefix of a hashtag (#).
 
 ### Request
@@ -160,7 +159,7 @@ Field | Description
 name | (Mandatory) The unique identifying name of the metric being tracked. See below notes on metric names. 
 timestamp | Integer - The data sample's timestamp (Unix epoc time in seconds). 
 value | decimal double precision number, without a thousands seperator. 
-tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniquness. See in the 2.0 notes an explanation on target_type.
+tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniqueness.
 
 Legal Metric Names: 
 

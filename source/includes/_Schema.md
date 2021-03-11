@@ -62,7 +62,7 @@ units | String | (Optional) Provide the unit for the measure, this unit will be 
 aggregation | String | (Required) Aggregation function for the measure. Valid values: average , sum
 countby | String | (Required) How to count the data points. Valid value: currently “None” is the only value supported (each bucket counts as “1”)
 missingDimPolicy |  | How to treat missing dimension values in the posted data.
-action | String | Valid values:\n Fill - the empty dimension value will be filled with the value in the “fill” field (see below).\n Fail - data point will be rejected
+action | String | Valid values:</br> Fill - the empty dimension value will be filled with the value in the “fill” field (see below).</br> Fail - data point will be rejected
 fill | String | Fill value. Applicable if action field is set to fill
 
 

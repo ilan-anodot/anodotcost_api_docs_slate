@@ -57,7 +57,7 @@ schemaId | Id recieved from the create schema call
 timestamp | Integer - The data sample's timestamp (Unix epoc time in seconds). This has to be at most one hour in the future. 
 dimensions | an array of key-value pairs of the metric dimensions.
 measurements | an array of a measurements - decimal double precision number, without a thousands seperator. 
-tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniquness.
+tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniqueness.
 
 ## Send Data Samples (2.0)
 
