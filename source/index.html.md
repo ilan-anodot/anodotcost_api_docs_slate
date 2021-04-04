@@ -15,6 +15,7 @@ includes:
   # - Resources
   - Authentication
   - Post Metrics
+  - Tags
   - Alert configuration
   - Alert Triggers
   - Anomaly
