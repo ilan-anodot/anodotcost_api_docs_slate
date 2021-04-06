@@ -1,7 +1,7 @@
 # Tags
 
-A tag is a property/value pair that can be dynamically added/removed to a metric or set of metrics without effecting the name of the metric.
-For example:  a tag can be accountManager=Joe which will be attached to the metrics related to the accounts Joe manages. If the accounts Joe manages change, the API lets you change the assignment of the tags to metrics without affecting the metric name.
+A tag is a property/value pair that can be dynamically added/removed to a metric or set of metrics without effecting the name of the metric.<br/>
+For example: a tag can be accountManager=Joe which will be attached to the metrics related to the accounts Joe manages. If the accounts Joe manages change, the API lets you change the assignment of the tags to metrics without affecting the metric name.
 Tags can be used to filter and aggregate data.
 
 **Please note:**
@@ -71,7 +71,7 @@ type |  the type of the search expression, can be of type [*search*] or [*proper
 key |  the metric key name
 value |  the metric key value 
 
-In the above example all metrics return from the query:
+In the example on the right all metrics returning from the query:
 `((key1 == val1) AND (key2 == val2)) OR ((key1 ==val3) AND (key2 ==val4))`  will be tagged with the tag: `tagName:tagValue`
 
 > Example Request
@@ -106,7 +106,6 @@ https://api.anodot.com/api/v1/metrics/tags?token=<api token> \
       ]
    }'
 ```
-
 
 > Example Response
 
