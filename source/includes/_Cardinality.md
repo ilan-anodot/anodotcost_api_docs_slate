@@ -37,16 +37,16 @@ from | starting index to fetch data from (0 based integer).
         "user_name": {
             "cardinality": 72,
             "examples": [
-                "what=active_streams.source_type=GOOGLE_ADS.user_name=Kenshoo_prod",
+                "what=active_streams.source_type=GOOGLE_ADS.user_name=BC_test",
                 "what=active_streams.source_type=GOOGLE_ANALYTICS.user_name=BC_test.#source=athena",
-                "what=active_streams.source_type=MYSQL.user_name=Meliuz",
-                "what=active_streams.source_type=KINESIS.user_name=Nordstrom-Nonprod",
-                "what=active_streams.source_type=S3.user_name=browsi",
-                "what=active_streams.source_type=S3.user_name=PayU",
-                "what=active_streams.source_type=GOOGLE_ANALYTICS.user_name=Magyar_Telekom",
-                "what=active_streams.source_type=REDSHIFT.user_name=Adevinta",
-                "what=active_streams.source_type=SNOWFLAKE.user_name=Ridewithvia",
-                "what=active_streams.source_type=BIGQUERY.user_name=BeenVerified"
+                "what=active_streams.source_type=MYSQL.user_name=BC_test",
+                "what=active_streams.source_type=KINESIS.user_name=BC_test",
+                "what=active_streams.source_type=S3.user_name=BC_test",
+                "what=active_streams.source_type=S3.user_name=BC_test",
+                "what=active_streams.source_type=GOOGLE_ANALYTICS.user_name=BC_test",
+                "what=active_streams.source_type=REDSHIFT.user_name=BC_test",
+                "what=active_streams.source_type=SNOWFLAKE.user_name=BC_test",
+                "what=active_streams.source_type=BIGQUERY.user_name=BC_test"
             ],
             "what": [
                 "active_streams"
@@ -123,16 +123,16 @@ from | starting index to fetch data from (0 based integer).
         "user_name": {
             "cardinality": 72,
             "examples": [
-                "what=active_streams.source_type=GOOGLE_ADS.user_name=Kenshoo_prod",
+                "what=active_streams.source_type=GOOGLE_ADS.user_name=BC_test",
                 "what=active_streams.source_type=GOOGLE_ANALYTICS.user_name=BC_test.#source=athena",
-                "what=active_streams.source_type=MYSQL.user_name=Meliuz",
-                "what=active_streams.source_type=KINESIS.user_name=Nordstrom-Nonprod",
-                "what=active_streams.source_type=S3.user_name=browsi",
-                "what=active_streams.source_type=S3.user_name=PayU",
-                "what=active_streams.source_type=GOOGLE_ANALYTICS.user_name=Magyar_Telekom",
-                "what=active_streams.source_type=REDSHIFT.user_name=Adevinta",
-                "what=active_streams.source_type=SNOWFLAKE.user_name=Ridewithvia",
-                "what=active_streams.source_type=BIGQUERY.user_name=BeenVerified"
+                "what=active_streams.source_type=MYSQL.user_name=BC_test",
+                "what=active_streams.source_type=KINESIS.user_name=BC_test",
+                "what=active_streams.source_type=S3.user_name=BC_test",
+                "what=active_streams.source_type=S3.user_name=BC_test",
+                "what=active_streams.source_type=GOOGLE_ANALYTICS.user_name=BC_test",
+                "what=active_streams.source_type=REDSHIFT.user_name=BC_test",
+                "what=active_streams.source_type=SNOWFLAKE.user_name=BC_test",
+                "what=active_streams.source_type=BIGQUERY.user_name=BC_test"
             ],
             "what": [
                 "active_streams"
