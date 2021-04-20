@@ -84,6 +84,7 @@ https://app.anodot.com/api/v2/channels/webhook \
 -D '{
     "channelData":
     {
+        "authenticate": false,
         "url":"https://www.acme.corp/webhookurl/"
     },
     "name":"hudson hook"
@@ -99,7 +100,7 @@ https://app.anodot.com/api/v2/channels/slack \
 -H "Authorization: Bearer ${TOKEN}"
 -D '{
     "channelData": {
-        "url": "https://acme.slack/com/webhookurl",
+        "url": "https://acme.slack.com/webhookurl",
         "channel": "#nocnoc"
     },
     "name": "noc slack channel"
