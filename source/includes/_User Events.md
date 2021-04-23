@@ -1,5 +1,7 @@
 # User Events
 
+> End Point prefix is **/api/v2/user-events**
+
 The Event API enables you to create and edit periodic events such as deployments and holidays. Events can assist in the anomaly investigation process, by correlating them to alerts/anomalies/metrics in dashboards and alerts. 
 
 Each event has a **category** and a **source**. There is a specific set of APIs to enable to you manage all three entities.
@@ -9,11 +11,6 @@ Each event has a **category** and a **source**. There is a specific set of APIs 
 * [Sources](#sources)
 
 Additional information is available in our [Help center documentation](https://support.anodot.com/hc/en-us/articles/209776765-Events-Overview)
-
-
-## *Events*
-
-> End Point prefix is **/api/v2/user-events**
 
 ## Create Event
 
