@@ -25,22 +25,24 @@ https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
 -D '{
-      "id":"b1229900-1a49-4b9e-a2e4-b9d21240793f",
-       "title":"deployment started on myServer",
-       "description":"my description",
-       "source":"chef",
-       "category":"deployments",
-       "startDate":1468326864,
-       "endDate":null,
-       "properties":[
-          {
+      "event": {
+        "title":"deployment started on myServer",
+        "description":"my description",
+        "source":"chef",
+        "category":"deployments",
+        "startDate": "1468326864",
+        "endDate":null,
+        "properties":[
+          {
              "key":"service",
              "value":"myService"
           }
-       ]
+        ]
+      }
     }'
 
 ```
+
 > Response Example
 
 ```json
@@ -156,7 +158,7 @@ https://app.anodot.com/api/v2/user-events/9b0cfa33-8a78-416e-84b7-1bff5628deaf \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-> Response Example
+> Response Example - Event content with its id
 
 ```json
 {
@@ -199,7 +201,7 @@ ID | The ID of the event
 
 ```shell
 curl -X POST \
-https://app.anodot.com/api/v2/user-events/execute \
+https://app.anodot.com/api/v2/user-events/execute?fromDate=1468326864 \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
 -D '{
@@ -329,6 +331,7 @@ https://app.anodot.com/api/v2/user-events/ \
 }
 
 ```
+
 Use this call to delete multiple events, located by a search expression.
 
 Argument | Definition
