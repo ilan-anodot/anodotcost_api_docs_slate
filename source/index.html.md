@@ -25,6 +25,7 @@ includes:
   - Dynamic Routing Tables
   - Channels
   - User Events
+  - Users
   - Webhook
   - Schema
   - Metrics Operations
