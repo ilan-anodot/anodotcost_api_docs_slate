@@ -12,7 +12,7 @@ Authentication type: [Access Token Authentication] (#access-tokens).
 
 ```shell
 curl -X GET 'https://app.anodot.com/api/v2/users' \
--H 'Authorization: Bearer ${TOKEN}' \
+-H 'Authorization: Bearer {{data-token}}' \
 -H 'Content-Type: application/json'
 ```
 
