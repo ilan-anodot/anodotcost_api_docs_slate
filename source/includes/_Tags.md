@@ -524,7 +524,7 @@ Delete a tag and remove it from all metrics.
 ### Arguments
 Argument | Definition
 -------- | ----------
-ID | The ID of the category
+ID | The tag ID
 
 > Example Request: Delete all tags
 
