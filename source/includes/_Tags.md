@@ -11,7 +11,9 @@ Tags can be used to filter and aggregate data.
 3. It can take up to 20 minutes till the metric tagging operation will be applied to the relevant metrics.
 
 
-> End Point prefix is **/v1/metrics/tags**
+> End Point prefix is **/v2/metrics/tags**
+
+Authentication type: [Access Token Authentication] (#access-tokens).
 
 ## Create Tags
 
@@ -22,8 +24,9 @@ Multiple expressions can be associated to each tag which is treated an OR expre
 
 ```shell
 curl -X POST \
-https://app.anodot.com/api/v1/tags?token=<api token> \
+https://app.anodot.com/api/v2/tags \
 -H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}" \
 -D '{
 "tag": {
     "key": "tagName",
@@ -78,8 +81,9 @@ In the example on the right all metrics returning from the query:
 
 ```shell
 curl -X POST \
-https://api.anodot.com/api/v1/metrics/tags?token=<api token> \
+https://app.anodot.com/api/v2/metrics/tags \
 -H "Content-Type: application/json" \
+-H "Authorization: Bearer ${TOKEN}" \
 -d '{
    "tag":
       {
@@ -153,8 +157,9 @@ Returns a tag's configuration based on the tag's ID.
 
 ```shell
 curl -X GET \
-https://api.anodot.com/api/v1/metrics/tags?<Id>&token=<api token> \
--H "Content-Type: application/json" 
+https://app.anodot.com/api/v2/metrics/tags/<Id>\
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer ${TOKEN}"
 ```
 
 ### Arguments
@@ -277,9 +282,10 @@ Returns a tag's configuration based on a search expression.
 
 ```shell
 curl -X GET \
-"https://app.anodot.com/api/v1/metrics/tags?token=<api token> \
+"https://app.anodot.com/api/v2/metrics/tags \
 &value-contains-string={{string}}&key-contains-string={{string}}" \
--H "Content-Type: application/json" 
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer ${TOKEN}"
 ```
 
 ### Arguments
@@ -405,8 +411,9 @@ List all tag configurations in the account sent via the tag APIs.
 
 ```shell
 curl -X GET \
-https://api.anodot.com/api/v1/metrics/tags?token=<api token> \
--H "Content-Type: application/json" 
+https://app.anodot.com/api/v2/metrics/tags \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer ${TOKEN}" \
 ```
 
 > Example Responses
@@ -531,8 +538,9 @@ ID | The tag ID
 ```shell
 curl \
 -X DELETE \
+'https://app.anodot.com/api/v2/metrics/tags/31425ce5-32c1-4cce-9075-28c1748d42a8?' \
 -H "Content-Type: application/json" \
-'https://api.anodot.com/api/v1/metrics/tags/31425ce5-32c1-4cce-9075-28c1748d42a8?token=<api token>'
+-H "Authorization: Bearer ${TOKEN}" \
 ```
 ### Response
 No response body for this API
@@ -544,8 +552,9 @@ No response body for this API
 ```shell
 curl \
 -X POST \
+'https://app.anodot.com/api/v2/metrics/tags/assign-metrics-to-tags' \
 -H "Content-Type: application/json" \
-'https://api.anodot.com/api/v1/metrics/tags/assign-metrics-to-tags?token=<api token>' \
+-H "Authorization: Bearer ${TOKEN}" \
 -D '{
   "expressions": [
     {
@@ -672,8 +681,9 @@ value |  the metric key value 
 ```shell
 curl \
 -X PUT \
+'https://app.anodot.com/api/v2/metrics/tags/add-metrics-to-tags' \
 -H "Content-Type: application/json" \
-'https://api.anodot.com/api/v1/metrics/tags/add-metrics-to-tags?token=<api token>' \
+-H "Authorization: Bearer ${TOKEN}" \
 -D '{
   "expressions": [
     {
