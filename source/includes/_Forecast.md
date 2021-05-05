@@ -49,7 +49,7 @@ forecastTaskName | String | Readable name of the forecast task (to be used going
 > Request Example: Get forecast results for a specific task
 
 ```shell
-curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{forecast-taskid}}/results?startTimestamp=1620119209' \
+curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{forecast-taskid}}/results' \
 --header 'Authorization: Bearer {{data-token}}' \
 --data-raw ''
 ```
@@ -61,7 +61,6 @@ This call gets all the results for a specific task. This returns the results for
 Field | Type | Description / Example
 -|-|-
 forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you can get this from the [GET Forecast Tasks](#get-forecast-tasks) call).
-startTimestamp | timestamp (Optional) | Will retrieve forcast results **after** this timestamp. 
 
 > Response Example:
 
@@ -137,12 +136,17 @@ startTimestamp | timestamp (Optional) | Will retrieve forcast results **after** 
 
 ### Response Fields
 
-The response is an array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. The response itself looks as following: 
+<aside class="notice">
+The response is an array of forecast results. A forecast result will be a set of predicted data points per metric.
+Each data point (per timestamp) is comprised of a the predicted value and 'confidence band' for the value. The confidence band is represented by range between lowerBand and upperBand.
+</aside>
+
+The response itself looks as following: 
 
 Field | Type | Description / Example
 -|-|-
-last_forecast_ts | timestamp | timestamp of when the last forecast was calculated.
-last_updated_ts | timestamp | timestamp of when the forecast was calculated.
+last_forecast_ts | timestamp (in epoch) | The last timestamp which the forecast was done from, meaning the date from which the forecast is done forward. For example, for a daily forecast of 7 days, the last_forecast_ts can be the epoch of 5.5.2021, and then the resulting 7 days will be of 6.5.2021, 7.5.2021 etc. 
+last_updated_ts | timestamp (in epoch) | The time that this record was updated.
 metric_id | String | Name of forecast metric
 points | Array | An array of forecast data points. 
 
@@ -152,7 +156,7 @@ points | Array | An array of forecast data points.
 > Request Example: Get forecast metrics for a specific task
 
 ```shell
-curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{forecast-taskid}}/metrics?startTimestamp=1620119209' \
+curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{forecast-taskid}}/metrics' \
 --header 'Authorization: Bearer {{data-token}}' \
 --data-raw ''
 ```
@@ -164,7 +168,6 @@ This call gets all the metrics for a specific task.
 Field | Type | Description / Example
 -|-|-
 forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you can get this from the [GET Forecast Tasks](#get-forecast-tasks) call).
-startTimestamp | timestamp (Optional) | Will retrieve forcast results **after** this timestamp. 
 
 > Response Example:
 
@@ -206,7 +209,7 @@ This call gets all the forecast results for a specific metric.
 Field | Type | Description / Example
 -|-|-
 forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you can get this from the [GET Forecast Tasks](#get-forecast-tasks) call).
-metricID | tString ($uuid) | Unique identifier of the forecast metric (you can get this from the [GET Task  Metrics](#get-task-metrics) call).
+metricID | String ($uuid) | Unique identifier of the forecast metric (you can get this from the [GET Task  Metrics](#get-task-metrics) call).
 
 
 > Response Example:
