@@ -165,7 +165,7 @@ https://app.anodot.com/api/v2/metrics/tags/<Id>\
 ### Arguments
 Argument | Definition
 -------- | ----------
-ID | The ID of the category
+ID | The tag ID
 
 > Example Response
 
