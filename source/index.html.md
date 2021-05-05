@@ -15,6 +15,8 @@ includes:
   # - Resources
   - Authentication
   - Post Metrics
+  - Schema
+  - Metrics Operations
   - Tags
   - Alert configuration
   - Alert Triggers
@@ -27,9 +29,7 @@ includes:
   - User Events
   - Users
   - Webhook
-  - Schema
-  - Metrics Operations
- # - Forecast
+  - Forecast
   - Need to know
   - Limits
   - Response Codes
