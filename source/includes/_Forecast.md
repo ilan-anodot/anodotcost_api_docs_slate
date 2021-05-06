@@ -2,9 +2,9 @@
 
 > Endpoint: **GET /api/v2/forecast/**
 
-Anodot Autonomous Forecast is an additional product on top of Anodot, enabling the customer to get continous forecast for specific metrics. The forecast product is based on **Tasks** which are running in Anodot. The tasks are providing the projected values of metrics based on previous behaviour. You can consider tasks as a kind of stream which sends forecast metrics into your account, enabling you to build dashboards on top of them.
+Anodot Autonomous Forecast is an additional product on top of Anodot, enabling the customer to get continous forecast for specific metrics.</br>The forecast product is based on **Tasks** which are running in Anodot. The tasks are providing the projected values of metrics based on previous behaviour. You can consider tasks as a kind of stream which sends forecast metrics into your account, enabling you to build dashboards on top of them.
 
-The data hierarchy as as follows: Forecast Tasks --> Each task has metrics --> Each metric has forecast values (or results). So a good way to traverse all the information would be:<br>
+The data hierarchy is as follows: Forecast Tasks --> Each task has metrics --> Each metric has forecast values (or results). So a good way to traverse all the information would be:<br>
 
 * Get list of tasks --> [GET Forecast Tasks](#get-forecast-tasks)
 * for each task - get list of metrics --> [GET Task Metrics](#get-task-metrics)
