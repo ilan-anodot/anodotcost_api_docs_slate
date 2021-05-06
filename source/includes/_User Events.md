@@ -305,7 +305,7 @@ ID | The ID of the event
 
 ## Delete Events
 
-> Request Example - Delete Multiple Events using expression
+> Request Example - Delete multiple events using expression
 
 ```shell
 curl -X DELETE \
@@ -329,7 +329,7 @@ https://app.anodot.com/api/v2/user-events/ \
 
 ```
 
-> Request Example - Delete Multiple Events using an eventID array
+> Request Example - Delete multiple events using an eventID array
 
 ```shell
 curl -X DELETE \
@@ -349,7 +349,7 @@ Use this call to delete multiple events, located by a search expression, or by t
 
 Argument | Definition
 -------- | ----------
-expression[] | An array of search expressions to locate a single or multiple events
+expression[] | An array of search expressions to locate a single or multiple events.</br>Note that all properties are provided as a flat list, regardless of the event hierarchy.
 
 Argument | Definition
 -------- | ----------
