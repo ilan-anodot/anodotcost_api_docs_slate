@@ -46,24 +46,14 @@ The response is a list of the available lookup tables used in the account
 
 This endpoint supports two ways to load the CSV files
 
-1. Form data - Use this method if you plan to provide your users with a UI to submit the file.
-2. Binary file stream - Use this method if you plan to provide the file content as a binary stream of data.
+1. Binary file stream - Use this method if you plan to provide the file content as a binary stream of data.
+2. Form data - Use this method if you plan to provide your users with a User Interface to submit the file.
 
-> Request Example: Using form-data
-
-```shell
-curl -X POST \
-https://app.anodot.com/api/v2/lookup/data \
--H 'Content-Type: multipart/form-data' \
--H "Authorization: Bearer ${TOKEN}" \
--F 'filefield=@mylookup.csv'
-```
-
-### Request Arguments - Form data
-
-Argument | Type | Description
----------|------|------------
-File Field | file reference | Specify the filename starting with @
+<aside class="notice">
+The common way to upload a file with an API would be the binary stream of data.<br/>
+The csv file must reside in the destination specified by the "data-binary" parameter.<br/>
+If the file is not found, an empty entry will be created in Anodot.
+</aside>
 
 > Request Example: Using binary file stream
 
@@ -83,6 +73,22 @@ Argument | Type | Description
 ---------|------|------------
 filename | string | The file name used to store the binary data stream information
 data-binary| file reference | The binary stream of data. The exmple shows a cURL reference according to a file name, by using the "@" symbol at the start of the string.
+
+> Request Example: Using form-data
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/lookup/data \
+-H 'Content-Type: multipart/form-data' \
+-H "Authorization: Bearer ${TOKEN}" \
+-F 'filefield=@mylookup.csv'
+```
+
+### Request Arguments - Form data
+
+Argument | Type | Description
+---------|------|------------
+File Field | file reference | Specify the filename starting with @
 
 <aside class="notice">
 Remember:</br>The POST and PUT requests have an identical format.<br/>
