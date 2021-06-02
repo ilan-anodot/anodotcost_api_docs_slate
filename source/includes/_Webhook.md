@@ -45,6 +45,7 @@ alertid	| Specific alert id
 AlertSettingsURl	| Link to specific alert configuration
 description	| Specific alert description
 severity | Specific alert severity. Possible values: info, low, medium, high, critical
+alertGroupId | A unique identifier for the entire incident. This is useful if you would like to collate the different notifications of a specific incidents together - i.e. getting the 'open', 'update' and 'close' messages of the same incident together. They will all have the same alertGroupId.  
 
 <aside class="notice">
 Note on seasonality: If additional seasons are added, the string representation remains the same:</br>
@@ -70,6 +71,7 @@ On the right you can see the template and a sample of the standard Anomaly alert
 "startTime": "{{startTime}} (UTC)",
 "startTimeEpoch": "{{startTimeEpoch}}",
 "anomalyId": "{{anomalyId}}",
+"alertGroupId": "{{alertGroupId}}",
 "mergedAnomalies":"[{{anomalyId}}]",
 "timeScale": "timeScale",
 "alerts": [
@@ -77,6 +79,7 @@ On the right you can see the template and a sample of the standard Anomaly alert
     "title": "{{title}}",
     "metrics": [
         {
+        "closeReasonPhrase": "{{closeReasonPhrase}}",
         "duration": "{{duration}}",
         "durationInSeconds": "{{durationInSeconds}}",
         "startTime": "{{startTime}} (UTC)",
@@ -85,7 +88,7 @@ On the right you can see the template and a sample of the standard Anomaly alert
         "peak": "{{peak}}",
         "direction": "{{direction}}",
         "delta": "{{delta}}",
-         "significance" : "{{score}}",
+        "significance" : "{{score}}",
         "name": "{{name}}",
         "id":"{{id}}",
         "state": "{{state}}",
@@ -130,7 +133,8 @@ On the right you can see the template and a sample of the standard Anomaly alert
  "investigationUrl": "https://yourdomain.anodot.com/#!/anomalies?tabs=main;0&activeTab=1&anomalies=;0(a42bab2f70f44ec8a420cc2130cc47bb)&duration=;1(1)&durationScale=;minutes(minutes)&delta=;1(1)&deltaType=;percentage(percentage)&resolution=;short(short)&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;(4fd71678-cd35-4248-ae2b-7578201cde78,33187cca-680c-4a42-a067-1d817ddb28dc)&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
   "startTime": "14 Nov, 2018 9:17AM (UTC)",
   "startTimeEpoch": "1542187020",
-  "anomalyId": "a42bab2f70f44ec8a420cc2130cc47bb",
+  "anomalyId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
+  "alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
   "mergedAnomalies": "[a42bab2f70f44ec8a420cc2130cc47bb]",
   "timeScale": "1m",
   "type": "Anomaly",
@@ -211,6 +215,7 @@ Field | Description
 upperAbsoluteDelta</br>lowerAbsoluteDelta | The upper/lower absolute delta value (the difference in the "from" and "to" values below) 
 from | The initial delta value
 to | The final delta value
+closeReasonPhrase | Whenever an alert is closed, this field will specify the reason that alert is closed (field is per metric).
 impact | Business impact data. An object containing the impact, currency and effect of an anomaly. For a deeper explanation on business impact, please read [here](https://support.anodot.com/hc/en-us/articles/360016317859-Measuring-Business-Impact)
 actions | An array of actions defined by the alert owner. Each element in the array has a name, URL, buttonName and type. For a deeper explanation on actions, please read [here](https://support.anodot.com/hc/en-us/articles/360019505219-Actions). 
 
@@ -225,6 +230,7 @@ actions | An array of actions defined by the alert owner. Each element in the ar
 "startTime": "{{startTime}} ({{timeZone}})",
 "startTimeEpoch": "{{startTimeEpoch}}",
 "anomalyId": "{{alertGroupId}}",
+"alertGroupId": "{{alertGroupId}}",
 "mergedAnomalies": "{{mergedAnomalies}}",
 "timeScale": "{{timeScale}}",
 "type" : "Anomaly",
@@ -233,6 +239,7 @@ actions | An array of actions defined by the alert owner. Each element in the ar
    "title": "{{title}}",
    "metrics": [
      {
+      "closeReasonPhrase": "This metric was last seen 50 minutes ago and has now timed out.",
       "duration": "{{duration}}",
       "durationInSeconds": "{{durationInSeconds}}",
       "startTime": "{{startTime}} ({{timeZone}})",
@@ -302,7 +309,8 @@ actions | An array of actions defined by the alert owner. Each element in the ar
   "investigationUrl": "http://yourdomain.anodot.com/#!/anomalies?tabs=main;0&activeTab=1&anomalies=;0(bb9e7e1e5cb64c468e11cdf95756c272)&duration=;1(1)&durationScale=;minutes(minutes)&delta=;0(0)&deltaType=;percentage(percentage)&resolution=;longlong(longlong)&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;(62cf1755-cc90-4994-b8e4-86e308455622)&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
   "startTime": "31 Aug, 2020 12:00AM (UTC)",
   "startTimeEpoch": "1598832000",
-  "anomalyId": "bb9e7e1e5cb64c468e11cdf95756b100",
+  "anomalyId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
+  "alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
   "mergedAnomalies": "[bb9e7e1e5cb64c468e11cdf95756b100]",
   "timeScale": "1d",
   "type": "Anomaly",
@@ -378,6 +386,7 @@ A static alert trigger is fired when a specified metric crosses a designated thr
 "description": "{{description}}",
 "startTime": "{{startTime}} (UTC)",
 "startTimeEpoch": "{{startTimeEpoch}}",
+"alertGroupId": "{{alertGroupId}}",
 "type": "{{type}}",
 "alerts": [
    {
@@ -436,6 +445,7 @@ A static alert trigger is fired when a specified metric crosses a designated thr
   "description": "Sample Static Alert", 
   "startTime": "11/19/2016 22:27:00 (UTC)",
   "startTimeEpoch": "1479594420",
+  "alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
   "type": "static",
   "alerts": [
     {
@@ -509,6 +519,7 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 "description": "{{description}}",
 "startTime": "{{startTime}} (UTC)",
 "startTimeEpoch": "{{startTimeEpoch}}",
+"alertGroupId": "{{alertGroupId}}",
 "type": "{{type}}",
 "alerts": [
    {
@@ -566,6 +577,7 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 "description": "should generate one alert on no data",
 "startTime": "11/21/2016 21:32:12 (UTC)",
 "startTimeEpoch": "1479763932",
+"alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
 "type": "No Data",
 "alerts": [
     {

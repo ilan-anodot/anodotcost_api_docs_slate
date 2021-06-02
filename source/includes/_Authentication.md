@@ -25,27 +25,41 @@ See details below.
 
 To use access token authentication, follow these 3 simple steps:
 
-> Step 1: Create an access key in Anodot App
-
 **Step 1:** Create an access-key in the [Token Management](https://support.anodot.com/hc/en-us/articles/360002631114-Token-Management) page within Anodot.
 
-> Step 2: Request the access-token
+> Endpoint: **/access-token** :
 
-> Endpoint: **/access-token** : </br>
-> Request argument: **refreshToken** Copied from Anodot app, see step 1</br>
-
-```shell
-curl -X POST \
-https://app.anodot.com/api/v2/access-token \
--H 'Content-Type: application/json' \
--d '{"refreshToken": "722354b89ae60761f9fcxcxca613315c"}'
-```
-
-> The Response contains the access-token</br>
+> Request example:
 
 ```shell
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiMDgwNjVlYjA3ZTI4ZTRiZGVlZjkxZGJlMTJiNWUyYjU1MjNjMjA4KTAwNjBjODI1YjYwM2M0MGJkOThlMThlYjQ2ZDMyMWIxZDIiLCJpYXQiOjE1NTM2ODU4OTksImV4cCI6MTU1NjI3Nzg5OX0.TOE5ZNr6yL0wyLsB1RQEA8CV-S6zzUEafkXLwHIY76k"
+curl POST 'https://{{app-url}}/api/v2/access-token/?responseformat=JSON' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"refreshToken" : "{{data-token}}"
+}
+'
 ```
+### Request Arguments
+
+Argument | Description
+---------|------|------------
+refreshToken | Copied from Anodot app, see step 1
+responseformat [**Optional**] | Can be set to JSON (case sensitive!) if you would like to get the response in a json format.
+
+> The Response contains the access-token. Option 1 is in plain-text:
+
+```shell
+"{{bearer-token-string}}"
+```
+
+> Second option is in a JSON format:
+
+```json
+{
+    "token" : "{{bearer-token-string}}"
+}
+```
+
 
 **Step 2:** Use the access-key's token to request an access-token.</br>The retrieved access-token is valid for 24 hours.
 
@@ -56,17 +70,17 @@ Code | Description
 200 | OK - The response includes a token
 401 | NOK - Token Mismatch
 
-> Step 3: Use the access-token in REST calls
+> Using the token you get in subsequent calls:
 
 ```shell
 curl -X GET \
-https://app.anodot.com/api/v2/feedbacks \
+https://{{app-url}}.anodot.com/api/v2/feedbacks \
 -H 'Content-Type: application/json' \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiMDgwNjVlYjA3ZTI4ZTRiZGVlZjkxZGJlMTJiNWUyYjU1MjNjMjA4KTAwNjBjODI1YjYwM2M0MGJkOThlMThlYjQ2ZDMyMWIxZDIiLCJpYXQiOjE1NTM2ODU4OTksImV4cCI6MTU1NjI3Nzg5OX0.TOE5ZNr6yL0wyLsB1RQEA8CV-S6zzUEafkXLwHIY76k"
+-H "Authorization: Bearer {{bearer-token}}"
 -d '{"startTime" : 1578391000, "endTime": 1578392000}'
 ```
 
-**Step 3:** Use the retrieved access-token in your REST calls<br/>
+**Step 3:** Use the retrieved access-token in your subsequent API calls<br/>
 Set the Authorization header of your calls with *Bearer* and the retrieved access-token.
 
 <aside class="notice">
