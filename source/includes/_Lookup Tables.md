@@ -50,7 +50,7 @@ This endpoint supports two ways to load the CSV files
 2. Form data - Use this method if you plan to provide your users with a User Interface to submit the file.
 
 <aside class="notice">
-The common way to upload a file with an API would be the binary stream of data.<br/>
+The common way to upload a file with an API is the binary stream of data.<br/>
 The csv file must reside in the destination specified by the "data-binary" parameter.<br/>
 If the file is not found, an empty entry will be created in Anodot.
 </aside>
