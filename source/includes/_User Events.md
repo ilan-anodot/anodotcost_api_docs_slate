@@ -194,7 +194,17 @@ ID | The ID of the event
 
 ## Retrieve Events by Search Expression
 
-> Request example - Getting an Event by Search Expression
+> Request example - Getting events using a timestamp and an empty expression
+
+```shell
+curl -L -X POST \
+'https://app.anodot.com/api/v2/user-events/execute?fromDate=1609517291' \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer ${TOKEN}' \
+--data-raw '{"filter":{"categories":[]},"aggregation":null}'
+```
+
+> Request example - Getting events using a search sxpression
 
 ```shell
 curl -X POST \
