@@ -203,10 +203,10 @@ percentageDelta (double) | Percentage breach delta relative to the baseline | 34
 
 ## Get Anomalies token map
 
-> End Point Prefix: **/api/v2/anomalies/tokenmap**
+> End Point Prefix: **/api/v2/anomalies/tokenMap**
 
 ```shell
-curl --location --request GET 'https://app.anodot.com/api/v2/anomalies/tokenmap?anomalyId=36862597743148e0b2d70f95a5f56339' \
+curl --location --request GET 'https://app.anodot.com/api/v2/anomalies/tokenMap?anomalyId=36862597743148e0b2d70f95a5f56339' \
 --header 'Authorization: Bearer {bearer-token}
 ```
 
