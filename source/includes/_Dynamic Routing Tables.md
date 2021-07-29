@@ -123,8 +123,8 @@ The CSV file format:</br>
 - Do not use column headers. The first row is already a data row used for routing.</br>
 - To route to several emails, separate them with a semi-colon.</br>
 - Example:</br>
-- "US", "us_ae1@myorg.com"; "us_ae2@myorg.com"</br>
-- "UK", "uk_ae1@myorg.com"; "uk_ae2@myorg.com"</br>
+- US,us_ae1@myorg.com;us_ae2@myorg.com</br>
+- UK,uk_ae1@myorg.com;uk_ae2@myorg.com</br>
 </aside>
 
 ## POST to replace an existing table
