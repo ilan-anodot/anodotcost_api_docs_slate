@@ -14,7 +14,7 @@ Use the *Alert Config API* to:
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## GET alerts
+## List all alert configurations
 
 > Request Example: Get All Alert Configurations
 
@@ -34,13 +34,13 @@ Use this API to retrieve the alert ID's that are used to delete, edit, pause/res
 
 ### Response Fields
 
-Selected Response Fields:
+This call will return an array of alert configurations, each one with the following structure:
 
 Field | Type | Description / Example
 -|-|-
 id | String | Alert id. This id can be used in future calls for alert creation.
 Meta | Array | Alert meta deta such as creation details (time, owner, etc.). 
-Configuration | Array | The configuration details for the alert. For a detailed breakdown, see [POST alerts] (#post-alerts).
+Configuration | Array | The configuration details for the alert. For a detailed breakdown, see [Create a new alert] (#create-a-new-alert).
 State | Array | The current state of the alert (paused/live)
 
 > Response Example:
@@ -62,6 +62,14 @@ State | Array | The current state of the alert (paused/live)
       }
     },
     "configuration": {
+      "labels": [
+          {
+              "name": "documentation"
+          },
+          {
+              "name": "API"
+          }
+      ],
       "timeScale": "5m",
       "type": [
         "anomaly"
@@ -164,7 +172,7 @@ State | Array | The current state of the alert (paused/live)
 ]
 ```
 
-## POST alerts
+## Create a new alert
 
 > Request Example: Create a new alert
 
@@ -258,7 +266,15 @@ curl -X POST \
         }
       ]
     }
-  }
+  },
+  "labels": [
+    {
+        "name": "new label"
+    },
+    {
+        "name": "API"
+    }
+  ]
 }
 ```
 
@@ -287,8 +303,9 @@ channels | String | Use this to determine which channels the alert will fire to.
 subscribers | String | Use this to determine which user's email the alert will fire to. To get subscriber IDs, use the GET alerts API to see an example of an alert that has already been set up with the relevant subscriber ID.
 conditions | Array | Anomaly alerts require: direction, significance and duration conditions. Static alers require duration and threshold conditions. No data alerts require the no data duration condition. 
 correlatedEvents | Array | Determines if static events that are sent via the events API are included in the alert. Filter out events based on a key:value pair.
+labels | Array | Assigns labels to the alert. Notice that if a label specified in the call does not exist in the system it will be created. 
 
-## GET alerts/{alertId}
+## Get Alert by ID
 
 >Request Example:
 
@@ -301,14 +318,110 @@ curl -X GET \
 
 Use this API to get a single alert configuration
 
+> Response Example:
+
+```json
+{
+    "id": "864fe6b3-32db-46f3-a7bf-bd1ca2422ef6",
+    "meta": {
+        "createdTime": 1617569462,
+        "modifiedTime": 1627973755,
+        "owner": "andt-group",
+        "modifiedBy": "coyote@acme.corp",
+        "ownerId": "5ffc6662c4b329000e9d1066",
+        "modifierId": "5ffc6744c4b329000e9d1067",
+        "associatedDashboardTile": null
+    },
+    "configuration": {
+        "labels": [
+            {
+                "name": "documentation"
+            },
+            {
+                "name": "API"
+            }
+        ],
+        "timeScale": "1h",
+        "type": [
+            "anomaly"
+        ],
+        "title": "Anomaly on Pageviews by {{Page_Title}} from Slate API views",
+        "description": "",
+        "severity": "high",
+        "conditions": [
+            {
+                "type": "direction",
+                "id": "3e04-072646de894d",
+                "direction": "both"
+            },
+            {
+                "type": "duration",
+                "id": "1254-7113a0ad468e",
+                "duration": 7200
+            },
+            {
+                "type": "significance",
+                "id": "3d64-739d8d5b2b4c",
+                "significance": 0.75
+            },
+            {
+                "type": "delta",
+                "id": "b9e4-5a5ba2e13a9d",
+                "absolute": 1.0135593220338988,
+                "percentage": 10,
+                "deltaDuration": {
+                    "enabled": false,
+                    "rollup": "long",
+                    "minDuration": 7200
+                },
+                "enableAutoTuning": true
+            },
+            {
+                "type": "volume",
+                "id": null,
+                "value": 8,
+                "rollup": "longlong",
+                "bound": "LOWER",
+                "numLastPoints": 1,
+                "enableAutoTuning": true,
+                "enabled": true
+            }
+        ],
+        "channels": [
+            "c5ab76da-8c30-4cee-9b70-389a3176f3cf"
+        ],
+        "subscribers": [
+            "roadrunner@acme.corp"
+        ],
+        "search": {
+            "type": "composite",
+            "compositeId": "bcbb62cc-8112-4b04-8826-827a5d7588c9"
+        },
+        "correlatedEvents": null
+    },
+    "state": {
+        "state": "active",
+        "resumeTime": null,
+        "pausedTime": null,
+        "pausedBy": null,
+        "pausedId": null
+    },
+    "validation": {
+        "isValid": true
+    }
+}
+```
+
 ### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert id to retrieve.
 
+### Response Fields
+Similar to the results returned by the [List all alert configurations] (#list-all-alert-configurations) call. 
 
-## PUT alerts/{alertId}
+## Update Alert Configuration
 
 >Request Example:
 
@@ -327,7 +440,12 @@ Argument | Type | Description
 ---------|------|------------
 id | String | Alert id to edit.
 
-## DELETE alerts/{alertId}
+Notice that you will in the *body* of this message the updated definition of the alert. The definition is the same as the one used in the alert creation API. 
+
+### Response
+The updated configuration of the alert (same structure as the Get Alert call)
+
+## Delete alert
 
 >Request Example:
 
@@ -346,7 +464,7 @@ Argument | Type | Description
 ---------|------|------------
 id | String | Alert id to delete.
 
-## POST alerts/{alertId}/pause
+## Pause Alert
 
 >Request Example:
 
@@ -365,7 +483,7 @@ Argument | Type | Description
 ---------|------|------------
 id | String | Alert id to pause.
 
-## POST alerts/{alertId}/resume
+## Resume Alert
 
 >Request Example:
 
