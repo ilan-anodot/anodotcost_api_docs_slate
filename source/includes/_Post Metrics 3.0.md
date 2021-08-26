@@ -12,6 +12,9 @@ The main difference between 2.0 and 3.0 is that 3.0 enable sending a '**watermar
 2. [Sending samples matching the schema](#send-data-samples)
 3. [Sending watermarks timestamp to direct Anodot to process data samples up to the timestamp](#send-stream-watermark)
 
+<aside class="notice">
+A sample code for sending metrics in python is available on our [github](https://github.com/anodot/anodot-python)
+</aside>
 
 ## Send Data Samples (3.0)
 
