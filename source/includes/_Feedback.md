@@ -85,7 +85,7 @@ endTime | Epoch | [**Optional**] Alert end time, relevant if the alert is closed
 status | String | The alert status. Possible values:<br/>* OPEN<br/>* CLOSE.
 alertOwner | String | The alert owner in Anodot. Possible values are:<br/>* User first and Last name.<br/>* Group name.
 
-## POST Feedback
+## Create Feedback
 
 > Request Example:
 
@@ -142,7 +142,7 @@ createdTime | epoch | Feedback entry creation time.
 origin | Enum | The method this feedback entry was provided. For API calls, the value is "api"
 
 
-## PUT Feedback
+## Update Feedback
 
 > Request Example
 
@@ -213,7 +213,7 @@ curl --location --request POST 'https://app.anodot.com//api/v2/timeline/comments
 }'
 ```
 
-Use this API to add a comment to the timeline of an existing incident. This is similar to the comment being sent as part of the [PUT Feedback](#put-feedback) call, but without a specific feedback. 
+Use this API to add a comment to the timeline of an existing incident. This is similar to the comment being sent as part of the [Update Feedback](#update-feedback) call, but without a specific feedback. 
 
 ### Request Arguments
 
