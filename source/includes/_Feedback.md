@@ -40,7 +40,7 @@ endTime [**Required**] | Epoch | Time the feedback was given.<br/>Default value 
     {
       "id": "a9b6d1ea-70bd-4bab-b567-a16ce60a91f2",
       "type": "GOOD_CATCH",
-      "comment": "Reason and Commnet combined, comma separated",
+      "comment": "Reason and Comment combined, comma separated",
       "createdTime": 1578391511,
       "userName": "test@anodot.com",
       "anomalyId": "http://test.anodot.com/#!/anomalies?ref=pd&tabs=main;0&activeTab=1&anomalies=;0(d863a79ec48b407a808379facc89df7e)&duration=;1(1)&durationScale=;minutes(minutes)&delta=;0(0)&deltaType=;percentage(percentage)&resolution=;medium(medium)&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;(1e0fbe4d-a5af-4ba5-8b40-9930d48f5008)&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
