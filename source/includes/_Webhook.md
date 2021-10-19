@@ -45,7 +45,7 @@ alertid	| Specific alert id
 AlertSettingsURl	| Link to specific alert configuration
 description	| Specific alert description
 severity | Specific alert severity. Possible values: info, low, medium, high, critical
-alertGroupId | A unique identifier for the entire incident. This is useful if you would like to collate the different notifications of a specific incidents together - i.e. getting the 'open', 'update' and 'close' messages of the same incident together. They will all have the same alertGroupId.  
+alertGroupId | A unique identifier for the entire incident. This is useful if you would like to collate the different notifications of a specific incidents together - i.e. getting the 'open', 'update' and 'close' messages of the same incident together. They will all have the same alertGroupId.
 
 <aside class="notice">
 Note on seasonality: If additional seasons are added, the string representation remains the same:</br>
@@ -218,6 +218,7 @@ to | The final delta value
 closeReasonPhrase | Whenever an alert is closed, this field will specify the reason that alert is closed (field is per metric).
 impact | Business impact data. An object containing the impact, currency and effect of an anomaly. For a deeper explanation on business impact, please read [here](https://support.anodot.com/hc/en-us/articles/360016317859-Measuring-Business-Impact)
 actions | An array of actions defined by the alert owner. Each element in the array has a name, URL, buttonName and type. For a deeper explanation on actions, please read [here](https://support.anodot.com/hc/en-us/articles/360019505219-Actions). 
+alertGroupStatus | An inidicator on the status of the alert group - it can be either 'open' or 'close'. It will turn to 'close' after *all* metrics in the alert gruop return to their normal baseline.   
 
 > Anomaly Alert Extended Template: 
 
@@ -231,12 +232,14 @@ actions | An array of actions defined by the alert owner. Each element in the ar
 "startTimeEpoch": "{{startTimeEpoch}}",
 "anomalyId": "{{alertGroupId}}",
 "alertGroupId": "{{alertGroupId}}",
+"alertGroupStatus": "{{alertgGroupStatus}}"
 "mergedAnomalies": "{{mergedAnomalies}}",
 "timeScale": "{{timeScale}}",
 "type" : "Anomaly",
 "alerts": [
    {
    "title": "{{title}}",
+   "alertStatus": "{{alertStatus}}",
    "metrics": [
      {
       "closeReasonPhrase": "This metric was last seen 50 minutes ago and has now timed out.",
@@ -311,12 +314,14 @@ actions | An array of actions defined by the alert owner. Each element in the ar
   "startTimeEpoch": "1598832000",
   "anomalyId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
   "alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
+  "alertGroupStatus": "OPEN",
   "mergedAnomalies": "[bb9e7e1e5cb64c468e11cdf95756b100]",
   "timeScale": "1d",
   "type": "Anomaly",
   "alerts": [
    { 
      "title": "Smarttags alert Revenue daily stream per: 20365",
+     "alertStatus": "open",
      "metrics": [
     {
      "duration": "1d",
@@ -387,10 +392,12 @@ A static alert trigger is fired when a specified metric crosses a designated thr
 "startTime": "{{startTime}} (UTC)",
 "startTimeEpoch": "{{startTimeEpoch}}",
 "alertGroupId": "{{alertGroupId}}",
+"alertGroupStatus": "{{alertgGroupStatus}}",
 "type": "{{type}}",
 "alerts": [
    {
     "title": "{{title}}",
+    "alertStatus": "{{alertStatus}}",
     "metrics": [
     {
         "duration": "{{duration}}",
@@ -446,10 +453,12 @@ A static alert trigger is fired when a specified metric crosses a designated thr
   "startTime": "11/19/2016 22:27:00 (UTC)",
   "startTimeEpoch": "1479594420",
   "alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
+  "alertGroupStatus": "OPEN",
   "type": "static",
   "alerts": [
     {
       "title": "“Static Alert Sample 1479763487178",
+      "alertStatus": "open",
       "metrics": [
         {
           "duration": "16h 42m",
@@ -520,10 +529,12 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 "startTime": "{{startTime}} (UTC)",
 "startTimeEpoch": "{{startTimeEpoch}}",
 "alertGroupId": "{{alertGroupId}}",
+"alertGroupStatus": "{{alertgGroupStatus}}",
 "type": "{{type}}",
 "alerts": [
    {
     "title": "{{title}}",
+    "alertStatus": "{{alertStatus}}",
     "metrics": [
     {
         "duration": "{{duration}}",
@@ -578,10 +589,12 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 "startTime": "11/21/2016 21:32:12 (UTC)",
 "startTimeEpoch": "1479763932",
 "alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
+"alertGroupStatus": "open",
 "type": "No Data",
 "alerts": [
     {
     "title": "Sample No Data Alert 1479763791301",
+    "alertStatus": "open",
     "metrics": [   
         {
         "lastSeen":"11/21/2016 20:50:12",
