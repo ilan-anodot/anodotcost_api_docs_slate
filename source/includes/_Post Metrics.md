@@ -20,7 +20,7 @@ Anodot continues to support legacy formats such as Graphite and Graphite collect
 3. [Sending watermarks timestamp to direct Anodot to process data samples up to the timestamp](#send-stream-watermark)
 
 
-**A Pro Tip - use our sample code for a quick start**
+**Use Anodot's sample code for a quick start**
 
 You can use Anodot's sample Python script to send metrics in Metrics 2.0 or 3.0 protocols.</br>
 Refer to [Anodot on GitHub](https://github.com/anodot/anodot-python) for more details.
