@@ -104,6 +104,12 @@ curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=an
 
 Use this API to send metrics to Anodot based on a schema you've defined (Protocol 2.0)
 
+The “what=” property describes what is actually being measured, while the rest of the properties describe the various dimensions used to create the measure.
+
+By adding the property name with equal sign (=) to each token, you can use the Anodot service to easily find, aggregate, manipulate and understand any metric.
+
+The order of the property-value pairs in a 2.0 metric does not matter. All you need to do is simply be consistent with the property names, making sure that each metric has a unique name. Metrics are uniquely identified using their generated names; therefore, no two metrics should share all the same the property-value pairs.
+
 ### Request
 
 Field | Description
@@ -115,7 +121,7 @@ value | decimal double precision number, without a thousands seperator.
 
 Some notes on the 'properties' array sent using the protocol:
 
-* Key value pairs should contain ascii characters only.
+* Key value pairs should contain ascii/UTF-8 characters only.
 * The following characters are not allowed: “.”, “=” and space. (Remove them or replace then with "_".
 * The "what" property must be set ("what" represents what is actually being measured).
 * A metric may contain up to 20 properties.
@@ -134,7 +140,7 @@ curl --location --request POST 'http://app.anodot.com/api/v1/metrics&token={{dat
 --header 'Content-Type: application/json' \
 --data-raw '[
   {
-    "name": "company=anodot.device=test.what=hello_world_count",
+    "name": "anodot.MacOS.hello_world_count",
     "timestamp": 1520325400,
     "value": 100,
     "tags": {
@@ -151,9 +157,14 @@ Please keep in mind that this protocol is deprecated. While it is still supporte
 
 Use this API to send metrics to Anodot based on the 1.0 Metric protocol. You may use this protocol to create new metrics or submit data points for new or existing metrics. You can submit data points for multiple metrics in a single request. 
 
-* As a rule of thumb it is recommended not to send more than 1000 samples in a single http request, although it can handle more but the latency will be higher.
+Each token in a metric name represents a property describing what and where is being measured. In this convention, the position of each token reflects a property in the schema. Anodot indexes each token by its position, for example, Token1 is indexed with the property Pos1. When searching for metrics, the position property can be used to find the right set of metrics
+
+Metric 1.0 will look like this: Token1.Token2.Token3...tokenN.value
+
+* As a rule of thumb it is recommended to send up to 1000 samples in a single http request, although it can handle more but the latency will be higher.
 * Data points should be sent in chronological order, otherwise data points which are out of order will be dropped.
 * To assign one or more tags to a metric add the tags to the metric name with a prefix of a hashtag (#).
+* The token order must stay consistent with other metrics of the same type. 
 
 ### Request
 
@@ -171,7 +182,10 @@ Legal Metric Names:
 * Any ascii printable character from the range 32-126
 * except for ' (single quote} and space.
 * The following characters will require using escape characters when searching for metrics in Anodot: + - ! ^ && [ ] { } < > ~ || " ? =
-* Special characters: . - Separator between key/values pairs | # - metric tag – add a tag to a metric, doesn’t impact metric uniqueness | = - key value separator
+* Special characters:
+    * . - Separator between key/values pairs 
+    * \# - metric tag – add a tag to a metric, doesn’t impact metric uniqueness
+    * = - key value separator
 
 ## Send Stream Watermark
 
