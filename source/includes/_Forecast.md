@@ -8,7 +8,12 @@ The data hierarchy is as follows: Forecast Tasks --> Each task has metrics --> E
 
 * Get list of tasks --> [GET Forecast Tasks](#get-forecast-tasks)
 * for each task - get list of metrics --> [GET Task Metrics](#get-task-metrics)
-* fer each metric - get list of results. --> [GET results for a specific metric](#get-results-for-a-specific-metric)
+* fer each metric - get list of results. --> [GET forecast results per tasks](#get-forecast-results-per-task)
+
+**New!** We recently added a way to get the metrics directly regardless of tasks. For this please use the following:
+
+* Get all the forecast metrics in the account --> [Get forecast metrics](#get-forecast-metrics)
+* Get forecast metric results -->  [GET forecast results](#get-forecast-results)
 
 
 Authentication type: [Access Token Authentication] (#access-tokens).
@@ -44,7 +49,7 @@ forecastTaskId | String ($uuid) | Unique identifier of the forecast task.
 forecastTaskName | String | Readable name of the forecast task (to be used going forward in creating dashboards, etc.)
 
 
-## GET forecast results 
+## GET forecast results per task
 
 > Request Example: Get forecast results for a specific task
 
@@ -150,6 +155,41 @@ last_updated_ts | timestamp (in epoch) | The time that this record was updated.
 metric_id | String | Name of forecast metric
 points | Array | An array of forecast data points. 
 
+## GET forecast metrics 
+
+> Request Example: Get forecast metrics 
+
+```shell
+curl --location --request GET 'https://app.anodot.com/api/v2/forecast/metrics' \
+--header 'Authorization: Bearer {{data-token}}' \
+--data-raw ''
+```
+
+This call gets all the forecast metrics in the account
+
+### Request Fields
+
+None
+
+> Response Example:
+
+```json
+{
+    "forecastMetrics":
+        [
+            "3afa10d8-ba60-45aa-aef1-e5b9e5edd01b.0014P00002QZllCQAT.VOLUME_SUM", "ff761ee7-74db-4f26-9293-c242fe55e7b4.sumSeries", 
+            "3afa10d8-ba60-45aa-aef1-e5b9e5edd01b.0014P00002QZljTQAT.VOLUME_SUM" 
+        ]
+}
+```
+
+### Response Fields
+
+The response itself looks as following: 
+
+Field | Type | Description / Example
+-|-|-
+metric_id | Array | An array of forecast metric
 
 ## GET task metrics
 
@@ -193,9 +233,9 @@ forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you ca
 The response is list of metric IDs covered by this task.
 
 
-## GET results for a specific metric
+## GET forecast results per task
 
-> Request Example: Get forecast results for a specific metric
+> Request Example: Get forecast results for a specific metric per task
 
 ```shell
 curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{forecast-taskid}}/metrics/{{forecast-metricId}}/results' \
@@ -203,13 +243,74 @@ curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{fo
 --data-raw ''
 ```
 
-This call gets all the forecast results for a specific metric.
+This call gets all the forecast results for a specific metric of a given task.
 ### Request Fields
 
 Field | Type | Description / Example
 -|-|-
 forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you can get this from the [GET Forecast Tasks](#get-forecast-tasks) call).
 metricID | String ($uuid) | Unique identifier of the forecast metric (you can get this from the [GET Task  Metrics](#get-task-metrics) call).
+
+
+> Response Example:
+
+```json
+{
+    "forecastResults": {
+        "last_forecast_ts": "1620000000",
+        "last_updated_ts": "1620119209",
+        "metric_id": "92fe84ca-97c7-4b27-b993-c53fbb7be33a.AWSBackup.UnblendedCost",
+        "points": [
+            {
+                "lowerBand": 0.4523230493,
+                "timestamp": 1620086400,
+                "upperBand": 0.9068104625,
+                "value": 0.5088179708
+            },
+            {
+                "lowerBand": 0.5381199121,
+                "timestamp": 1620172800,
+                "upperBand": 1.0131766796,
+                "value": 0.6004434824
+            },
+            {
+                "lowerBand": 1.136085391,
+                "timestamp": 1620259200,
+                "upperBand": 1.7545015812,
+                "value": 1.2390322685
+            },
+            {
+                "lowerBand": 1.1384156942,
+                "timestamp": 1620345600,
+                "upperBand": 1.7573906183,
+                "value": 1.2415208817
+            }
+        ]
+    }
+}
+```
+
+### Response Fields
+
+The response is an array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
+
+## GET forecast results
+
+> Request Example: Get forecast results for a specific metric 
+
+```shell
+curl --location --request GET 'https://app.anodot.com/api/v2/forecast/metrics/{{forecast-metricId}}/results' \
+--header 'Authorization: Bearer {{data-token}}' \
+--data-raw ''
+```
+
+This call gets all the forecast results for a specific metric regardless of the task.
+### Request Fields
+
+Field | Type | Description / Example
+-|-|-
+metricID | String ($uuid) | Unique identifier of the forecast metric (you can get this from the [GET Task  Metrics](#get-task-metrics) call or from the [GET Metrics](#get-metrics) call).
+forecastFunction (Optional) | enum | A function which enables aggregation of forecast metrics. Possible values: DAILY_SUM, MONTHLY_SUM, QUARTERLY_SUM, YEARLY_SUM. 
 
 
 > Response Example:
