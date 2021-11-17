@@ -14,6 +14,8 @@ Use the *data streams API* to:
 * Get the list of Data sources in your account
 * Get the available data streams in your account
 * Create a new data stream
+* Get data stream total metric count
+* Get data stream connectied entities
 * Pause / Resume a data stream
 * Edit a data stream
 * Delete a data stream
@@ -990,6 +992,64 @@ timeRange | String [ENUM] | Time range to collect the number of metrics.</br>All
 Field | Type | Description / Example
 -|-|-
 total | Int | Number of metric created by the data stream in the given time range.
+
+## Get data stream connected entities
+
+> Request Example:
+
+```shell
+curl --location --request GET 'https://app.anodot.com/api/v2/bc/data-streams/totals?streamId={{stream-id}}' \
+--header 'Authorization: Bearer {{bearer-token}}'
+```
+
+Use this call to get the number of entities which are connected to a stream. These entities can be alerts, dashboards or composites. 'Connected' means that when the alerts were defined, they have the reference to this stream (Same goes for dashboards and composites). This is equivalent to the 'Alerts & Dashboards' tab you can see in the stream summary modal inside the app.
+
+### Request Arguments
+
+Argument | Type | Description
+---------|------|------------
+streamId | String | Data stream id to retrieve. 
+
+> Response Example:
+
+```json
+{
+    "alerts": {
+        "alerts": [
+            {
+                "id": "5a1f1886-a92e-4bb5-978b-2781ef81c75d",
+                "title": "Alert Views for {{customer_name}}"
+            },
+            {
+                "id": "f2c84112-286c-436d-8316-6beb8186a6b6",
+                "title": "Anomaly on events by {{type}}, {{category}}, {{customer_name}} from Alert Views"
+            }
+        ],
+        "total": 2
+    },
+    "composites": {
+        "composites": [],
+        "total": 0
+    },
+    "dashboards": {
+        "dashboards": [
+            {
+                "id": "610fb48151b949000f5a17a1",
+                "title": "Alert Views"
+            }
+        ],
+        "total": 1
+    }
+}
+```
+
+### Response Fields
+
+Field | Type | Description / Example
+-|-|-
+alerts | Array | An array of alerts. For each alert you will get the id and title. At the end of the array you can get the total number of connected alerts.
+composites | Array | An array of composites. For each composite you will get the id and title. At the end of the array you can get the total number of connected composites.
+dashboards | Array | An array of dashboards. For each dashboard you will get the id and title. At the end of the array you can get the total number of connected dashboards.
 
 ## Pause or Resume a data Stream
 

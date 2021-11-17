@@ -35,28 +35,30 @@ endTime [**Required**] | Epoch | Time the feedback was given.<br/>Default value 
 
 ```json
 {
-  "total": 1,
-  "feedbacks": [
-    {
-      "id": "a9b6d1ea-70bd-4bab-b567-a16ce60a91f2",
-      "type": "GOOD_CATCH",
-      "comment": "Reason and Comment combined, comma separated",
-      "createdTime": 1578391511,
-      "userName": "test@anodot.com",
-      "anomalyId": "http://test.anodot.com/#!/anomalies?ref=pd&tabs=main;0&activeTab=1&anomalies=;0(d863a79ec48b407a808379facc89df7e)&duration=;1(1)&durationScale=;minutes(minutes)&delta=;0(0)&deltaType=;percentage(percentage)&resolution=;medium(medium)&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;(1e0fbe4d-a5af-4ba5-8b40-9930d48f5008)&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
-      "alerts": [
+    "total": 1,
+    "feedbacks": [
         {
-          "Id": "http://test.anodot.com/#!/alerts/6d59552d-7d61-44ae-bf20-2d39555af8c7",
-          "emailId": "d863a",
-          "alertName": "NewAlert1 {{component}}",
-          "startTime": 1578381300,
-          "endTime": 1578390300,
-          "status": "CLOSE",
-          "alertOwner": "automation testing"
+            "id": "b6deff91-2d8a-41c3-9605-e6d1e9edb0cf",
+            "type": "GOOD_CATCH",
+            "comment": "ok",
+            "createdTime": 1637142124,
+            "userName": "ran",
+            "anomalyId": "https://app.anodot.com/#!/anomalies?ref=pd&tabs=main;0&activeTab=1&anomalies=;0(6b1ffc765925491c85c2206d05246e0f)&duration=;1(1)&durationScale=;minutes(minutes)&delta=;0(0)&deltaType=;percentage(percentage)&resolution=;longlong(longlong)&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;(1696e800-541a-41e5-b22b-b1ee220e9b81)&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
+            "origin": "slack",
+            "alerts": [
+                {
+                    "Id": "https://app.anodot.com/#!/r/alert-manager/edit/a038cba3-a76e-4edb-8e32-86655f7f6c12/settings",
+                    "emailId": "6b1ff",
+                    "alertName": "{{customer}}: possible risk [3 consecutive days!]",
+                    "startTime": 1636675200,
+                    "status": "OPEN",
+                    "alertOwner": "CS"
+                }
+            ],
+            "anomalyGroupId": "6b1ffc765925491c85c2206d05246e0f",
+            "score": 48
         }
-      ]
-    }
-  ]
+    ]
 }
 ```
 
@@ -73,6 +75,8 @@ createdTime | Epoch | Feedback creation time.
 username | String | Email of the user who provided the feedback
 anomalyId | String | Link to the anomaly *Investigate* page in the Anodot platform.
 alerts[] | Array | An array of alerts related to the feedback instance.
+anomalyGroupID | String | A unique identifier of alert group related to the feedback instance.
+score | Number | Score of the anomaly for which the feedback was given.
 
 #### Alerts Array Fields
 Field | Type | Description / Example
