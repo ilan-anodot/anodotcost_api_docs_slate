@@ -1,4 +1,4 @@
-# Users
+# Users and Groups
 
 > End Point **/api/v2/users
 
@@ -74,3 +74,53 @@ ownerOrganization | String ($uuid) | This is the customerID - this will be ident
 groups | array | List of groupIDs to which the user belongs (or empty if that user does not belong to any group).
 defaultGroup | String ($uuid) | groupID of the default group to which the user belongs to.
 lastActive | timestamp | Time when the user was last active. Will not be sent of the user was never active. 
+
+> End Point **/api/v2/groups
+
+The below end-points are meant to help you better manage groups in your Anodot account.
+
+Authentication type: [Access Token Authentication] (#access-tokens).
+
+## GET Groups
+
+> Request Example: Getting list of all groups in the account
+
+```shell
+curl -X GET 'https://app.anodot.com/api/v2/groups' \
+-H 'Authorization: Bearer {{data-token}}' \
+-H 'Content-Type: application/json'
+```
+
+Get the list of all groups in the account.
+This request has no body
+
+> Response Example:
+
+```json
+[
+    {
+        "id": "6107947dac294a324f042789",
+        "name": "Test Gr1",
+        "created": "2021-08-02T06:45:17.817Z",
+        "modified": "2021-09-09T12:39:47.177Z"
+    },
+    {
+        "id": "610f6b0696d0a2478bef06f6",
+        "name": "Test Gr2 - rename",
+        "created": "2021-08-08T05:26:30.137Z",
+        "modified": "2021-10-12T07:39:46.058Z"
+    }
+]
+```
+
+### Response Fields
+
+The response is an array of "group" items. Each one of them has the following fields:
+
+Field | Type | Description / Example
+-|-|-
+id | String ($uuid) | The unique group id
+name | String | Group name
+created | timestamp | Time when the group was created.
+modified | timestamp | Time when the group was modified.
+
