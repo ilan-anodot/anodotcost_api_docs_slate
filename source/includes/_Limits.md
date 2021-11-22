@@ -1,13 +1,11 @@
 # Rates and Limits
 
-APIs are limited by:
-
-The default rate limit for Anodot end-points is 500 calls per minute.</br>
-Specific end-points have different limits, please see the table below.</br>
-
-<aside class = "notice">
+<aside class = "success">
+The default rate limit for Anodot end-points is **500 calls per minute**.
 Please adhere to the rate limitations to prevent data loss and error handling.
 </aside>
+
+Specific end-points have different limits, please see the table below:</br>
 
 End Point | Rate Limit (RPM)
 ----------|-----------
