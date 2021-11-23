@@ -9,6 +9,7 @@ Specific end-points have different limits, please see the table below:</br>
 
 End Point | Rate Limit (RPM)
 ----------|-----------
+Post metrics | 5000 RPM for all post-metrics calls
 Alert configuration | 500 RPM for all *alerts* API calls
 Alert triggers | 500 RPM for all *triggers* API calls
 Anomaly | 1000 RPM for all *anomaly* API calls
