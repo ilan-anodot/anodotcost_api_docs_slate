@@ -34,6 +34,7 @@ types | enum | Can be one (or more) of the following: {anomaly, static, noData}
 channels | string | Comma seperated list of channel IDs to which these alerts have been sent. 
 severities | enum | Can be one (or more) of the following: {INFO,LOW,MEDIUM,HIGH,CRITICAL}
 status | enum | Can be either "OPEN" or "CLOSE"
+size | integer | You can specify the max number of triggers to return. The default is 20
 
 > Response Example:
 

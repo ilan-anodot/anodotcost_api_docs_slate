@@ -2,7 +2,7 @@
 
 
 
-The Anodot Webhook channel is used by customers to create custom handling of Alert triggers. The trigger is sent to a webhook URL the customer specifies and then you can create your own handling of the payload you get from Anodot. Instructions on setting up the webhook from the Anodot application can be found  - [here](https://support.anodot.com/hc/en-us/articles/360006494374-Anomaly-Alert-Webhook-Formats)
+The Anodot Webhook channel is used by customers to create custom handling of Alert triggers. The trigger is sent to a webhook URL the customer specifies and then you can create your own handling of the payload you get from Anodot. Instructions on setting up the webhook from the Anodot application can be found  - [here](https://support.anodot.com/hc/en-us/articles/208206925-Anodot-Webhook-integration)
 
 The Anodot Webhook format has four variants, based on the Alert type:
 
