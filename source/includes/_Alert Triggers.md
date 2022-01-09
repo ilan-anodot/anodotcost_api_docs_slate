@@ -224,17 +224,20 @@ Field | Type | Description / Example
 -|-|-
 total | number | Number of alert groups which meet the criteria.
 alertGroups | Array | Array of [Alert Group](#alert-group) objects. 
-## Add an Acknowledgement to an Alert Trigger
+## Acknowledge an Alert Trigger
 
-> Request Structure: POST /triggers/ack/add
+> Request Structure: POST /triggered/{alert-id}/acknowledge/add
 
-> Example Request Body:
+```shell
 
-```json
-{
-  "userId": "20262fb3-00ba-412c-a515-aec74c4824ca"
-}
+curl --location --request POST 'https://app.anodot.com/api/v2/alerts/triggered/{{alert-id}}/acknowledge/add' \
+--header 'Authorization: Bearer {{bearer-token}} \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "userId": "{{user-id}}"
+}'
 ```
+
 Acknowledge the Alert Trigger
 
 ### Request Arguments
@@ -242,18 +245,24 @@ Acknowledge the Alert Trigger
 Argument | Type | Description
 ---------|------|------------
 groupId | string | ID of the triggered alert group **Required**
-Request body | application/json | The object that will be added **Required**. This Id specifies which user performed the Acknowledgement.
+userId | application/json | **Required**. This Id specifies which user performed the Acknowledgement.
+
+### Request Response
+
+None.
 
 ## Remove an Acknowledgement from an Alert Trigger
 
-> Request Structure: POST /triggers/ack/remove
+> Request Structure: POST /triggered/{alert-id}/acknowledge/add
 
-> Example Request Body:
+```shell
 
-```json
-{
-  "userId": "20262fb3-00ba-412c-a515-aec74c4824ca"
-}
+curl --location --request POST 'https://app.anodot.com/api/v2/alerts/triggered/{{alert-id}}/acknowledge/remove' \
+--header 'Authorization: Bearer {{bearer-token}} \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "userId": "{{user-id}}"
+}'
 ```
 
 Remove the Ack from the alert trigger
@@ -263,11 +272,13 @@ Remove the Ack from the alert trigger
 Argument | Type | Description
 ---------|------|------------
 groupId | string | ID of the triggered alert group **Required**
-Request body | application/json | The object that will be removed **Required**. This Id specifies which user is removed from the Acknowledgement.
+userId | application/json | The object that will be removed **Required**. This Id specifies which user is removed from the Acknowledgement.
 
-## Response Objects
+### Request Response
 
-Each of these objects appear as part of the responses to the above trigger APIs. 
+None.
+
+## Common Objects
 
 ### Alert Group
 

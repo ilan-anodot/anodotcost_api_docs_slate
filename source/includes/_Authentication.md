@@ -86,3 +86,27 @@ Set the Authorization header of your calls with *Bearer* and the retrieved acces
 <aside class="notice">
 Remember:<br/>Access tokens are valid for 24 hours. Include periodic calls in your code to get an updated token.
 </aside>
+
+## Get CustomerID
+
+Each customer has a unique customerID which can be useful for some scenarios. 
+
+> End Point prefix: **/api/v2/customers/id**
+
+> Request example:
+
+```shell
+curl --location --request GET 'https://app.anodot.com/api/v2/customers/id' \
+--header 'Authorization: Bearer {{Bearer-Token}}' \
+--data-raw ''
+'
+```
+### Request Arguments
+
+None.
+
+> The Response contains the customerID. 
+
+```json
+"6062047f0f6585000e1a7107"
+```
