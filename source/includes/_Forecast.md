@@ -354,3 +354,135 @@ forecastFunction (Optional) | enum | A function which enables aggregation of for
 ### Response Fields
 
 The response is an array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
+
+## GET forecast results history
+
+> Request Example: Get forecast results for a specific metric 
+
+```shell
+curl --location --request GET 'https://app.anodot.com/api/v2/forecast/metrics/{{forecast-metricId}}/history?for_date=1541618139' \
+--header 'Authorization: Bearer {{data-token}}' \
+--data-raw ''
+```
+
+This call gets all the forecast results for a specific metric regardless of the task.
+### Request Fields
+
+Field | Type | Description / Example
+-|-|-
+metricID | String ($uuid) | Unique identifier of the forecast metric (you can get this from the [GET Task  Metrics](#get-task-metrics) call or from the [GET Metrics](#get-metrics) call).
+for_date | timestamp (epoch) | The date for which to get the historical forecast results.
+
+
+> Response Example:
+
+```json
+{
+    "Actual": {
+        "points": [
+            {
+                "timestamp": 1560384000,
+                "value": 107.8399963379
+            },
+            {
+                "timestamp": 1565827200,
+                "value": 0
+            },
+            {
+                "timestamp": 1565913600,
+                "value": 0
+            },
+            {
+                "timestamp": 1566086400,
+                "value": 0
+            },
+            {
+                "timestamp": 1566172800,
+                "value": 98.3499984741
+            },
+            {
+                "timestamp": 1566345600,
+                "value": 0
+            },
+            {
+                "timestamp": 1570752000,
+                "value": 0
+            },
+            {
+                "timestamp": 1571270400,
+                "value": 0
+            },
+            {
+                "timestamp": 1571443200,
+                "value": 0
+            },
+            {
+                "timestamp": 1572220800,
+                "value": 0
+            }
+        ]
+    },
+    "Forecast": {
+        "last_forecast_ts": "1634688000",
+        "last_updated_ts": "1636378064",
+        "metric_id": "3afa10d8-ba60-45aa-aef1-e5b9e5edd01b.0014P00002QZfjeQAD.VOLUME_SUM",
+        "points": [
+            {
+                "lowerBand": 9870080,
+                "timestamp": 1541635200,
+                "upperBand": 9879956,
+                "value": 9875018
+            },
+            {
+                "lowerBand": 9960603,
+                "timestamp": 1541721600,
+                "upperBand": 9970569,
+                "value": 9965586
+            },
+            {
+                "lowerBand": 10056923,
+                "timestamp": 1541808000,
+                "upperBand": 10066985,
+                "value": 10061954
+            },
+            {
+                "lowerBand": 9589967,
+                "timestamp": 1541894400,
+                "upperBand": 9599561,
+                "value": 9594764
+            },
+            {
+                "lowerBand": 11604541,
+                "timestamp": 1541980800,
+                "upperBand": 11616151,
+                "value": 11610346
+            },
+            {
+                "lowerBand": 11557702,
+                "timestamp": 1542067200,
+                "upperBand": 11569266,
+                "value": 11563484
+            },
+            {
+                "lowerBand": 11614124,
+                "timestamp": 1542153600,
+                "upperBand": 11625744,
+                "value": 11619934
+            },
+            {
+                "lowerBand": 13145074,
+                "timestamp": 1542240000,
+                "upperBand": 13158226,
+                "value": 13151650
+            }
+        ]
+    }
+}
+```
+
+### Response Fields
+
+The response is built of two arrays: 
+
+* An array of Actual values - the actual values of the metric split into the relevant time stamps. 
+* An array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
