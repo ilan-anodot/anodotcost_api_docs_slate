@@ -11,9 +11,10 @@ The Schema API enables you to create schemas as a preliminary step to sending Me
   * Units
   * Aggregation
   * Counting method
+  * **NEW** Filling the gap policy for missing data points 
 * The schema object also defines the required dimensions and attributes:
   * Name
-  * Fill policy
+  * Fill policy for missing dimension values
 
 ## Create Stream Schema
 
@@ -45,6 +46,19 @@ curl --location --request POST 'https://app.anodot.com/api/v2/stream-schemas' \
  "missingDimPolicy": {
    "action": "fill",
    "fill": "dummy_val"
+ },
+ "dvpConfig": {
+  "baseRollup": "LONGLONGROLLUP",
+  "maxDVPDurationHours": 168,
+  "preventNoData": true,
+  "gaugeValue": {
+    "keepLastValue": true,
+    "value": 0.0
+  },
+  "counterValue": {
+    "keepLastValue": false,
+    "value": 0.0
+  }
  }
 }'
 ```
@@ -64,6 +78,13 @@ countby | String | (Required) How to count the data points. Valid value: current
 missingDimPolicy |  | How to treat missing dimension values in the posted data.
 action | String | Valid values:</br> Fill - the empty dimension value will be filled with the value in the “fill” field (see below).</br> Fail - data point will be rejected
 fill | String | Fill value. Applicable if action field is set to fill
+dvpconfig | Section | (Optional) Defines the way missing data points will be completed in this schema
+baseRollup | ENUM | Define which is the minimal Anodot rollup to complete the data for.
+maxDVPDurationHours | Integer | The number of hours Anodot will complete missing data points for a metric. The maximal completion period depends on the stream's interval. Daily streams can be filled up to 31 days (744 hours), hourly streams up to 7 days (168 hours) and less than hourly streams can be filled up to 1 day (24 hours)
+preventNoData | Boolean | Keep this as "true"
+gaugeValue / counterValue | section | The definition for gauge (average) or counter (sum) aggregation type measures in the stream related to this schema
+keepLastValue | Boolean | true - use the last received value as the completion value. false - set the completion value manually.
+value | Float | The completion value to use, in case keepLastValue is false.
 
 
 ### Response
@@ -98,6 +119,20 @@ The response contains the schema details and provides a schema id for you to use
       "fill": "dummy_val"
     }
   },
+  "dvpConfig": {
+            "baseRollup": "LONGLONGROLLUP",
+            "maxDVPDurationHours": 168,
+            "preventNoData": true,
+            "gaugeValue": {
+                "keepLastValue": true,
+                "value": 0.0
+            },
+            "counterValue": {
+                "keepLastValue": false,
+                "value": 0.0
+            }
+        }
+    },
   "meta": {
     "createdTime": “1547630800000”,
     "modifiedTime": “1547630800000”
