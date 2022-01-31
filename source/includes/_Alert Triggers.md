@@ -224,6 +224,7 @@ Field | Type | Description / Example
 -|-|-
 total | number | Number of alert groups which meet the criteria.
 alertGroups | Array | Array of [Alert Group](#alert-group) objects. 
+
 ## Acknowledge an Alert Trigger
 
 > Request Structure: POST /triggered/{alert-id}/acknowledge/add
@@ -287,7 +288,7 @@ Field | Type | Description / Example
 id | string(uuid) |example: 20262fb3-00ba-412c-a515-aec74c4824cd.<br/>Group Id.
 name | string | example: Jetty servers availability. Alert name when grouping by alert configuration, empty otherwise.
 alerts | Array | Array of [Alert objects](#alert)
-stars | String Array | The ids of all the users that starred the alert group
+stars | String Array | The ids of all the users that acknowledged the alert group
 
 ### Alert 
 
