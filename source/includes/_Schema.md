@@ -265,7 +265,7 @@ meta | Create and modified time of the schema.
 > Request Example: Delete a schema by Id
 
 ```shell
-curl --location --request DELETE 'https://app.anodot.com/api/v2/stream-schemas/schemas/11111-22222-33333-4444' \
+curl --location --request DELETE 'https://app.anodot.com/api/v2/stream-schemas/11111-22222-33333-4444' \
 --header 'Authorization: Bearer {{bearer-token}}'
 ```
 
