@@ -19,6 +19,7 @@ includes:
   - Metrics Operations
   - Tags
   - Alert configuration
+  - Alert actions
   - Alert Triggers
   - Anomaly
   - Feedback
