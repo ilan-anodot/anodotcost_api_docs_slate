@@ -120,7 +120,7 @@ Similar to the results returned by the [List all alert actions] (#list-all-alert
 ```shell
 curl -X POST \
 curl --location --request POST 'https://app.anodot.com/api/v2/alert-actions/create' \
---header 'Authorization: Bearer {{bearer-token}}}}' \
+--header 'Authorization: Bearer {{bearer-token}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
   {
@@ -184,6 +184,7 @@ The response will show the parameters of the created alert action together with 
 ```shell
 curl -X PUT \
 "https://app.anodot.com/api/v2/alert-actions/{{actionID}}" \
+--header 'Authorization: Bearer {{bearer-token}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
     {
