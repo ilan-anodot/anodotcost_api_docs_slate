@@ -84,7 +84,7 @@ https://{{app-url}}.anodot.com/api/v2/feedbacks \
 Set the Authorization header of your calls with *Bearer* and the retrieved access-token.
 
 <aside class="notice">
-Remember:<br/>Access tokens are valid for 24 hours. Include periodic calls in your code to get an updated token.
+Remember:<br/>Access token expiration is controlled via the 'User session timeout' configuration in the settings page, under the Authentication tab.
 </aside>
 
 ## Get CustomerID
