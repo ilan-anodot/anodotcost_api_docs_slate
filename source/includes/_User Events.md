@@ -291,7 +291,7 @@ Use this call to retrieve events by search expression.
 Argument | Description
 -------- | ----------
 fromDate | (integer) Start time for the event retrieval [**Required**]
-toDate | (integer) End time for the event retrieval
+toDate | (integer) End time for the event retrieval.</br>Default value: the request activation time (current time).
 order | (string) Result order. Default: asc. Values: asc, desc.
 size | (integer) Number of results per page. Default: 10
 index | (integer) Page index, used for paged results.
