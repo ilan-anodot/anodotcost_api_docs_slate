@@ -10,6 +10,8 @@ The Alert Triggers API manages and queries these triggers and groups.
 * [Cound all triggered alerts](#count-triggered-alerts)
 * [Acknowledge an Alert](#add-an-acknowledgement-to-an-alert-trigger)
 * [Remove Acknowledgment from an alert](#remove-an-acknowledgement-from-an-alert-trigger)
+* [Assign an Alert](#assign-an-alert-trigger)
+* [Remove Assignment from an alert](#remove-an-assignment-from-an-alert-trigger)
 * [Response Objects](#response-objects)
 
 
@@ -280,7 +282,7 @@ None.
 
 ## Remove an Acknowledgement from an Alert Trigger
 
-> Request Structure: POST /triggered/{alert-id}/acknowledge/add
+> Request Structure: POST /triggered/{alert-id}/acknowledge/remove
 
 ```shell
 
@@ -300,6 +302,66 @@ Argument | Type | Description
 ---------|------|------------
 groupId | string | ID of the triggered alert group **Required**
 userId | application/json | The object that will be removed **Required**. This Id specifies which user is removed from the Acknowledgement.
+
+### Request Response
+
+None.
+
+## Assign an Alert Trigger
+
+> Request Structure: PUT /triggered/{alert-id}/assignee
+
+```shell
+
+curl --location --request PUT 'https://app.anodot.com/api/v2/alerts/triggered/{{alert-id}}/assignee' \
+--header 'Authorization: Bearer {{bearer-token}} \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "assigneeId": "{{user-id}}",
+    "assignerId": "{{user-id}}"
+}'
+```
+
+Assign an Alert Trigger
+
+### Request Arguments
+
+Argument | Type | Description
+---------|------|------------
+alertID | string | ID of the triggered alert group **Required**
+assigneeId | unique user identifier | **Required**. This Id specifies to which user the alert trigger will be assigned.
+assignerId | unique user identifier | **Required**. This Id specifies which user performed the Assignment.
+
+
+### Request Response
+
+None.
+
+## Remove an Assignment from an Alert Trigger
+
+> Request Structure: DELETE /triggered/{alert-id}/assignee
+
+```shell
+
+curl --location --request DELETE 'https://app.anodot.com/api/v2/alerts/triggered/{{alert-id}}/assignee' \
+--header 'Authorization: Bearer {{bearer-token}} \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "assigneeId": "{{user-id}}",
+    "assignerId": "{{user-id}}"
+}'
+```
+
+Remove assignment from an Alert Trigger
+
+### Request Arguments
+
+Argument | Type | Description
+---------|------|------------
+alertID | string | ID of the triggered alert group **Required**
+assigneeId | unique user identifier | **Required**. This Id specifies to which user the alert trigger will be assigned.
+assignerId | unique user identifier | **Required**. This Id specifies which user performed the Assignment.
+
 
 ### Request Response
 
