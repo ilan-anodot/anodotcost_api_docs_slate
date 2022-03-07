@@ -30,7 +30,7 @@ Refer to [Anodot on GitHub](https://github.com/anodot/anodot-python) for more de
 > Request Example - Sending metrics (3.0)
 
 ```shell
-curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=anodot30&token={{data-token}}' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=anodot30&token={{data-token}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
  {
@@ -76,7 +76,7 @@ tags | (Optional) List of tags attached to the measure. Key value pairs. Notice 
 > Request Example - Sending metrics (2.0)
 
 ```shell
-curl --location --request POST 'http://app.anodot.com/api/v1/metrics?protocol=anodot20&token={{data-token}}' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=anodot20&token={{data-token}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
   {
@@ -136,7 +136,7 @@ gauge (average aggregation), counter (sum aggregation). (default is gauge)
 > Request Example - Sending metrics (1.0)
 
 ```shell
-curl --location --request POST 'http://app.anodot.com/api/v1/metrics&token={{data-token}}' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics&token={{data-token}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
   {
@@ -192,7 +192,7 @@ Legal Metric Names:
 > Request Example - Sending a watermark request
 
 ```shell
-curl --location --request POST 'http://app.anodot.com/api/v1/metrics/watermark?protocol=anodot30&token=8e4d630794fa670a874b2b3048b1f213' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?protocol=anodot30&token=8e4d630794fa670a874b2b3048b1f213' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "schemaId": "111111-22222-3333-4444",
