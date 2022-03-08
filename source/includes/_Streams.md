@@ -242,27 +242,32 @@ curl -X GET \
     {
         "id": "SSSrlxxxxxxSC",
         "name": "postgres test",
-        "type": "psql"
+        "type": "psql",
+        "dataSourceId": "XXXYYYZZZAYYY"
     },
     {
         "id": "SSSyjxxxxxgfq",
         "name": "S3 Test",
-        "type": "s3"
+        "type": "s3",
+        "dataSourceId": "XXXYYYZZZBYYY"
     },
     {
         "id": "SSSxxxxzYUP0O",
         "name": "Google Ads Test",
-        "type": "google_ads"
+        "type": "google_ads",
+        "dataSourceId": "XXXYYYZZZCYYY"
     },
     {
         "id": "SSS4xxxxxxQqn",
         "name": "My Data Test",
-        "type": "local_file"
+        "type": "local_file",
+        "dataSourceId": "XXXYYYZZZDYYY"
     },
     {
         "id": "SSSxxxxxxxCoR",
         "name": "S3 Parquet Test",
-        "type": "athena"
+        "type": "athena",
+        "dataSourceId": "XXXYYYZZZEYYY"
     }
 ]
 ```
@@ -278,6 +283,7 @@ Field | Type | Decsription
 id | string | Data stream unique ID
 name | string | Data stream name.
 type | string [*ENUM*] | Data stream type. See [source type list](#list-of-source-types)
+dataSourceId | string | Unique identifier of this stream's data source
 
 ## GET data-streams/find 
 
