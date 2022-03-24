@@ -174,8 +174,9 @@ curl -X GET \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-Use this call to get a single data source according to itd id.</br>
-The result will be a data source object matching the id.
+Use this call to get a single data source according to its id.</br>
+The result will be a data source object matching the id.</br>
+In addition, all the data streams linked to the data source will be listed
 
 ### Request Arguments
 
@@ -197,7 +198,19 @@ id | String | Data source id to retrieve.
    "dbName" : "demo_api",
    "dbPort" : 5432,
    "useSSL" : true,
-   "userName" : "demodbuser"
+   "userName" : "demodbuser",
+   "streams": [
+        {
+            "id": "SSS0uMc43vFkO",
+            "name": "stream1",
+            "type": "psql"
+        },
+        {
+            "id": "SSShvwKn0mnMa",
+            "name": "stream2",
+            "type": "psql"
+        }
+   ]
 }
 ```
 
@@ -213,6 +226,31 @@ name | string | Data source name as it appears in the Anodot App.
 modifyTime | epoch | epoch time the data source was updated
 createTime | epoch | epoch time the data source was created
 *additional* | Various | Additional fields according to data source type.</br>e.g. authentication type, database name, database host, region, bucket name and more
+streams | Array | The list of streams linked to the data source
+
+## Divert data-streams
+
+> Request Example: Divert streamX and streamY from source A to source B
+
+```shell
+curl -X POST \
+"https://app.anodot.com/api/v2/bc/data-sources/divertStreams?fromDataSrc={SourceId}&toDataSrc={DestinationId}" \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}" \
+-d '{ ["streamX-Id", "streamY-Id"] }'
+```
+
+Use this request to divert data streams from a one data source to another.</br>
+A data source may become invalid when user credentials were revoked and cannot be updated in the same datasource. This is the case when using "Sign in with google", "Sign in with Facebook". Other scenarios may apply too.
+Note the two sources are the same data source type.
+
+### Request Arguments and body
+
+Argument | Type | Description
+---------|------|------------
+fromDataSrc | String | Id of the datasource streams are taken from.
+toDataSrc | String | Id of the datasource streams are linked to.
+Body | Array | An array of stream Ids to be diverted between the sources
 
 ## Data Streams
 
@@ -226,7 +264,7 @@ createTime | epoch | epoch time the data source was created
 
 ## GET data-streams
 
-> Request Example: Get all data dtreams basic information
+> Request Example: Get all data streams basic information
 
 ```shell
 curl -X GET \
