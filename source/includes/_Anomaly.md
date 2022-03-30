@@ -11,7 +11,7 @@ The anomaly API can be used to get and anlalyze the list of anomalies in your ac
 
 ## List anomalies
 
-> Request Example: Get all anomlies
+> Request Example: Get all anomalies
 
 ```shell
 curl -X GET 'https://app.anodot.com/api/v2/anomalies' \
@@ -200,6 +200,37 @@ type (string) | Anomaly classification. transient or pattern_change | transient
 peakValue (double) | Anomaly interval peak value | 60.8
 absoluteDelta (double) | Absolute breach delta relative to the baseline | 45.8
 percentageDelta (double) | Percentage breach delta relative to the baseline | 34.12
+
+## Count Anomalies
+
+> Request Example: Get count of anomalies
+
+```shell
+curl -X GET 'https://app.anodot.com/api/v2/anomalies/count?startDate=1648512000&endDate=1648598400' \
+-H 'Authorization: Bearer {bearer-token} \
+-H 'Content-Type: application/json'
+```
+
+Get a total number of anomalies identified by Anodot for a time frame.
+
+Argument | Description
+-------- | -----------
+startDate (integer) | Filter anomalies that started after this given time (inclusive). Units are epoch in seconds.
+endDate (integer) | Relevant only when requesting closed anomalies, only anomalies that started before the given time are retrieved (inclusive). Units are epoch in seconds.
+
+### Response
+
+> Response Example
+
+```json
+{
+    "total": 1819
+}
+```
+
+Value | Description 
+------|-------------
+total (integer) | Total Anomalies
 
 ## Get Anomalies token map
 
