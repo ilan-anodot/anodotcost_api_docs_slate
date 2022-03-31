@@ -59,7 +59,14 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=a
 ```
 
 Use this API to send metrics to Anodot based on a schema you're defined (Protocol 3.0)
-Please note that the maximal number of entries is 10K per request. 
+Please note that the maximal number of entries is 10K per request.
+
+Some guidelines for using the protocol:
+
+* Measurement names, dimension and tag names and values should contain ascii/UTF-8 characters only.
+* The following characters are not allowed: “.”, “=” and space. (Remove them or replace then with "_".
+* Dimension name is a string, 1-50 characters.
+* Dimension value is a string, 1-150 characters.
 
 ### Request
 
@@ -128,7 +135,7 @@ Some notes on the 'properties' array sent using the protocol:
 * property key must be a non empty string no longer than 50 characters.
 * property value must be a non empty string no longer than 150 characters.
 * The combination of all property names and values determines the uniqueness of the metric in Anodot.
-* The target_type property represents how samples of the same metric are aggregated in Anodot valid values are:</br>
+* The target_type property represents how samples of the same metric are aggregated in Anodot.</br>Valid values are:
 gauge (average aggregation), counter (sum aggregation). (default is gauge)
 
 ## Send Data Samples (1.0)
@@ -192,7 +199,7 @@ Legal Metric Names:
 > Request Example - Sending a watermark request
 
 ```shell
-curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?protocol=anodot30&token=8e4d630794fa670a874b2b3048b1f213' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?protocol=anodot30&token={{data-token}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "schemaId": "111111-22222-3333-4444",
