@@ -5,7 +5,7 @@
 > Using the basic token in a REST call:
 
 ```shell
-POST https://api.anodot.com/api/v1/metrics?token=${DC_Key}&protocol=anodot20
+POST 'https://{{app-url}}/api/v1/metrics?token=${DC_Key}&protocol=anodot20'
 ```
 
 Basic authentication is used for:
@@ -32,7 +32,7 @@ To use access token authentication, follow these 3 simple steps:
 > Request example:
 
 ```shell
-curl POST 'https://{{app-url}}/api/v2/access-token/?responseformat=JSON' \
+POST 'https://{{app-url}}/api/v2/access-token/?responseformat=JSON' \
 --header 'Content-Type: application/json' \
 --data-raw '{
 	"refreshToken" : "{{data-token}}"

@@ -43,10 +43,11 @@ search: true
 
 > **API Base URLs**
 
+> * US customers, Use [https://app.anodot.com](https://app.anodot.com)<br/>
 > * Asia Pacific customers, Use [https://ap.anodot.com](https://ap.anodot.com)<br/>
 > * India customers, Use [https://in.anodot.com](https://in.anodot.com)<br/>
-> * US customers, Use [https://api.anodot.com](https://api.anodot.com)<br/>
 > * EU customers (Frankfurt), Use [https://eu.anodot.com/](https://eu.anodot.com/)</br>
+> * **New!** US West coast customers, Use [https://app-oregon.anodot.com](https://app-oregon.anodot.com)<br/>
 > * Personalized URL scheme? Use [https://my-org.anodot.com](https://my-org.anodot.com)
 
 Welcome to the Anodot API Reference Site.
