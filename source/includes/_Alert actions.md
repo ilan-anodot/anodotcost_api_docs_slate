@@ -3,7 +3,6 @@
 > End Point prefix is **/api/v2/alert-actions**
 
 
-
 Using this set of API calls you can manage the Alert Actions defined in your account. For more information about Alert actions, please click [here](https://support.anodot.com/hc/en-us/articles/360019505219-Actions).
 
 Authentication type: [Access Token Authentication] (#access-tokens).
