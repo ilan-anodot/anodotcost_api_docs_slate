@@ -8,17 +8,9 @@ The main difference between 2.0 and 3.0 is that 3.0 enable sending a '**watermar
 
 <aside class="warning">
 Using the Metrics 1.0 Protocol:</br>
-In cases where the metrics cannot be represented in Metric 2.0 Format,
+In cases where the metrics cannot be represented in Metric 3.0/2.0 Format,
 Anodot continues to support legacy formats such as Graphite and Graphite collectors, see Anodot Protocol 1.0 below. 
 </aside>
-
-
-**High Level Flow**
-
-1. [Creating a Schema](#schema)
-2. [Sending samples matching the schema](#send-data-samples)
-3. [Sending watermarks timestamp to direct Anodot to process data samples up to the timestamp](#send-stream-watermark)
-
 
 **Use Anodot's sample code for a quick start**
 
@@ -58,7 +50,13 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=a
 ]'
 ```
 
-Use this API to send metrics to Anodot based on a schema you're defined (Protocol 3.0)
+**High Level Flow**
+
+1. [Creating a Schema](#schema)
+2. [Sending samples matching the schema](#send-data-samples)
+3. [Sending watermarks timestamp to direct Anodot to process data samples up to the timestamp](#send-stream-watermark)
+
+Use this API to send metrics to Anodot based on a schema you've defined (Protocol 3.0)
 Please note that the maximal number of entries is 10K per request.
 
 Some guidelines for using the protocol:
@@ -77,6 +75,49 @@ timestamp | Integer - The data sample's timestamp (Unix epoc time in seconds). T
 dimensions | an array of key-value pairs of the metric dimensions.
 measurements | an array of a measurements - decimal double precision number, without a thousands seperator. 
 tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniqueness.
+
+## Send Stream Watermark (3.0)
+
+> Request Example - Sending a watermark request
+
+```shell
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?protocol=anodot30&token={{data-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "schemaId": "111111-22222-3333-4444",
+  "watermark": “143877000”
+}'
+```
+
+Use this API to send the watermark timestamp to Anodot (Only relevant for protocol 3.0). A watermark timestamp commits that no data samples with timestamps less than or equal to it will be sent.
+
+### Parameters
+
+Field | Description
+------|------------
+schemaId | Id recieved from the 'create schema' call
+watermark (Integer) | timestamp of the watermark (Unix epoch time in seconds)
+
+<aside class="success">
+A Pro Tip:</br>
+To close the bucket and send the data for processing you need to send a beginning of the next bucket as a watermark timestamp. For example, you have hourly data and you’ve just sent data points with `2020-06-01 06:00` timestamp. To commit it to processing you need to send `2020-06-01 07:00` watermark (the beginning of the next hourly bucket). Note that flushing the data is a scheduled process and you will probably need to wait some time (around 15 minutes) until you see a data point in the UI after sending the watermark.
+</aside>
+
+### FAQ (3.0)
+
+* **Is the schema mandatory?**</br>
+Yes it is. The schema defines the structure of the metrics expected to be received when sending them using Metric 3.0 protocol. Using the schema enables benefits down the road, such as advanced analysis and investigation, to enable easier root cause analysis of your anomalies.</br>
+
+* **If I send a request in the wrong structure?**</br>
+The “post metrics” request is composed of an array with up to 10K data samples. It is possible that some entries will be faulty and will be rejected. Please analyze the response to view the faults.</br>
+
+* **What does the watermark do?**</br>
+The first watermark of the stream represents that historical (retroactive) data was consumed.</br>
+Every other watermark notifies the platform that another “chunk” of information is ready for processing, and there is no need to wait for additional information in that span. This implies composite metrics / alerts can be calculated on the spot.</br>
+
+* **Is using the watermark mandatory?**</br>
+It is highly recommended to use it. Even though Anodot can process the data samples using the built-in flushing mechanism, the watermark provides precise processing indicators which result in more accurate anomaly detection and alerting.</br>
+
 
 ## Send Data Samples (2.0)
 
@@ -194,29 +235,3 @@ Legal Metric Names:
     * \# - metric tag – add a tag to a metric, doesn’t impact metric uniqueness
     * = - key value separator
 
-## Send Stream Watermark
-
-> Request Example - Sending a watermark request
-
-```shell
-curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?protocol=anodot30&token={{data-token}}' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "schemaId": "111111-22222-3333-4444",
-  "watermark": “143877000”
-}'
-```
-
-Use this API to send the watermark timestamp to Anodot (Only relevant for protocol 3.0). A watermark timestamp commits that no data samples with timestamps less than or equal to it will be sent.
-
-### Parameters
-
-Field | Description
-------|------------
-schemaId | Id recieved from the 'create schema' call
-watermark (Integer) | timestamp of the watermark (Unix epoch time in seconds)
-
-<aside class="success">
-A Pro Tip:</br>
-To close the bucket and send the data for processing you need to send a beginning of the next bucket as a watermark timestamp. For example, you have hourly data and you’ve just sent data points with `2020-06-01 06:00` timestamp. To commit it to processing you need to send `2020-06-01 07:00` watermark (the beginning of the next hourly bucket). Note that flushing the data is a scheduled process and you will probably need to wait some time (around 15 minutes) until you see a data point in the UI after sending the watermark.
-</aside>

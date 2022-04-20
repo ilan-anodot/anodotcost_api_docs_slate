@@ -11,7 +11,7 @@ The Schema API enables you to create schemas as a preliminary step to sending Me
   * Units
   * Aggregation
   * Counting method
-  * **NEW** Filling the gap policy for missing data points 
+  * Filling the gap policy for missing data points 
 * The schema object also defines the required dimensions and attributes:
   * Name
   * Fill policy for missing dimension values
