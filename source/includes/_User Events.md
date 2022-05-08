@@ -12,9 +12,17 @@ Each event has a **category** and a **source**. There is a specific set of APIs 
 
 Additional information is available in our [Help center documentation](https://support.anodot.com/hc/en-us/articles/209776765-Events-Overview)
 
+<aside class="success">
+Updates to the user event object</br>
+We added support to user event type, to be used in advanced alert conditions.
+The added fields allow linking the user event to a specific event condition.
+</aside>
+
+You can find more information about the event conditions in our [Alert configuration documentation](https://support.anodot.com/hc/en-us/articles/360015501820-Defining-Advanced-Alert-Conditions)
+
 ## Create Event
 
-> Request Example - Create Events 
+> Request Example - Create a User Event 
 
 ```shell
 curl -X POST \
@@ -40,6 +48,37 @@ https://app.anodot.com/api/v2/user-events \
 
 ```
 
+> Request Example - Create a suppress event
+
+> This example shows an "end suppress" event. Note the type and action fields
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/user-events \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-D '{
+      "event": {
+        "title":"deployment started on myServer",
+        "description":"my description",
+        "source":"chef",
+        "category":"deployments",
+        "startDate": "1651140507",
+        "endDate":"",
+        "type":"Suppress",
+        "action":"End",
+        "properties":[
+          {
+             "key":"service",
+             "value":"myService"
+          }
+        ]
+      }
+    }'
+
+```
+
+
 > Response Example
 
 ```json
@@ -51,6 +90,8 @@ https://app.anodot.com/api/v2/user-events \
    "category":"deployments",
    "startDate":1468326864,
    "endDate":null,
+   "type":"Suppress",
+   "action":"End",
    "properties":[
       {
          "key":"service",
@@ -74,6 +115,15 @@ Source | The pre-defined source of the request (e.g rest_api, Chef, Jenkins) [**
 Properties | Key-value pairs, can be whatever the user wants to add as additional data except the ones that are already part of the body arguments like title, description, category and so on. E.g: severity: high, publisher: nyt, exchange: rubicon. [*Optional*]
 StartDate |The start time of the event. Needs to be in epochtime (seconds)[**required**]
 EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
+Type (New) | The user event type. Possible values:</br>Display - Used for Display Only</br>Influence - Used for influencing events</br>Suppress - Used to suppress specific metrics from an alert</br>OfficeHours - Used to pause an alert altogether.</br>This field is relevant for Suppress and OfficeHours events. [*Optional*]
+Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: Start, End.</br> This field is relevant for Suppress and OfficeHours events. [*Optional*]
+
+<aside class="success">
+Note the enhanced validation:</br>
+If the event type is "OfficeHours", the event should include both "startTime" and "endTime".</br>
+If the event type is "Suppress", the event should either include both "startTime" and "EndTime"</br>
+OR, Have the "Action" field filled with start or end.
+</aside>
 
 **Response Fields**
 The response is an object similar to the request, enabling you to verify that the object was created successfully.  
@@ -143,6 +193,8 @@ Source | The pre-defined source of the request (e.g rest_api, Chef, Jenkins) [**
 Properties | Key-value pairs, can be whatever the user wants to add as additional data except the ones that are already part of the body arguments like title, description, category and so on. E.g: severity: high, publisher: nyt, exchange: rubicon. [*Optional*]
 StartDate | The start time of the event. Needs to be in epochtime (seconds)[**required**]
 EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
+Type (New) | The user event type. Possible values:</br>Display - Used for Display Only</br>Influence - Used for influencing events</br>Suppress - Used to suppress specific metrics from an alert</br>OfficeHours - Used to pause an alert altogether.</br>This field is relevant for Suppress and OfficeHours events. [*Optional*]
+Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: Start, End.</br> This field is relevant for Suppress and OfficeHours events. [*Optional*]
 
 ## Retrieve Event by ID
 
