@@ -76,7 +76,7 @@ units | String | (Optional) Provide the unit for the measure, this unit will be 
 aggregation | String | (Required) Aggregation function for the measure. Valid values: average , sum
 countby | String | (Required) How to count the data points. Valid value: currently “None” is the only value supported (each bucket counts as “1”)
 missingDimPolicy |  | How to treat missing dimension values in the posted data.
-action | String | Valid values:</br> Fill - the empty dimension value will be filled with the value in the “fill” field (see below).</br> Fail - data point will be rejected
+action | String | Valid values:</br>fill - the empty dimension value will be filled with the value in the “fill” field (see below).</br>fail - data point will be rejected.</br>ignore - allow empty dimension values, such dimensions may be missing from the metrics.
 fill | String | Fill value. Applicable if action field is set to fill
 dvpconfig | Section | (Optional) Defines the way missing data points will be completed in this schema
 baseRollup | ENUM | Define which is the minimal Anodot rollup to complete the data for. The possible values are</br>SHORTROLLUP (1 minute)<</br>MEDIUMROLLUP (5 minutes)</br>LONGROLLUP (1hour)</br>LONGLONGROLLUP (1 day)</br>WEEKLY (1 week)
