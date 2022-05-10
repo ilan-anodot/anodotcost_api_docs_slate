@@ -102,41 +102,49 @@ State | Array | The current state of the alert (paused/live)
       "conditions": [
         {
           "type": "delta",
-          "duration": 1200
+          "absolute": 46.85,
+          "percentage": 10,
+          "deltaDuration": null,
+          "enableAutoTuning": true
         },
         {
-          "type": "delta",
-          "duration": 300
+          "type": "significance",
+          "id": "82be-a4e815888888",
+          "significance": 0.7
         },
         {
-          "type": "delta",
-          "absolute": 170.3,
-          "percentage": 20
+          "type": "duration",
+          "id": "82be-a4e81599999",
+          "duration": 86400
         },
         {
-          "type": "delta",
+          "type": "direction",
+          "id": "82be-a4e81598765",
           "direction": "up"
         },
         {
-          "type": "delta",
+          "type": "volume",
+          "id": null,
+          "value": 2596.68,
+          "rollup": "weekly",
+          "bound": "LOWER",
+          "numLastPoints": 1,
+          "enableAutoTuning": true,
+          "enabled": true
+        },
+        {
+          "type": "minParticipating",
+          "id": "82be-a4e815b12345",
+          "absolute": 1,
+          "percentage": null
+        },
+        {
+          "type": "threshold",
+          "id": "82be-a4e815baxxxx",
           "upperBound": "greaterThan",
-          "upperValue": 827.12,
           "lowerBound": "lessThan",
-          "lowerValue": 342.89
-        },
-        {
-          "type": "delta",
-          "absolute": 4267,
-          "percentage": 30.7
-        },
-        {
-          "type": "delta",
-          "absolute": 4267,
-          "percentage": 30.7
-        },
-        {
-          "type": "delta",
-          "significance": 0.35
+          "upperValue": 100,
+          "lowerValue": 5
         }
       ],
       "correlatedEvents": {
@@ -218,41 +226,49 @@ curl -X POST \
   "conditions": [
     {
       "type": "delta",
-      "duration": 1200
+      "absolute": 46.85,
+      "percentage": 10,
+      "deltaDuration": null,
+      "enableAutoTuning": true
     },
     {
-      "type": "delta",
-      "duration": 300
+        "type": "significance",
+        "significance": 0.7
     },
     {
-      "type": "delta",
-      "absolute": 170.3,
-      "percentage": 20
+        "type": "duration",
+        "duration": 86400
     },
     {
-      "type": "delta",
-      "direction": "up"
+        "type": "direction",
+        "direction": "both"
     },
     {
-      "type": "delta",
-      "upperBound": "greaterThan",
-      "upperValue": 827.12,
-      "lowerBound": "lessThan",
-      "lowerValue": 342.89
+        "type": "volume",
+        "id": null,
+        "value": 2596.686320664465,
+        "rollup": "weekly",
+        "bound": "LOWER",
+        "numLastPoints": 1,
+        "enableAutoTuning": true,
+        "enabled": true
     },
     {
-      "type": "delta",
-      "absolute": 4267,
-      "percentage": 30.7
+        "type": "minParticipating",
+        "absolute": 1,
+        "percentage": null
     },
     {
-      "type": "delta",
-      "absolute": 4267,
-      "percentage": 30.7
+        "type": "maxParticipating",
+        "absolute": null,
+        "percentage": null
     },
     {
-      "type": "delta",
-      "significance": 0.35
+        "type": "threshold",
+        "upperBound": "greaterThan",
+        "lowerBound": "lessThan",
+        "upperValue": 100,
+        "lowerValue": 5
     }
   ],
   "correlatedEvents": {
