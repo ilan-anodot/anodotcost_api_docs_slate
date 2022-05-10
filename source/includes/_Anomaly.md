@@ -29,7 +29,7 @@ q * (string) | Search Query - include only anomalies of abnormal metrics that ar
 startDate (integer) | Filter anomalies that started after this given time (inclusive). Units are epoch in seconds.
 endDate (integer) | Relevant only when requesting closed anomalies, only anomalies that started before the given time are retrieved (inclusive). Units are epoch in seconds.
 state (string) | Anomaly state {open, closed, both}
-resolution (string) | Include anomalies of the listed timescales,<br>currently supported timescales are: {short, medium, long, longlong, weekly}.<br>The list passed should be comma separated string list. Available values : short, medium, long, longlong
+resolution (string) | Include anomalies of the listed timescales,<br>currently supported timescales are: {short (1 min), medium (5 min), long (1 hour), longlong (1 day), weekly}.<br>The list passed should be comma separated string list. Available values : short, medium, long, longlong
 durationUnit (string) | Can be one of the following: {seconds, minutes, hours, days}.
 durationValue (integer) | Minimum anomaly duration. Units are based on durationUnits.
 score (number) | Minimum anomaly score in range (0,1) (inclusive).
