@@ -1,7 +1,7 @@
 # Topology
-The Topology APIs enables you to load topology data such as Customers, Geografical and Network Information, the data is then presented over Anodot map view. 
+The Topology APIs enable you to load topology data such as Customers, Geografical and Network Information, the data is then presented over Anodot map view. 
 
-You can find more information about the Network Topology Map in our - [here](https://support.anodot.com/hc/en-us/articles/4415016305682-Overview)
+You can find more information about the Network Topology Map in our - [Topology documentation](https://support.anodot.com/hc/en-us/articles/4415016305682-Overview)
 
 The Anodot Topology Data ingestion mechanism assembled from 3 types of APIs.
 
