@@ -1,19 +1,17 @@
 # Topology
 The Topology APIs enables you to load topology data such as Customers, Geografical and Network Information, the data is then presented over Anodot map view. 
 
-You can find more information about the Network Topology Map in our - [here](https://support.anodot.com/hc/en-us/articles/4415016305682-Overview)
+You can find more information about the Network Topology Map in our [here](https://support.anodot.com/hc/en-us/articles/4415016305682-Overview)
 
 The Anodot Topology Data ingestion mechanism assembled from 3 types of APIs.
 
-* [Topology User](#Topology-User)
-* [Topology Data Ingestion](#Topology-Data-Ingestion)
-* [Topology Metric Mapping](#Topology-Metric-Mapping)
-* [Topology entity fields](#Topology-Entity-Fields)
-
+* [Topology User](#topology-user)
+* [Topology Data Ingestion](#topology-data-ingestion)
+* [Topology Metric Mapping](#topology-metric-mapping)
 
 
 ## Topology User
-Use this API to create a topology user.
+Use this API to create a tooplogy user.
 
 >End Point prefix is **/api/v2/topology/user**
 
@@ -26,7 +24,7 @@ A topology user is initially created prior to the topology data load.
 
 Argument | Description
 ---------| -----------
-id | customerID [Get CustomerID](#Get_CustomerID) [**Required**]
+id | customerID [Get CustomerID](#get_customerID) [**Required**]
 
 > Request Example: Create topology user
 
@@ -46,9 +44,9 @@ During this process, the ingested data is first validated and only then loaded t
 
 The topology data load APIs consist of three APIs that load the full updated topology data set:
 
-* [Load Start](#Load-Start)
-* [Bulk Entities Load](#Bulk-Entities-Load)
-* [Load End](#Load-End)
+* [Load Start](#load-start)
+* [Bulk Entities Load](#bulk-entities-load)
+* [Load End](#load-end)
 
 >End Point prefix is **/api/v2/topology/map/load**
 
@@ -59,7 +57,6 @@ Use this API to start the topology data load. This API is used to markup the pro
 The process retrieves a new “rollupid” to be used in the data ingestion API. Upon a successful iteration (“Response 200”), the response includes a new “rollupid”, which is used by the ‘Bulk entities data ingestion’ API.
 
 <aside class="notice">
-Please note</br>
 The iteration can fail (“Response 401”) because a user does not exist in the topology service.<br/>
 In this case, the user should be created using the Topology User Creation API.
 </aside>
@@ -87,7 +84,7 @@ Each PUT call can contain up to 500 records that must be of the same entity type
 * Every bulk should include:</br>
 1) Bulk serial number of entity bulk</br>
 2) Number of rows in the bulk</br>
-3) rollupId
+3) rollupId</br>
 4) Topology data fields and data corresponding to the entity
 * Entity Load validations:
 1) Mandatory arguments validation (according to the entity mapping guidelines)</br>
@@ -95,16 +92,16 @@ Arguments content validation (according to the entity mapping guidelines)</br>
 
 
 <aside class="notice">
-Please note</br>
 The PUT call can succeed even if some entities fail on validation.
 </aside>
 
 
 **Request Arguments**
+
+
 Argument | Description
 ---------| -----------
-type | The Entity type, taken from a predefined list:
-“REGION”, “SITE”, “NODE”, “CARD”, “INTERFACE”, “CELL”, “LINK”, “SERVICE”, “APPLICATION”, “LOGICALEGROUP". [**required**]
+type | The Entity type, taken from a predefined list: “REGION”, “SITE”, “NODE”, “CARD”, “INTERFACE”, “CELL”, “LINK”, “SERVICE”, “APPLICATION”, “LOGICALEGROUP". [**required**]
 rollupId | rollupId retrieved from the load start API. [**required**]
 timestamp | Date and time. [*Optional*]
 bulkSerNumber | The topology load is divided into bulks, with each bulk stamped with a serial number. [*Optional*]
@@ -130,8 +127,9 @@ https://app.anodot.com/api/v2/topology/map/load/start \
 }
 ```
 
-### Request Response - successful iteration
+**Request Response - successful iteration**
 
+```json
 Response 200:
 {
   "bulkSize": 500,
@@ -141,8 +139,11 @@ Response 200:
   "validationErrors": [],
   "rollupId": 26
 }
+```
 
-### Request Response - failed entity records
+**Request Response - failed entity records**
+
+```json
 
 {
     "rollupId": 28,
@@ -155,17 +156,22 @@ Response 200:
     "missingIds": {},
     "entityCounts": {}
 }
-
+```
 In both the above responses, the PUT call has successfully passed.
 
 ## Topology entity arguments
+* Product Arguments:</br> 
+Each topology entity consists of a predefined set of product arguments. These arguments are used in the network topology view by default (Presentation names, Search capability and Info).
+* Custom Arguments:</br>
+Custom arguments can be added ad-hoc by the customer as additional arguments. Keep in mind these custom fields won’t be used in the network topology search and informational view capability by default and will require product customization that should be coordinated with the product team. Please send a mail to support@anodot.com if you would like to start using the extended version or reach out your CSM.
 
 <aside class="success">
 A Pro Tip:</br>
-* Product Arguments: Each topology entity consists of a predefined set of product arguments. These arguments are used in the network topology view by default (Presentation names, Search capability and Info). 
-
-Details of predefined arguments set per entity is given in the attached (refer to the section “Entity Arguments Description”): 
-* Custom Arguments: Custom arguments can be added ad-hoc by the customer as additional arguments. Keep in mind these custom fields won’t be used in the network topology search and informational view capability by default and will require product customization that should be coordinated with the product team. Please send a mail to support@anodot.com if you would like to start using the extended version or reach out your CSM.
+Each entity record consist a row which start with the entity 'id' followed by the mandatory/optional entity fields.</br>
+</br>
+For example:</br>
+"rows": {
+entity "id": "{"entity field":"value"}
 </aside>
 
 
@@ -423,7 +429,6 @@ If the Integrity validation results include a certain amount of crucial mismatch
 
 
 <aside class="notice">
-Please note</br>
 Successful responses result in “Response 200”.
 </aside>
 
