@@ -1,17 +1,17 @@
 # Topology
-The Topology APIs enable you to load topology data such as Customers, Geografical and Network Information, the data is then presented over Anodot map view. 
+The Topology APIs enable you to load topology data such as Customers, Geographical and Network Information, the data is then presented over Anodot map view. 
 
 You can find more information about the Network Topology Map in our - [Topology documentation](https://support.anodot.com/hc/en-us/articles/4415016305682-Overview)
 
-The Anodot Topology Data ingestion mechanism assembled from 3 types of APIs.
+The Anodot Topology Data ingestion mechanism is made up of 3 APIs.
 
-* [Topology User](#topology-user)
+* [Topology User](#topology-user) - One time creation of a topology entity
 * [Topology Data Ingestion](#topology-data-ingestion)
 * [Topology Metric Mapping](#topology-metric-mapping)
 
 
 ## Topology User
-Use this API to create a tooplogy user.
+Use this API to create a topology user.
 
 >End Point prefix is **/api/v2/topology/user**
 
@@ -19,22 +19,20 @@ Use this API to create a tooplogy user.
 <aside class="warning">
 Topology User creation:</br>
 This user is required only for the first time the topology APIs are used by the customer.
-A topology user is initially created prior to the topology data load. 
+A topology user should be created before you load any topology data. 
 </aside>
 
 Argument | Description
 ---------| -----------
 id | customerID [Get CustomerID](#get_customerID) [**Required**]
 
-> Request Example: Create topology user
+> Request Example: Create the topology user
 
 ```shell
 curl -X PUT \
 {
  "_id": "625bcc6e4af784000fc3128d"
 }
-
-
 ```
 
 ## Topology Data Ingestion
@@ -52,7 +50,7 @@ The topology data load APIs consist of three APIs that load the full updated top
 
 
 ## Load Start
-Use this API to start the topology data load. This API is used to markup the process initiation.
+Use this API to start the topology data load. This API is used to mark the process initiation.
 
 The process retrieves a new “rollupid” to be used in the data ingestion API. Upon a successful iteration (“Response 200”), the response includes a new “rollupid”, which is used by the ‘Bulk entities data ingestion’ API.
 
@@ -62,15 +60,13 @@ In this case, the user should be created using the Topology User Creation API.
 </aside>
 
 
-> Request Example: Create topology user
+> Request Example: Load start
 
 ```shell
 curl -X POST \
 https://app.anodot.com/api/v2/topology/map/load/start \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
-
-
 ```
 
 ## Bulk Entities Load
