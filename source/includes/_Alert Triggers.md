@@ -391,7 +391,7 @@ alertConfigurationId | string(uuid) | example: 20262fb3-00ba-412c-a515-aec74c482
 title | string | example: Jetty servers availability.<br/>Alert title.
 description	| string| example: This alerts monitors the availablity of the jetty servers.<br/> Alert description.
 severity |string(Enum - critical - high - medium - low - info)| example: critical <br/>Alert severity.
-startTime|integer(int32)|example: 1512882919 <br/>Start time of the anomaly (epoch time in seconds).
+startTime|integer(int32)|example: 1512882919 <br/>Start timestamp of the alert (epoch time in seconds).
 updatedTime|integer(int32) |example: 1512882919<br/>Last timestamp the alert was updated (epoch time in seconds).<br/> Update means that an open metric was closed or new metric was added to the alert.
 endTime|integer(int32)|example: 1512982919<br/>End timestamp of the alert (epoch time in seconds). May be empty for non 'closed' alerts.
 channels| object array | Array of [channels](#channels-array) associated with the alert.
