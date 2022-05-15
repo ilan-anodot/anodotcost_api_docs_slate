@@ -5,7 +5,7 @@ You can find more information about the Network Topology Map in our - [Topology 
 
 The Anodot Topology Data ingestion mechanism assembled from 3 types of APIs.
 
-* [Topology User](#Topology-User)
+* [Topology User](#topology-user)
 * [Topology Data Ingestion](#Topology-Data-Ingestion)
 * [Topology Metric Mapping](#Topology-Metric-Mapping)
 * [Topology entity fields](#Topology-Entity-Fields)
