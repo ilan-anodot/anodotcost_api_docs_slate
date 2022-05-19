@@ -115,7 +115,7 @@ Source | The pre-defined source of the request (e.g rest_api, Chef, Jenkins) [**
 Properties | Key-value pairs, can be whatever the user wants to add as additional data except the ones that are already part of the body arguments like title, description, category and so on. E.g: severity: high, publisher: nyt, exchange: rubicon. [*Optional*]
 StartDate |The start time of the event. Needs to be in epochtime (seconds)[**required**]
 EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
-Type (New) | The user event type. Possible values:</br>Display - Used for Display Only</br>Influence - Used for influencing events</br>Suppress - Used to suppress specific metrics from an alert</br>OfficeHours - Used to pause an alert altogether.</br>This field is relevant for Suppress and OfficeHours events. [*Optional*]
+Type (New) | The user event type. Possible values:</br>Display - Used for Display Only</br>Influence - Used for influencing events</br>Suppress - Used to suppress specific metrics from an alert. Can also be used as Display and influencing events </br>OfficeHours - Used to pause an alert altogether. Can also be used as Display and influencing events</br>This field is relevant for Suppress and OfficeHours events. [*Optional*]
 Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: Start, End.</br> This field is relevant for Suppress and OfficeHours events. [*Optional*]
 
 <aside class="success">

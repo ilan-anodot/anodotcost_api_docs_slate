@@ -468,20 +468,8 @@ GET http://{{app-url}}/api/v2/topology/user/metric-mapping
 Argument | Description
 ---------| -----------
 Measure name | Measure name as it appears in Anodot’s managed metrics.  [**Required**]
-delimiter | This will be used in cases where metric dimension concatenation is required in order to create a matching value between the Anodot metrics and the topology entity “Dimension ID”. The delimiter is irrelevant in cases where there's only one property in the “properties” field. In these cases, the field can be empty or include any type of character. [**Required**]
-
-For example:
-Interface entity dimension ID : Router1/Interface10
-Anodot metric mapping : 
-Measure: Traffic 
-Dimensions:
-Host Name: Router1
-Interface NameInterface10
-
- “delimiter”: “/”,
- "properties": [“Router1”, “Interface10”]
-
- 
+delimiter | This will be used in cases where metric dimension concatenation is required in order to create a matching value between the Anodot metrics and the topology entity “Dimension ID”. The delimiter is irrelevant in cases where there's only one property in the “properties” field. In these cases, the field can be empty or include any type of character. [**Required**]  <br/><br/>For example: <br/>Interface entity dimension ID : Router1/Interface10 <br/><br/>Anodot metric mapping :  <br/>Measure: Traffic  <br/><br/>Dimensions: <br/>Host Name: Router1 <br/>Interface Name: Interface10 <br/>
+ <br/>“delimiter”: “/”, <br/>"properties": [“Router1”, “Interface10”] <br/>
 properties | The metric dimension that will be used as a matching property between the Anodot metric and the topology entity “Dimension ID”. [**Required**]
 types | Topology Entity Type (REGION, SITE, NODE, CARD, INTERFACE, LINK, CELL, SERVICE, APPLICATION, LOGICAL GROUP). [**Required**]
 
