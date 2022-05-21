@@ -106,7 +106,7 @@ curl -X PUT \
 https://app.anodot.com/api/v2/topology/map/load/start \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
-{
+-D '{
   "bulkSerNumber": 1,
   "numberOfRows": 7,
   "type": "SITE",
@@ -115,13 +115,14 @@ https://app.anodot.com/api/v2/topology/map/load/start \
     "DFWIRV01ENB001": "{"id":"DFWIRV01ENB001","parentRegionId":"DFWIRV01","name":"DFWIRV01ENB001","latitude":"32.906672","longitude":"-97.036331","customer":"DFW"}",
   },
   "rollupId": "6"
-}
+}'
 ```
 
-### Request Response - successful iteration
+### Response - successful iteration
+
+> Response 200 example:
 
 ```json
-Response 200:
 {
   "bulkSize": 500,
   "entityCounts": {},
@@ -132,7 +133,9 @@ Response 200:
 }
 ```
 
-### Request Response - failed entity records
+### Response - with failed entity records
+
+> Response with failed validations example:
 
 ```json
 {
@@ -155,7 +158,7 @@ In both responses demonstrated, the PUT call was successful.
 * Product Arguments:</br> 
 Each topology entity consists of a predefined set of product arguments. These arguments are used in the network topology view by default (Presentation names, Search capability and Info).
 * Custom Arguments:</br>
-Custom arguments can be added ad-hoc by the customer as additional arguments. Keep in mind these custom fields won’t be used in the network topology search and informational view capability by default and will require product customization that should be coordinated with the product team. Please send a mail to support@anodot.com if you would like to start using the extended version or reach out your CSM.
+Custom arguments can be added ad-hoc by the customer as additional arguments. Keep in mind these custom fields will not be used in the network topology search and informational view capability by default and will require product customization that should be coordinated with the product team. Please send a mail to support@anodot.com if you would like to start using the extended version or reach out your CSM.
 
 <aside class="success">
 A Pro Tip:</br>
@@ -166,16 +169,6 @@ entity "id": "{"entity field":"value"}
 </aside>
 
 ### Region entity
-
-* type=”REGION”
-* There can be several region levels, for example: District, Customer, Location.
-
-Argument | Unique | Description
----------| ------ | -----------
-id | Y | Key field. Unique identifier of the entity. The value shall match one/multiple metrics dimensions combined for uniqueness and identification. [**Required**]
-parentRegionId | Y | Used for region relation. Region-> Upper Region level association. In case the region level is the upper level, the field can be Null[**Required**]
-name | Y | Region display Name. [**Required**]
-type | N | Type of Region and Site. For example: County, City, etc. [*Optional*]
 
 > Request Example: Region entity
 
@@ -193,7 +186,31 @@ type | N | Type of Region and Site. For example: County, City, etc. [*Optional*]
 
 ```
 
+* type=”REGION”
+* There can be several region levels, for example: District, Customer, Location.
+
+Argument | Unique | Description
+---------| ------ | -----------
+id | Y | Key field. Unique identifier of the entity. The value shall match one/multiple metrics dimensions combined for uniqueness and identification. [**Required**]
+parentRegionId | Y | Used for region relation. Region-> Upper Region level association. In case the region level is the upper level, the field can be Null[**Required**]
+name | Y | Region display Name. [**Required**]
+type | N | Type of Region and Site. For example: County, City, etc. [*Optional*]
+
 ### Site entity
+
+> Request Example: Site entity
+
+```json
+{
+  "bulkSerNumber": 4,
+  "numberOfRows": 1,
+  "type": "SITE",
+  "rows": {
+"KFC-Site1": "{"id":"KFC-Site1","parentRegionId":"KFC-C1-NYC","name":"KFC-Site1","latitude":"30.907385","longitude":"-90.03882","customer":"KFC"}"  }
+  "rollupId": "6"
+}
+
+```
 
 * type=”SITE”
 
@@ -212,22 +229,20 @@ address | N | Site address. [*Optional*]
 zipcode | N | Site Zip Code. [*Optional*]
 customer | N | Customer names can be used in cases of enterprise sites, mobile shared sites etc. [*Optional*]
 
-> Request Example: Site entity
+### Node entity
+
+> Request Example: Node entity
 
 ```json
 {
   "bulkSerNumber": 4,
   "numberOfRows": 1,
-  "type": "SITE",
+  "type": "NODE",
   "rows": {
-"KFC-Site1": "{"id":"KFC-Site1","parentRegionId":"KFC-C1-NYC","name":"KFC-Site1","latitude":"30.907385","longitude":"-90.03882","customer":"KFC"}"  }
+ "KFC-Site1-NR1": "{"id":"KFC-Site1-NR1","name":"KFC-Site1-NR1","siteId":"KFC-Site1","keyword":"Cell Site","type":"Cell Site","domain":"5G","customer":"KFC"}"}
   "rollupId": "6"
 }
-
 ```
-
-### Node entity
-
 * type=”NODE”
 
 Argument | Unique | Description
@@ -245,22 +260,20 @@ ip | N | Node IP Address. [*Optional*]
 customer | N | Customer related Node. [*Optional*]
 relatedNodeId | N | Dimension ID of a related Node, for example: NodeB -> RNC relation. [*Optional*]
 
-> Request Example: Node entity
+### Cell entity
+
+> Request Example: Cell entity
 
 ```json
 {
   "bulkSerNumber": 4,
   "numberOfRows": 1,
-  "type": "NODE",
+  "type": "CELL",
   "rows": {
- "KFC-Site1-NR1": "{"id":"KFC-Site1-NR1","name":"KFC-Site1-NR1","siteId":"KFC-Site1","keyword":"Cell Site","type":"Cell Site","domain":"5G","customer":"KFC"}"}
+ "KFC-Site1-NR1C1": "{"id":"KFC-Site1-NR1C1","name":"1","relatedNodeId":"KFC-Site1-NR1","azimuth":"270","domain":"5G","status":"Active"}"}
   "rollupId": "6"
 }
-
 ```
-
-### Cell entity
-
 * type=”CELL”
 
 Argument | Unique | Description
@@ -282,33 +295,7 @@ neighborcells | N | Cell status, such as: Active, In Use, In Maintenance, Planne
 tilt | N | Cell tilt. [*Optional*]
 description | N | Cell Latitude coordinate. Required only in case in which the cell is located away from the site. [*Optional*]
 
-
-> Request Example: Cell entity
-
-```json
-{
-  "bulkSerNumber": 4,
-  "numberOfRows": 1,
-  "type": "CELL",
-  "rows": {
- "KFC-Site1-NR1C1": "{"id":"KFC-Site1-NR1C1","name":"1","relatedNodeId":"KFC-Site1-NR1","azimuth":"270","domain":"5G","status":"Active"}"}
-  "rollupId": "6"
-}
-
-```
-
 ### Card entity
-
-* type=”CARD”
-
-Argument | Unique | Description
----------| ------ | -----------
-id | Y | Key field. Unique identifier of the entity. The value shall match one/multiple metrics dimensions combined for uniqueness and identification. [**Required**]
-name | N | Card display name. [**Required**]
-relatedNodeId  | N | The “id” of the parent Node, corresponding to ‘NODE’ entity “id”. [**Required**]
-type | N | Free text describing the card type, for example: PIC. [*Optional*]
-status | N | Card status. [*Optional*]
-description | N | Free text. [*Optional*]
 
 > Request Example: Card entity
 
@@ -321,11 +308,32 @@ description | N | Free text. [*Optional*]
     "RTR01/CPU01": "{"id":"RTR01/CPU01","name":"RTR01/CPU01","relatedNodeId":"RTR01","type":"CPU","status":"Active"}"}
   "rollupId": "6"
 }
-
 ```
+* type=”CARD”
+
+Argument | Unique | Description
+---------| ------ | -----------
+id | Y | Key field. Unique identifier of the entity. The value shall match one/multiple metrics dimensions combined for uniqueness and identification. [**Required**]
+name | N | Card display name. [**Required**]
+relatedNodeId  | N | The “id” of the parent Node, corresponding to ‘NODE’ entity “id”. [**Required**]
+type | N | Free text describing the card type, for example: PIC. [*Optional*]
+status | N | Card status. [*Optional*]
+description | N | Free text. [*Optional*]
 
 ### Interface entity
 
+> Request Example: Interface entity
+
+```json
+{
+  "bulkSerNumber": 4,
+  "numberOfRows": 1,
+  "type": "INTERFACE",
+  "rows": {
+ "RTR01/ETH01": "{"id":"RTR01/ETH01","name":"RTR01/ETH01","relatedNodeId":"RTR01","type":"Ethernet","status":"Active"}"}
+  "rollupId": "6"
+}
+```
 * type=”INTERFACE”
 
 Argument | Unique | Description
@@ -339,7 +347,9 @@ description | N | Free text. [*Optional*]
 ip | N | Interface IP Address. [*Optional*]
 customer | N | Associated customer. [*Optional*]
 
-> Request Example: Interface entity
+### Link entity
+
+> Request Example: Link entity
 
 ```json
 {
@@ -347,13 +357,10 @@ customer | N | Associated customer. [*Optional*]
   "numberOfRows": 1,
   "type": "INTERFACE",
   "rows": {
- "RTR01/ETH01": "{"id":"RTR01/ETH01","name":"RTR01/ETH01","relatedNodeId":"RTR01","type":"Ethernet","status":"Active"}"}
+ "RTR01-RTR02-001": "{"id":"RTR01-RTR02-001"","name":"RTR01-RTR02-001","sourceNodeId":"RTR01","destNodeId":"RTR02","type":"Ethernet","status":"Active"}
   "rollupId": "6"
 }
-
 ```
-
-### Link entity
 
 * type=”LINK”
 
@@ -370,22 +377,20 @@ status | N | Interface status. [*Optional*]
 description | N | Free text. [*Optional*]
 customer | N | Associated customer. [*Optional*]
 
+### Service entity
 
-> Request Example: Link entity
+> Request Example: Service entity
 
 ```json
 {
   "bulkSerNumber": 4,
   "numberOfRows": 1,
-  "type": "INTERFACE",
+  "type": "SERVICE",
   "rows": {
- "RTR01-RTR02-001": "{"id":"RTR01-RTR02-001"","name":"RTR01-RTR02-001","sourceNodeId":"RTR01","destNodeId":"RTR02","type":"Ethernet","status":"Active"}
+ "OSFP-001": "{"id":"OSFP-001"","name":OSFP-001","type":"OSFP Ring","status":"Active","relatedEntityType":"INTERFACE","relatedEntityId":"RTR01/ETH01"}"}
   "rollupId": "6"
 }
-
 ```
-
-### Service entity
 
 * type=”SERVICE”
 
@@ -400,30 +405,7 @@ relatedEntityId | N | Dimension ID of the associated entity instance. [*Optional
 description | N | Free text. [*Optional*]
 customer | N | Associated customer. [*Optional*]
 
-
-> Request Example: Service entity
-
-```json
-{
-  "bulkSerNumber": 4,
-  "numberOfRows": 1,
-  "type": "SERVICE",
-  "rows": {
- "OSFP-001": "{"id":"OSFP-001"","name":OSFP-001","type":"OSFP Ring","status":"Active","relatedEntityType":"INTERFACE","relatedEntityId":"RTR01/ETH01"}"}
-  "rollupId": "6"
-}
-
-```
-
 ## Load End
-Use this API as a markup to end the topology load process. The API initiates internal enrichment processing and integrity validation between the topology entities. As a result, the execution time for this API may take several minutes.
-If the Integrity validation results include a certain amount of crucial mismatched data (according to internal thresholds), the topology data load will be aborted.
-{rollupId} is being retrived by the [Load Start](#Load-Start)
-
-
-<aside class="notice">
-Successful responses result in “Response 200”.
-</aside>
 
 > Requests Structure:
 
@@ -438,9 +420,16 @@ https://app.anodot.com/api/v2/topology/map/load/1/end \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
+Use this API as a markup to end the topology load process. The API initiates internal enrichment processing and integrity validation between the topology entities. As a result, the execution time for this API may take several minutes.
+If the Integrity validation results include a certain amount of crucial mismatched data (according to internal thresholds), the topology data load will be aborted.
+{rollupId} is being retrived by the [Load Start](#Load-Start)
+
+<aside class="notice">
+Successful responses result in “Response 200”.
+</aside>
+
 ## Topology Metric Mapping
 This API loads a metric mapping of the user by mapping between the "Entity id" to the Metric dimension. This API is not used periodically but upon changes to the user metrics.
-
 
 <aside class="success">
 A Pro Tip:</br>
@@ -454,17 +443,6 @@ Topology Dimension ID: Router1/GE-1/1/0
 > Requests Structure: <br/>
 PUT http://{{app-url}}/api/v2/topology/user/metric-mapping<br/>
 GET http://{{app-url}}/api/v2/topology/user/metric-mapping
-
-
-**Request Arguments**
-Argument | Description
----------| -----------
-Measure name | Measure name as it appears in Anodot’s managed metrics.  [**Required**]
-delimiter | This will be used in cases where metric dimension concatenation is required in order to create a matching value between the Anodot metrics and the topology entity “Dimension ID”. The delimiter is irrelevant in cases where there's only one property in the “properties” field. In these cases, the field can be empty or include any type of character. [**Required**]  <br/><br/>For example: <br/>Interface entity dimension ID : Router1/Interface10 <br/><br/>Anodot metric mapping :  <br/>Measure: Traffic  <br/><br/>Dimensions: <br/>Host Name: Router1 <br/>Interface Name: Interface10 <br/>
- <br/>“delimiter”: “/”, <br/>"properties": [“Router1”, “Interface10”] <br/>
-properties | The metric dimension that will be used as a matching property between the Anodot metric and the topology entity “Dimension ID”. [**Required**]
-types | Topology Entity Type (REGION, SITE, NODE, CARD, INTERFACE, LINK, CELL, SERVICE, APPLICATION, LOGICAL GROUP). [**Required**]
-
 
 > Request Example: Topology Metric Mapping
 
@@ -496,6 +474,15 @@ https://app.anodot.com/api/v2/topology/user/metric-mapping \
     }
   ]
 }’
-
 ```
+
+### Request Arguments
+
+Argument | Description
+---------| -----------
+Measure name | Measure name as it appears in Anodot’s managed metrics.  [**Required**]
+delimiter | This will be used in cases where metric dimension concatenation is required in order to create a matching value between the Anodot metrics and the topology entity “Dimension ID”. The delimiter is irrelevant in cases where there's only one property in the “properties” field. In these cases, the field can be empty or include any type of character. [**Required**]  <br/><br/>For example: <br/>Interface entity dimension ID : Router1/Interface10 <br/><br/>Anodot metric mapping :  <br/>Measure: Traffic  <br/><br/>Dimensions: <br/>Host Name: Router1 <br/>Interface Name: Interface10 <br/><br/>“delimiter”: “/”, <br/>"properties": [“Router1”, “Interface10”] <br/>
+properties | The metric dimension that will be used as a matching property between the Anodot metric and the topology entity “Dimension ID”. [**Required**]
+types | Topology Entity Type (REGION, SITE, NODE, CARD, INTERFACE, LINK, CELL, SERVICE, APPLICATION, LOGICAL GROUP). [**Required**]
+
 
