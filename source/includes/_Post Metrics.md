@@ -22,12 +22,12 @@ Refer to [Anodot on GitHub](https://github.com/anodot/anodot-python) for more de
 > Request Example - Sending metrics (3.0)
 
 ```shell
-curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=anodot30&token={{data-token}}' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=anodot30&token={{DC_Key}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
  {
    "schemaId": "111111-22222-3333-4444",
-   "timestamp": “143876178”,
+   "timestamp": “1438761780”,
    "dimensions": {
      "Geo": "US",
      "Device": "Mobile",
@@ -81,11 +81,11 @@ tags | (Optional) List of tags attached to the measure. Key value pairs. Notice 
 > Request Example - Sending a watermark request
 
 ```shell
-curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?protocol=anodot30&token={{data-token}}' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?protocol=anodot30&token={{DC_Key}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "schemaId": "111111-22222-3333-4444",
-  "watermark": “143877000”
+  "watermark": “1438770000”
 }'
 ```
 
@@ -124,7 +124,7 @@ It is highly recommended to use it. Even though Anodot can process the data samp
 > Request Example - Sending metrics (2.0)
 
 ```shell
-curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=anodot20&token={{data-token}}' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=anodot20&token={{DC_Key}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
   {
@@ -144,7 +144,7 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=a
         "MaryJane"
       ]
     },
-    "timestamp": 143876178,
+    "timestamp": 1438761780,
     "value": 58
   }
 ]'
@@ -184,7 +184,7 @@ gauge (average aggregation), counter (sum aggregation). (default is gauge)
 > Request Example - Sending metrics (1.0)
 
 ```shell
-curl --location --request POST 'https://app.anodot.com/api/v1/metrics&token={{data-token}}' \
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics&token={{DC_Key}}' \
 --header 'Content-Type: application/json' \
 --data-raw '[
   {

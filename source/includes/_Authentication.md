@@ -5,7 +5,7 @@
 > Using the basic token in a REST call:
 
 ```shell
-POST 'https://{{app-url}}/api/v1/metrics?token=${DC_Key}&protocol=anodot20'
+POST 'https://{{app-url}}/api/v1/metrics?token={{DC_Key}}&protocol=anodot20'
 ```
 
 Basic authentication is used for:
@@ -35,7 +35,7 @@ To use access token authentication, follow these 3 simple steps:
 POST 'https://{{app-url}}/api/v2/access-token/?responseformat=JSON' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-	"refreshToken" : "{{data-token}}"
+	"refreshToken" : "{{access-key}}"
 }
 '
 ```
@@ -61,7 +61,7 @@ responseformat [**Optional**] | Can be set to JSON (case sensitive!) if you woul
 ```
 
 
-**Step 2:** Use the access-key's token to request an access-token.</br>The retrieved access-token is valid for 24 hours.
+**Step 2:** Use the access-key's token to request an bearer-token.</br>The retrieved bearer-token is valid for 24 hours.
 
 *Response Codes:*
 
@@ -80,8 +80,8 @@ https://{{app-url}}.anodot.com/api/v2/feedbacks \
 -d '{"startTime" : 1578391000, "endTime": 1578392000}'
 ```
 
-**Step 3:** Use the retrieved access-token in your subsequent API calls<br/>
-Set the Authorization header of your calls with *Bearer* and the retrieved access-token.
+**Step 3:** Use the retrieved bearer-token in your subsequent API calls<br/>
+Set the Authorization header of your calls with *Bearer* and the retrieved bearer-token.
 
 <aside class="notice">
 Remember:<br/>Access token expiration is controlled via the 'User session timeout' configuration in the settings page, under the Authentication tab.
