@@ -36,11 +36,11 @@ curl -X PUT \
 ```
 
 ## Topology Data Ingestion
-Anodot’s topology data ingestion mechanism operates on a full data set ingestion;  delta additions aren’t supported.
+Anodot’s topology data ingestion mechanism operates on a full data set ingestion, partial additions are not supported.
 
-During this process, the ingested data is first validated and only then loaded to override the existing data stored in the topology entities.
+During this process, the ingested data is first validated and only then loaded to overwrite the existing data stored in the topology entities.
 
-The topology data load APIs consist of three APIs that load the full updated topology data set:
+The topology data-load APIs consist of three APIs that load the full updated topology data set:
 
 * [Load Start](#load-start)
 * [Bulk Entities Load](#bulk-entities-load)
@@ -48,17 +48,16 @@ The topology data load APIs consist of three APIs that load the full updated top
 
 >End Point prefix is **/api/v2/topology/map/load**
 
-
 ## Load Start
 Use this API to start the topology data load. This API is used to mark the process initiation.
 
-The process retrieves a new “rollupid” to be used in the data ingestion API. Upon a successful iteration (“Response 200”), the response includes a new “rollupid”, which is used by the ‘Bulk entities data ingestion’ API.
+The process retrieves a new “rollupid” to be used in the data ingestion API.</br>
+A successful response ("Response 200”) includes a new “rollupid”, which is used by the ‘Bulk entities load’ API.
 
 <aside class="notice">
-The iteration can fail (“Response 401”) because a user does not exist in the topology service.<br/>
-In this case, the user should be created using the Topology User Creation API.
+The call might fail (“Response 401”) if a user does not exist in the topology service.<br/>
+In this case, the user should be created using the 'Topology User' Creation API.
 </aside>
-
 
 > Request Example: Load start
 
@@ -70,30 +69,26 @@ https://app.anodot.com/api/v2/topology/map/load/start \
 ```
 
 ## Bulk Entities Load
-Use this API to start the topology data load. This API is used to markup the process initiation.
-
 Use this API to load the topology data for each entity.
 
-Each PUT call can contain up to 500 records that must be of the same entity type.
-
+* Each PUT call can contain up to 500 records.
+* Each PUT call should contain only records of the same entity type.
 * The record format is a key value pair, where the key is the entity id, and the value is a JSON representation of the entity.
-* Every bulk should include:</br>
-1) Bulk serial number of entity bulk</br>
-2) Number of rows in the bulk</br>
-3) rollupId</br>
-4) Topology data fields and data corresponding to the entity
+* Every bulk should include:
+** Bulk serial number of entity bulk
+** Number of rows in the bulk
+** rollupId
+** Topology data fields and data corresponding to the entity
 * Entity Load validations:
-1) Mandatory arguments validation (according to the entity mapping guidelines)</br>
-Arguments content validation (according to the entity mapping guidelines)</br>
+** Mandatory arguments validation (according to the entity mapping guidelines)
+** Arguments content validation (according to the entity mapping guidelines)
 
 
 <aside class="notice">
 The PUT call can succeed even if some entities fail on validation.
 </aside>
 
-
-**Request Arguments**
-
+### Request Arguments
 
 Argument | Description
 ---------| -----------
@@ -123,7 +118,7 @@ https://app.anodot.com/api/v2/topology/map/load/start \
 }
 ```
 
-**Request Response - successful iteration**
+### Request Response - successful iteration
 
 ```json
 Response 200:
@@ -137,10 +132,9 @@ Response 200:
 }
 ```
 
-**Request Response - failed entity records**
+### Request Response - failed entity records
 
 ```json
-
 {
     "rollupId": 28,
     "bulkSize": 6,
@@ -153,9 +147,11 @@ Response 200:
     "entityCounts": {}
 }
 ```
-In both the above responses, the PUT call has successfully passed.
+
+In both responses demonstrated, the PUT call was successful.
 
 ## Topology entity arguments
+
 * Product Arguments:</br> 
 Each topology entity consists of a predefined set of product arguments. These arguments are used in the network topology view by default (Presentation names, Search capability and Info).
 * Custom Arguments:</br>
@@ -163,16 +159,15 @@ Custom arguments can be added ad-hoc by the customer as additional arguments. Ke
 
 <aside class="success">
 A Pro Tip:</br>
-Each entity record consist a row which start with the entity 'id' followed by the mandatory/optional entity fields.</br>
-</br>
+Each entity record consists a row which starts with the 'entity id' followed by the mandatory/optional entity fields.</br>
 For example:</br>
 "rows": {
 entity "id": "{"entity field":"value"}
 </aside>
 
-
 ### Region entity
-* type=”REGION”.
+
+* type=”REGION”
 * There can be several region levels, for example: District, Customer, Location.
 
 Argument | Unique | Description
@@ -198,9 +193,11 @@ type | N | Type of Region and Site. For example: County, City, etc. [*Optional*]
 
 ```
 
-### Site entity.
-* type=”SITE”.
-* Site shall be associated with the Region entity.
+### Site entity
+
+* type=”SITE”
+
+* Site will be associated with the Region entity.
 
 Argument | Unique | Description
 ---------| ------ | -----------
@@ -215,8 +212,6 @@ address | N | Site address. [*Optional*]
 zipcode | N | Site Zip Code. [*Optional*]
 customer | N | Customer names can be used in cases of enterprise sites, mobile shared sites etc. [*Optional*]
 
-
-
 > Request Example: Site entity
 
 ```json
@@ -230,8 +225,10 @@ customer | N | Customer names can be used in cases of enterprise sites, mobile s
 }
 
 ```
-### Node entity.
-* type=”NODE”.
+
+### Node entity
+
+* type=”NODE”
 
 Argument | Unique | Description
 ---------| ------ | -----------
@@ -262,8 +259,9 @@ relatedNodeId | N | Dimension ID of a related Node, for example: NodeB -> RNC re
 
 ```
 
-### Cell entity.
-* type=”CELL”.
+### Cell entity
+
+* type=”CELL”
 
 Argument | Unique | Description
 ---------| ------ | -----------
@@ -293,15 +291,15 @@ description | N | Cell Latitude coordinate. Required only in case in which the c
   "numberOfRows": 1,
   "type": "CELL",
   "rows": {
- "KFC-Site1-NR1C1": "{"id":"KFC-Site1-NR1C1","name":"1","relatedNodeId":"KFC-Site1-NR1","azimuth":"270","domain":"5G","status":"Active"}"
+ "KFC-Site1-NR1C1": "{"id":"KFC-Site1-NR1C1","name":"1","relatedNodeId":"KFC-Site1-NR1","azimuth":"270","domain":"5G","status":"Active"}"}
   "rollupId": "6"
 }
 
 ```
 
+### Card entity
 
-### Card entity.
-* type=”CARD”.
+* type=”CARD”
 
 Argument | Unique | Description
 ---------| ------ | -----------
@@ -312,7 +310,6 @@ type | N | Free text describing the card type, for example: PIC. [*Optional*]
 status | N | Card status. [*Optional*]
 description | N | Free text. [*Optional*]
 
-
 > Request Example: Card entity
 
 ```json
@@ -321,15 +318,15 @@ description | N | Free text. [*Optional*]
   "numberOfRows": 1,
   "type": "CARD",
   "rows": {
- "RTR01/CPU01": "{"id":"RTR01/CPU01","name":"RTR01/CPU01","relatedNodeId":"RTR01","type":"CPU","status":"Active"}
+    "RTR01/CPU01": "{"id":"RTR01/CPU01","name":"RTR01/CPU01","relatedNodeId":"RTR01","type":"CPU","status":"Active"}"}
   "rollupId": "6"
 }
 
 ```
 
+### Interface entity
 
-### Interface entity.
-* type=”INTERFACE”.
+* type=”INTERFACE”
 
 Argument | Unique | Description
 ---------| ------ | -----------
@@ -342,7 +339,6 @@ description | N | Free text. [*Optional*]
 ip | N | Interface IP Address. [*Optional*]
 customer | N | Associated customer. [*Optional*]
 
-
 > Request Example: Interface entity
 
 ```json
@@ -351,14 +347,15 @@ customer | N | Associated customer. [*Optional*]
   "numberOfRows": 1,
   "type": "INTERFACE",
   "rows": {
- "RTR01/ETH01": "{"id":"RTR01/ETH01","name":"RTR01/ETH01","relatedNodeId":"RTR01","type":"Ethernet","status":"Active"}
+ "RTR01/ETH01": "{"id":"RTR01/ETH01","name":"RTR01/ETH01","relatedNodeId":"RTR01","type":"Ethernet","status":"Active"}"}
   "rollupId": "6"
 }
 
 ```
 
-### Link entity.
-* type=”LINK”.
+### Link entity
+
+* type=”LINK”
 
 Argument | Unique | Description
 ---------| ------ | -----------
@@ -388,9 +385,9 @@ customer | N | Associated customer. [*Optional*]
 
 ```
 
+### Service entity
 
-### Service entity.
-* type=”SERVICE”.
+* type=”SERVICE”
 
 Argument | Unique | Description
 ---------| ------ | -----------
@@ -412,14 +409,14 @@ customer | N | Associated customer. [*Optional*]
   "numberOfRows": 1,
   "type": "SERVICE",
   "rows": {
- "OSFP-001": "{"id":"OSFP-001"","name":OSFP-001","type":"OSFP Ring","status":"Active","relatedEntityType":"INTERFACE","relatedEntityId":"RTR01/ETH01"}
+ "OSFP-001": "{"id":"OSFP-001"","name":OSFP-001","type":"OSFP Ring","status":"Active","relatedEntityType":"INTERFACE","relatedEntityId":"RTR01/ETH01"}"}
   "rollupId": "6"
 }
 
 ```
 
 ## Load End
-UUse this API as a markup to end the topology load process. The API initiates internal enrichment processing and integrity validation between the topology entities. As a result, the execution time for this API may take several minutes.
+Use this API as a markup to end the topology load process. The API initiates internal enrichment processing and integrity validation between the topology entities. As a result, the execution time for this API may take several minutes.
 If the Integrity validation results include a certain amount of crucial mismatched data (according to internal thresholds), the topology data load will be aborted.
 {rollupId} is being retrived by the [Load Start](#Load-Start)
 
@@ -428,11 +425,9 @@ If the Integrity validation results include a certain amount of crucial mismatch
 Successful responses result in “Response 200”.
 </aside>
 
+> Requests Structure:
 
-> Requests Structure: <br/>
-
-POST http://{{app-url}}/api/v2/topology/map/load/{rollupId}/end<br/>
-
+> POST http://{{app-url}}/api/v2/topology/map/load/{rollupId}/end
 
 > Request Example: Load End
 
@@ -441,18 +436,15 @@ curl -X POST \
 https://app.anodot.com/api/v2/topology/map/load/1/end \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
-
-
 ```
 
-
 ## Topology Metric Mapping
-This API uploads a metric mapping of the user by mapping between the Entity "id" to the Metric dimension. This API is not used periodically but upon changes to the user metrics.
+This API loads a metric mapping of the user by mapping between the "Entity id" to the Metric dimension. This API is not used periodically but upon changes to the user metrics.
 
 
 <aside class="success">
 A Pro Tip:</br>
-Entity “id” argument:
+"Entity id” argument:
 The mapping provides the option to concatenate the metric dimension in order to create the match to the topology Dimension ID.
 For example: 
 Metric: ifInUcastPkts, Host:Router1,Interface:GE-1/1/0

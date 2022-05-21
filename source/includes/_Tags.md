@@ -8,7 +8,7 @@ Tags can be used to filter and aggregate data.
 
 1. If a tag already exists then the tag will be removed from metrics that previously matched the search expression. The tag will be added only to the metrics that match the current search expression.
 2. Tags MUST NOT contain the following characters:{ . SPACE}
-3. It can take up to 20 minutes till the metric tagging operation will be applied to the relevant metrics.
+3. It can take up to 20 minutes until the metric tagging operation is applied to the relevant metrics.
 
 
 > End Point prefix is **/v2/metrics/tags**
@@ -24,7 +24,7 @@ Multiple expressions can be associated to each tag which is treated an OR expre
 
 ```shell
 curl -X POST \
-https://app.anodot.com/api/v2/tags \
+https://app.anodot.com/api/v2/metrics/tags \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}" \
 -D '{
