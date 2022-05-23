@@ -11,10 +11,18 @@ The Anodot Topology Data ingestion mechanism is made up of 3 APIs.
 
 
 ## Topology User
-Use this API to create a topology user.
 
 >End Point prefix is **/api/v2/topology/user**
 
+> Request Example: Create the topology user
+
+```shell
+curl -X PUT \
+{
+ "_id": "625bcc6e4af784000fc3128d"
+}
+```
+Use this API to create a topology user.
 
 <aside class="warning">
 Topology User creation:</br>
@@ -26,16 +34,10 @@ Argument | Description
 ---------| -----------
 id | customerID [Get CustomerID](#get_customerID) [**Required**]
 
-> Request Example: Create the topology user
-
-```shell
-curl -X PUT \
-{
- "_id": "625bcc6e4af784000fc3128d"
-}
-```
-
 ## Topology Data Ingestion
+
+>End Point prefix is **/api/v2/topology/map/load**
+
 Anodot’s topology data ingestion mechanism operates on a full data set ingestion, partial additions are not supported.
 
 During this process, the ingested data is first validated and only then loaded to overwrite the existing data stored in the topology entities.
@@ -46,18 +48,7 @@ The topology data-load APIs consist of three APIs that load the full updated top
 * [Bulk Entities Load](#bulk-entities-load)
 * [Load End](#load-end)
 
->End Point prefix is **/api/v2/topology/map/load**
-
 ## Load Start
-Use this API to start the topology data load. This API is used to mark the process initiation.
-
-The process retrieves a new “rollupid” to be used in the data ingestion API.</br>
-A successful response ("Response 200”) includes a new “rollupid”, which is used by the ‘Bulk entities load’ API.
-
-<aside class="notice">
-The call might fail (“Response 401”) if a user does not exist in the topology service.<br/>
-In this case, the user should be created using the 'Topology User' Creation API.
-</aside>
 
 > Request Example: Load start
 
@@ -68,36 +59,17 @@ https://app.anodot.com/api/v2/topology/map/load/start \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-## Bulk Entities Load
-Use this API to load the topology data for each entity.
+Use this API to start the topology data load. This API is used to mark the process initiation.
 
-* Each PUT call can contain up to 500 records.
-* Each PUT call should contain only records of the same entity type.
-* The record format is a key value pair, where the key is the entity id, and the value is a JSON representation of the entity.
-* Every bulk should include:
-** Bulk serial number of entity bulk
-** Number of rows in the bulk
-** rollupId
-** Topology data fields and data corresponding to the entity
-* Entity Load validations:
-** Mandatory arguments validation (according to the entity mapping guidelines)
-** Arguments content validation (according to the entity mapping guidelines)
-
+The process retrieves a new “rollupid” to be used in the data ingestion API.</br>
+A successful response ("Response 200”) includes a new “rollupid”, which is used by the ‘Bulk entities load’ API.
 
 <aside class="notice">
-The PUT call can succeed even if some entities fail on validation.
+The call might fail (“Response 401”) if a user does not exist in the topology service.<br/>
+In this case, the user should be created using the 'Topology User' Creation API.
 </aside>
 
-### Request Arguments
-
-Argument | Description
----------| -----------
-type | The Entity type, taken from a predefined list: “REGION”, “SITE”, “NODE”, “CARD”, “INTERFACE”, “CELL”, “LINK”, “SERVICE”, “APPLICATION”, “LOGICALEGROUP". [**required**]
-rollupId | rollupId retrieved from the load start API. [**required**]
-timestamp | Date and time. [*Optional*]
-bulkSerNumber | The topology load is divided into bulks, with each bulk stamped with a serial number. [*Optional*]
-numberOfRows | Number of entity records in the bulk. [*Optional*]
-rows | The topology entity data according to the predefine topology entity fields. [**required**]
+## Bulk Entities Load
 
 > Request Example: Bulk Entities Load
 
@@ -150,6 +122,35 @@ https://app.anodot.com/api/v2/topology/map/load/start \
     "entityCounts": {}
 }
 ```
+
+Use this API to load the topology data for each entity.
+
+* Each PUT call can contain up to 500 records.
+* Each PUT call should contain only records of the same entity type.
+* The record format is a key value pair, where the key is the entity id, and the value is a JSON representation of the entity.
+* Every bulk should include:
+** Bulk serial number of entity bulk
+** Number of rows in the bulk
+** rollupId
+** Topology data fields and data corresponding to the entity
+* Entity Load validations:
+** Mandatory arguments validation (according to the entity mapping guidelines)
+** Arguments content validation (according to the entity mapping guidelines)
+
+<aside class="notice">
+The PUT call can succeed even if some entities fail on validation.
+</aside>
+
+### Request Arguments
+
+Argument | Description
+---------| -----------
+type | The Entity type, taken from a predefined list: “REGION”, “SITE”, “NODE”, “CARD”, “INTERFACE”, “CELL”, “LINK”, “SERVICE”, “APPLICATION”, “LOGICALEGROUP". [**required**]
+rollupId | rollupId retrieved from the load start API. [**required**]
+timestamp | Date and time. [*Optional*]
+bulkSerNumber | The topology load is divided into bulks, with each bulk stamped with a serial number. [*Optional*]
+numberOfRows | Number of entity records in the bulk. [*Optional*]
+rows | The topology entity data according to the predefine topology entity fields. [**required**]
 
 In both responses demonstrated, the PUT call was successful.
 
@@ -429,20 +430,12 @@ Successful responses result in “Response 200”.
 </aside>
 
 ## Topology Metric Mapping
-This API loads a metric mapping of the user by mapping between the "Entity id" to the Metric dimension. This API is not used periodically but upon changes to the user metrics.
 
-<aside class="success">
-A Pro Tip:</br>
-"Entity id” argument:
-The mapping provides the option to concatenate the metric dimension in order to create the match to the topology Dimension ID.
-For example: 
-Metric: ifInUcastPkts, Host:Router1,Interface:GE-1/1/0
-Topology Dimension ID: Router1/GE-1/1/0
-</aside>
+> Requests Structure:
 
-> Requests Structure: <br/>
-PUT http://{{app-url}}/api/v2/topology/user/metric-mapping<br/>
-GET http://{{app-url}}/api/v2/topology/user/metric-mapping
+> PUT http://{{app-url}}/api/v2/topology/user/metric-mapping
+
+> GET http://{{app-url}}/api/v2/topology/user/metric-mapping
 
 > Request Example: Topology Metric Mapping
 
@@ -475,6 +468,17 @@ https://app.anodot.com/api/v2/topology/user/metric-mapping \
   ]
 }’
 ```
+
+This API loads a metric mapping of the user by mapping between the "Entity id" to the Metric dimension. This API is not used periodically but upon changes to the user metrics.
+
+<aside class="success">
+A Pro Tip:</br>
+"Entity id” argument:
+The mapping provides the option to concatenate the metric dimension in order to create the match to the topology Dimension ID.
+For example: 
+Metric: ifInUcastPkts, Host:Router1,Interface:GE-1/1/0
+Topology Dimension ID: Router1/GE-1/1/0
+</aside>
 
 ### Request Arguments
 
