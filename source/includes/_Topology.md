@@ -129,13 +129,13 @@ Use this API to load the topology data for each entity.
 * Each PUT call should contain only records of the same entity type.
 * The record format is a key value pair, where the key is the entity id, and the value is a JSON representation of the entity.
 * Every bulk should include:
-** Bulk serial number of entity bulk
-** Number of rows in the bulk
-** rollupId
-** Topology data fields and data corresponding to the entity
+  * Bulk serial number of entity bulk
+  * Number of rows in the bulk
+  * rollupId
+  * Topology data fields and data corresponding to the entity
 * Entity Load validations:
-** Mandatory arguments validation (according to the entity mapping guidelines)
-** Arguments content validation (according to the entity mapping guidelines)
+  * Mandatory arguments validation (according to the entity mapping guidelines)
+  * Arguments content validation (according to the entity mapping guidelines)
 
 <aside class="notice">
 The PUT call can succeed even if some entities fail on validation.
