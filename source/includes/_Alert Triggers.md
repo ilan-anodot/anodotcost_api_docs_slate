@@ -23,9 +23,17 @@ The Alert Triggers API manages and queries these triggers and groups.
 curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered?startTime=1616929887&order=asc&sort=updatedTime&labels=aws%20monitoring&types=anomaly&channels=645aa58b-16d5-4945-a95a-9fc83af55ae6&severities=HIGH&status=OPEN' \
 --header 'Authorization: Bearer {{bearer-token}}' 
 ```
+
+> Request Example: Get Triggered Alerts by alert configuration ID
+
+```shell
+curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered?alertConfigurationIds={{alertConfigurationID}}' \
+--header 'Authorization: Bearer {{bearer-token}}' 
+```
+
 ### Request Arguments
 
-**Note** - All parameters are optional, however calling this API with no parameters will return ALL triggered alerts of the past year which is a lot of data and not recommended. So please use at least the 'starttime' as a parameter. 
+**Note** - All parameters are optional, however calling this API with no parameters will return ALL triggered alerts of the past year which is a lot of data and not recommended. So please use at least the 'startTime' as a parameter. 
 
 Field | Type | Description / Example
 -|-|-
@@ -38,6 +46,7 @@ channels | string | Comma seperated list of channel IDs to which these alerts ha
 severities | enum | Can be one (or more) of the following: {INFO,LOW,MEDIUM,HIGH,CRITICAL}
 status | enum | Can be either "OPEN" or "CLOSE"
 size | integer | You can specify the max number of triggers to return. The default is 20
+alertConfigurationIds | string | Alert configuration ID, limit the call to fetch triggers for a specific alert configuration
 
 > Response Example:
 
