@@ -1,4 +1,4 @@
-# Topology
+## Topology
 The Topology APIs enable you to load topology data such as Customers, Geographical and Network Information, the data is then presented over Anodot map view. 
 
 You can find more information about the Network Topology Map in our - [Topology documentation](https://support.anodot.com/hc/en-us/articles/4415016305682-Overview)
@@ -10,7 +10,7 @@ The Anodot Topology Data ingestion mechanism is made up of 3 APIs.
 * [Topology Metric Mapping](#topology-metric-mapping)
 
 
-## Topology User
+### Topology User
 
 >End Point prefix is **/api/v2/topology/user**
 
@@ -34,7 +34,7 @@ Argument | Description
 ---------| -----------
 id | customerID [Get CustomerID](#get_customerID) [**Required**]
 
-## Topology Data Ingestion
+### Topology Data Ingestion
 
 >End Point prefix is **/api/v2/topology/map/load**
 
@@ -48,7 +48,7 @@ The topology data-load APIs consist of three APIs that load the full updated top
 * [Bulk Entities Load](#bulk-entities-load)
 * [Load End](#load-end)
 
-## Load Start
+### Load Start
 
 > Request Example: Load start
 
@@ -69,7 +69,7 @@ The call might fail (“Response 401”) if a user does not exist in the topolog
 In this case, the user should be created using the 'Topology User' Creation API.
 </aside>
 
-## Bulk Entities Load
+### Bulk Entities Load
 
 > Request Example: Bulk Entities Load
 
@@ -90,7 +90,7 @@ https://app.anodot.com/api/v2/topology/map/load/start \
 }'
 ```
 
-### Response - successful iteration
+#### Response - successful iteration
 
 > Response 200 example:
 
@@ -105,7 +105,7 @@ https://app.anodot.com/api/v2/topology/map/load/start \
 }
 ```
 
-### Response - with failed entity records
+#### Response - with failed entity records
 
 > Response with failed validations example:
 
@@ -141,7 +141,7 @@ Use this API to load the topology data for each entity.
 The PUT call can succeed even if some entities fail on validation.
 </aside>
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Description
 ---------| -----------
@@ -154,7 +154,7 @@ rows | The topology entity data according to the predefine topology entity field
 
 In both responses demonstrated, the PUT call was successful.
 
-## Topology entity arguments
+### Topology entity arguments
 
 * Product Arguments:</br> 
 Each topology entity consists of a predefined set of product arguments. These arguments are used in the network topology view by default (Presentation names, Search capability and Info).
@@ -169,7 +169,7 @@ For example:</br>
 entity "id": "{"entity field":"value"}
 </aside>
 
-### Region entity
+#### Region entity
 
 > Request Example: Region entity
 
@@ -197,7 +197,7 @@ parentRegionId | Y | Used for region relation. Region-> Upper Region level assoc
 name | Y | Region display Name. [**Required**]
 type | N | Type of Region and Site. For example: County, City, etc. [*Optional*]
 
-### Site entity
+#### Site entity
 
 > Request Example: Site entity
 
@@ -230,7 +230,7 @@ address | N | Site address. [*Optional*]
 zipcode | N | Site Zip Code. [*Optional*]
 customer | N | Customer names can be used in cases of enterprise sites, mobile shared sites etc. [*Optional*]
 
-### Node entity
+#### Node entity
 
 > Request Example: Node entity
 
@@ -261,7 +261,7 @@ ip | N | Node IP Address. [*Optional*]
 customer | N | Customer related Node. [*Optional*]
 relatedNodeId | N | Dimension ID of a related Node, for example: NodeB -> RNC relation. [*Optional*]
 
-### Cell entity
+#### Cell entity
 
 > Request Example: Cell entity
 
@@ -296,7 +296,7 @@ neighborcells | N | Cell status, such as: Active, In Use, In Maintenance, Planne
 tilt | N | Cell tilt. [*Optional*]
 description | N | Cell Latitude coordinate. Required only in case in which the cell is located away from the site. [*Optional*]
 
-### Card entity
+#### Card entity
 
 > Request Example: Card entity
 
@@ -321,7 +321,7 @@ type | N | Free text describing the card type, for example: PIC. [*Optional*]
 status | N | Card status. [*Optional*]
 description | N | Free text. [*Optional*]
 
-### Interface entity
+#### Interface entity
 
 > Request Example: Interface entity
 
@@ -348,7 +348,7 @@ description | N | Free text. [*Optional*]
 ip | N | Interface IP Address. [*Optional*]
 customer | N | Associated customer. [*Optional*]
 
-### Link entity
+#### Link entity
 
 > Request Example: Link entity
 
@@ -378,7 +378,7 @@ status | N | Interface status. [*Optional*]
 description | N | Free text. [*Optional*]
 customer | N | Associated customer. [*Optional*]
 
-### Service entity
+#### Service entity
 
 > Request Example: Service entity
 
@@ -406,7 +406,7 @@ relatedEntityId | N | Dimension ID of the associated entity instance. [*Optional
 description | N | Free text. [*Optional*]
 customer | N | Associated customer. [*Optional*]
 
-## Load End
+### Load End
 
 > Requests Structure:
 
@@ -429,7 +429,7 @@ If the Integrity validation results include a certain amount of crucial mismatch
 Successful responses result in “Response 200”.
 </aside>
 
-## Topology Metric Mapping
+### Topology Metric Mapping
 
 > Requests Structure:
 
@@ -480,7 +480,7 @@ Metric: ifInUcastPkts, Host:Router1,Interface:GE-1/1/0
 Topology Dimension ID: Router1/GE-1/1/0
 </aside>
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Description
 ---------| -----------

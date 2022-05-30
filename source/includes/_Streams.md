@@ -1,4 +1,4 @@
-# Data Sources & Data Streams
+## Data Sources & Data Streams
 
 > End Point prefix is **/api/v2/bc**
 
@@ -22,7 +22,7 @@ Use the *data streams API* to:
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-##  Data Sources
+###  Data Sources
 
 > End Point prefix is **/api/v2/bc/data-sources**
 
@@ -33,7 +33,7 @@ There are several options to get the configured data sources:
 * Get all data sources according to names
 * Get a data source according to its id
 
-## GET data-sources
+### GET data-sources
 
 > Request Example: Get All Data Sources
 
@@ -56,13 +56,13 @@ curl -X GET \
 Use this call to get all data sources defined in your account.</br>
 You can optionally get the data sources by type.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 query [**Optional**] | String | If left empty, the response returns all data sources.</br>To get data sources of a certain source type, use the relevant ENUM value in the query.
 
-### List of source types
+#### List of source types
 ENUM | Description
 -|-
 google_storage| Google Cloud Storage 
@@ -102,7 +102,7 @@ kinesis| AWS Kinesis Stream
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 Field | Type | Description / Example
 -|-|-
@@ -110,7 +110,7 @@ id | String | Data source id. This id can be used in future calls to stream crea
 name | String | Data Source name. Used for human readability.
 type | String | The source type. Possible values are listed in source types table above.
 
-## GET data-sources/find
+### GET data-sources/find
 
 Use this call to get a list of data sources according to their name.</br>
 The string you include in the search query will be used for a case insensitive search in the data source names.</br>
@@ -125,7 +125,7 @@ curl -X GET \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -148,7 +148,7 @@ searchQuery | String | The query string is used to search the available the data
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 Response: List of data sources.</br>
 There are mutual fields appearing for all source types.</br>
@@ -163,7 +163,7 @@ modifyTime | epoch | epoch time the data source was updated
 createTime | epoch | epoch time the data source was created
 *additional* | Various | Additional fields according to data source type.</br>e.g. authentication type, database name, database host, region, bucket name and more  
 
-## GET data-sources/:id
+### GET data-sources/:id
 
 > Request Example: Get Data Source by id
 
@@ -178,7 +178,7 @@ Use this call to get a single data source according to its id.</br>
 The result will be a data source object matching the id.</br>
 In addition, all the data streams linked to the data source will be listed
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -214,7 +214,7 @@ id | String | Data source id to retrieve.
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 Response: A data source object, including all fields according to its type.</br>
 
@@ -228,7 +228,7 @@ createTime | epoch | epoch time the data source was created
 *additional* | Various | Additional fields according to data source type.</br>e.g. authentication type, database name, database host, region, bucket name and more
 streams | Array | The list of streams linked to the data source
 
-## Divert data-streams
+### Divert data-streams
 
 > Request Example: Divert streamX and streamY from source A to source B
 
@@ -244,7 +244,7 @@ Use this request to divert data streams from a one data source to another.</br>
 A data source may become invalid when user credentials were revoked and cannot be updated in the same datasource. This is the case when using "Sign in with google", "Sign in with Facebook". Other scenarios may apply too.
 Note the two sources are the same data source type.
 
-### Request Arguments and body
+#### Request Arguments and body
 
 Argument | Type | Description
 ---------|------|------------
@@ -252,7 +252,7 @@ fromDataSrc | String | Id of the datasource streams are taken from.
 toDataSrc | String | Id of the datasource streams are linked to.
 Body | Array | An array of stream Ids to be diverted between the sources
 
-## Data Streams
+### Data Streams
 
 > End Point prefix is **/api/v2/bc/data-streams**
 
@@ -262,7 +262,7 @@ Body | Array | An array of stream Ids to be diverted between the sources
 * Edit a data stream
 * Delete a data stream
 
-## GET data-streams
+### GET data-streams
 
 > Request Example: Get all data streams basic information
 
@@ -312,7 +312,7 @@ curl -X GET \
 
 Use this call to get all data streams in your account with basic information
 
-### Response Fields
+#### Response Fields
 
 The response includes a basic list of data streams, the fields for each data stream are:
 
@@ -323,7 +323,7 @@ name | string | Data stream name.
 type | string [*ENUM*] | Data stream type. See [source type list](#list-of-source-types)
 dataSourceId | string | Unique identifier of this stream's data source
 
-## GET data-streams/find 
+### GET data-streams/find 
 
 > Request Example: Get Data Streams containing *test* in their name
 
@@ -343,7 +343,7 @@ The result is a list of full data stream objects.<br/>
 Use these structures in the creation calls to create new streams with proper configuatrion.
 </aside>
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -468,11 +468,11 @@ searchQuery | String | The query string is used to search the available the data
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 The response contains a list of complete data stream objects
 
-## GET data-streams/:id
+### GET data-streams/:id
 
 > Request Example: Get Data Stream by id
 
@@ -486,7 +486,7 @@ curl -X GET \
 Use this call to get a single data stream according to itd id.</br>
 The result will be a data stream object matching the id.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -610,11 +610,11 @@ id | String | Data stream id to retrieve.
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 The response contains the complete data stream object.
 
-## POST data streams
+### POST data streams
 
 > Request Example: Create an AWS Cost Monitoring data Stream
 
@@ -941,7 +941,7 @@ Remember:</br>The parent data source should be defined within the Anodot App.<br
 Use the GET data-sources call to retrieve its id and use the id as the datasourceId in the stream you create.
 </aside>
 
-### Request Arguments
+#### Request Arguments
 
 The request is a complete data stream object.</br>
 See below a partial list of stream components.</br>
@@ -965,7 +965,7 @@ A Pro Tip:</br>
 To get the relevant data stream object structure, do a GET data-stream on an existing live stream of the same type in your account.</br>You will be able to see the complete object structure in the output.
 </aside>
 
-### Schedule Arguments
+#### Schedule Arguments
 
 Field | Description & Values
 -|-
@@ -998,11 +998,11 @@ m5, m10, m15, m30 | h1, h4, d1, d3, w1, m1
 hourly, h2, h3, h4, h6, h8, h12 | d1, d3, w1, m1, m3, m6, y1
 daily | d1, d3, w1, m1, m3, m6, y1, y2, y5, y10, y15, y20
 
-### Response Fields
+#### Response Fields
 
 The response contains the created data stream object.
 
-## Get data stream total metric count
+### Get data stream total metric count
 
 > Request Example:
 
@@ -1015,7 +1015,7 @@ curl -X GET \
 
 Use this call to get the number of metrics created by an active stream in a designated time range.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -1031,13 +1031,13 @@ timeRange | String [ENUM] | Time range to collect the number of metrics.</br>All
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 Field | Type | Description / Example
 -|-|-
 total | Int | Number of metric created by the data stream in the given time range.
 
-## Get data stream connected entities
+### Get data stream connected entities
 
 > Request Example:
 
@@ -1048,7 +1048,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/bc/data-streams/tot
 
 Use this call to get the number of entities which are connected to a stream. These entities can be alerts, dashboards or composites. 'Connected' means that when the alerts were defined, they have the reference to this stream (Same goes for dashboards and composites). This is equivalent to the 'Alerts & Dashboards' tab you can see in the stream summary modal inside the app.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -1087,7 +1087,7 @@ streamId | String | Data stream id to retrieve.
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 Field | Type | Description / Example
 -|-|-
@@ -1095,7 +1095,7 @@ alerts | Array | An array of alerts. For each alert you will get the id and titl
 composites | Array | An array of composites. For each composite you will get the id and title. At the end of the array you can get the total number of connected composites.
 dashboards | Array | An array of dashboards. For each dashboard you will get the id and title. At the end of the array you can get the total number of connected dashboards.
 
-## Pause or Resume a data Stream
+### Pause or Resume a data Stream
 
 > Request Example:
 
@@ -1108,7 +1108,7 @@ curl -X PUT \
 
 Use this call to pause a working data stream, or resume a paused stream.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -1125,7 +1125,7 @@ action | String [ENUM] | The action to perform on the data stream.</br>Valid val
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 Field | Type | Description / Example
 -|-|-
@@ -1133,7 +1133,7 @@ name | String | Data stream name
 id | String | Data stream id
 paused | boolean | true - Data stream is paused, false - Data stream activity is resumed
 
-## Edit data stream
+### Edit data stream
 
 > Request Example:
 
@@ -1162,7 +1162,7 @@ To force recollecting the data. Use:</br>
 `https://app.anodot.com/api/v2/bc/data-streams/{id}?shouldRewind=true` 
 
 
-## Delete data Stream
+### Delete data Stream
 
 > Request Example:
 
@@ -1175,7 +1175,7 @@ curl -X DELETE \
 
 Use this call to delete a stream based on its id.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -1197,7 +1197,7 @@ deleteMetrics [**optional**] | boolean | Delete the metrics created by the strea
 }
 ```
 
-### Response
+#### Response
 
 If the operation succeeded - you get no response.</br>
 In case the operation failed, you will receive the failure reason

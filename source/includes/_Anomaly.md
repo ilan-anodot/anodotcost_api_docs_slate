@@ -1,6 +1,6 @@
-# Anomaly
+## Anomaly
 
-## The Anomaly Object
+### The Anomaly Object
 
 > End Point **/api/v2/anomalies**
 
@@ -9,7 +9,7 @@ Anomalies are deviations from a normal pattern in one or more metrics that signa
 
 The anomaly API can be used to get and anlalyze the list of anomalies in your account. 
 
-## List anomalies
+### List anomalies
 
 > Request Example: Get all anomalies
 
@@ -42,7 +42,7 @@ valueDirection (string) | Direction of the anomaly breach - one of: {down,up,bot
 deltaType (string) | Delta of the metric anomaly peak relative to the baseline. Delta type can be: percentage or absolute.
 delta (number) | Delta of the metric anomaly peak relative to the baseline. Units are based on the deltaType.
 
-### Response
+#### Response
 
 > Response Example
 
@@ -201,7 +201,7 @@ peakValue (double) | Anomaly interval peak value | 60.8
 absoluteDelta (double) | Absolute breach delta relative to the baseline | 45.8
 percentageDelta (double) | Percentage breach delta relative to the baseline | 34.12
 
-## Count Anomalies
+### Count Anomalies
 
 > Request Example: Get count of anomalies
 
@@ -218,7 +218,7 @@ Argument | Description
 startDate (integer) | Filter anomalies that started after this given time (inclusive). Units are epoch in seconds.
 endDate (integer) | Relevant only when requesting closed anomalies, only anomalies that started before the given time are retrieved (inclusive). Units are epoch in seconds.
 
-### Response
+#### Response
 
 > Response Example
 
@@ -232,7 +232,7 @@ Value | Description
 ------|-------------
 total (integer) | Total Anomalies
 
-## Get Anomalies token map
+### Get Anomalies token map
 
 > End Point Prefix: **/api/v2/anomalies/tokenMap**
 
@@ -286,7 +286,7 @@ toklenMapClusterLimit (integer) | Max number of tokens to include per cluster
 ]
 ```
 
-### Response 
+#### Response 
 An array of key-values with tokens of the specific anomaly.
 
 Argument | Description
@@ -297,7 +297,7 @@ weight (number) | weight of the token
 anomalyOccurances (number) | How many abnormal metrics of the cluster measure (what)
 totalOccurances (number) | The number of metrics in the cluster measure (what)
 
-## Get Anomaly Metrics
+### Get Anomaly Metrics
 
 > End Point Prefix: **/api/v2/anomalies/{anomalyId}/metrics
 
@@ -370,7 +370,7 @@ delta (Number) | Delt aof the metric anomaly peak relative to the baseline. Unit
 }
 ```
 
-## Get Metric Anomalies
+### Get Metric Anomalies
 
 > End Point Prefix: **/api/v2/anomalies/{anomalyId}/metric/{metricId}**
 

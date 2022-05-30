@@ -1,6 +1,6 @@
-# Authentication
+## Authentication
 
-## Basic Authentication
+### Basic Authentication
 
 > Using the basic token in a REST call:
 
@@ -21,7 +21,7 @@ We recommend using Access Token based Authentication for all purposes other than
 See details below.
 </aside>
 
-## Access Tokens
+### Access Tokens
 
 To use access token authentication, follow these 3 simple steps:
 
@@ -39,7 +39,7 @@ POST 'https://{{app-url}}/api/v2/access-token/?responseformat=JSON' \
 }
 '
 ```
-### Request Arguments
+#### Request Arguments
 
 Argument | Description
 ---------|------|------------
@@ -87,7 +87,7 @@ Set the Authorization header of your calls with *Bearer* and the retrieved beare
 Remember:<br/>Access token expiration is controlled via the 'User session timeout' configuration in the settings page, under the Authentication tab.
 </aside>
 
-## Get CustomerID
+### Get CustomerID
 
 Each customer has a unique customerID which can be useful for some scenarios. 
 
@@ -101,7 +101,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/customers/id' \
 --data-raw ''
 '
 ```
-### Request Arguments
+#### Request Arguments
 
 None.
 

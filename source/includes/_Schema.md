@@ -1,6 +1,6 @@
-# Schema
+## Schema
 
-## The Schema Object
+### The Schema Object
 
 > End Point **/api/v2/stream-schemas**
 
@@ -16,7 +16,7 @@ The Schema API enables you to create schemas as a preliminary step to sending Me
   * Name
   * Fill policy for missing dimension values
 
-## Create Stream Schema
+### Create Stream Schema
 
 > Request Example: Creating a schema
 
@@ -87,7 +87,7 @@ keepLastValue | Boolean | true - use the last received value as the completion v
 value | Float | The completion value to use, in case keepLastValue is false.
 
 
-### Response
+#### Response
 The response contains the schema details and provides a schema id for you to use when posting metrics to this schema.
 
 > Response Example
@@ -140,7 +140,7 @@ The response contains the schema details and provides a schema id for you to use
 }
 ```
 
-## Get User Stream Schema
+### Get User Stream Schema
 
 After you've created the schema, you can use this call to get the list of all schemas in the account. 
 
@@ -151,7 +151,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/stream-schemas/sche
 --header 'Authorization: Bearer {{bearer-token}}'
 ```
 
-### Response
+#### Response
 If the request is successfull, you will get an array of "streamsSchemaWrapper" objects. Each of these objects has the following properties:
 
 Argument | Description
@@ -200,7 +200,7 @@ meta | Create and modified time of the schema.
        "schemaCubesWrapper": {}
    }
 ```
-## Get Stream Schema
+### Get Stream Schema
 
 Use this API to get a specific schema by Id.
 
@@ -215,7 +215,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/stream-schemas/1111
 --header 'Authorization: Bearer {{bearer-token}}'
 ```
 
-### Response
+#### Response
 
 > Respone Example:
 
@@ -260,7 +260,7 @@ Argument | Description
 schema | Schema object (see above for definition)
 meta | Create and modified time of the schema.
 
-## Delete Stream Schema
+### Delete Stream Schema
 
 > Request Example: Delete a schema by Id
 
@@ -283,7 +283,7 @@ id (string) | Schema Id to delete.
 }
 ```
 
-### Response
+#### Response
 If successful - the call will return the id of the schema which was deleted.
 
 

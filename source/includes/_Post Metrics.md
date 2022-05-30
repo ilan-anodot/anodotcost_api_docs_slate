@@ -1,4 +1,4 @@
-# Post Metrics
+## Post Metrics
 
 > End Point prefix is **/api/v1/metrics**
 
@@ -17,7 +17,7 @@ Anodot continues to support legacy formats such as Graphite and Graphite collect
 You can use Anodot's sample Python script to send metrics in Metrics 2.0 or 3.0 protocols.</br>
 Refer to [Anodot on GitHub](https://github.com/anodot/anodot-python) for more details.
 
-## Send Data Samples (3.0)
+### Send Data Samples (3.0)
 
 > Request Example - Sending metrics (3.0)
 
@@ -66,7 +66,7 @@ Some guidelines for using the protocol:
 * Dimension name is a string, 1-50 characters.
 * Dimension value is a string, 1-150 characters.
 
-### Request
+#### Request
 
 Field | Description
 ------|------------
@@ -76,7 +76,7 @@ dimensions | an array of key-value pairs of the metric dimensions.
 measurements | an array of a measurements - decimal double precision number, without a thousands seperator. 
 tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniqueness.
 
-## Send Stream Watermark (3.0)
+### Send Stream Watermark (3.0)
 
 > Request Example - Sending a watermark request
 
@@ -91,7 +91,7 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?
 
 Use this API to send the watermark timestamp to Anodot (Only relevant for protocol 3.0). A watermark timestamp commits that no data samples with timestamps less than or equal to it will be sent.
 
-### Parameters
+#### Parameters
 
 Field | Description
 ------|------------
@@ -103,7 +103,7 @@ A Pro Tip:</br>
 To close the bucket and send the data for processing you need to send a beginning of the next bucket as a watermark timestamp. For example, you have hourly data and you’ve just sent data points with `2020-06-01 06:00` timestamp. To commit it to processing you need to send `2020-06-01 07:00` watermark (the beginning of the next hourly bucket). Note that flushing the data is a scheduled process and you will probably need to wait some time (around 15 minutes) until you see a data point in the UI after sending the watermark.
 </aside>
 
-### FAQ (3.0)
+#### FAQ (3.0)
 
 * **Is the schema mandatory?**</br>
 Yes it is. The schema defines the structure of the metrics expected to be received when sending them using Metric 3.0 protocol. Using the schema enables benefits down the road, such as advanced analysis and investigation, to enable easier root cause analysis of your anomalies.</br>
@@ -119,7 +119,7 @@ Every other watermark notifies the platform that another “chunk” of informat
 It is highly recommended to use it. Even though Anodot can process the data samples using the built-in flushing mechanism, the watermark provides precise processing indicators which result in more accurate anomaly detection and alerting.</br>
 
 
-## Send Data Samples (2.0)
+### Send Data Samples (2.0)
 
 > Request Example - Sending metrics (2.0)
 
@@ -158,7 +158,7 @@ By adding the property name with equal sign (=) to each token, you can use the A
 
 The order of the property-value pairs in a 2.0 metric does not matter. All you need to do is simply be consistent with the property names, making sure that each metric has a unique name. Metrics are uniquely identified using their generated names; therefore, no two metrics should share all the same the property-value pairs.
 
-### Request
+#### Request
 
 Field | Description
 ------|------------
@@ -179,7 +179,7 @@ Some notes on the 'properties' array sent using the protocol:
 * The target_type property represents how samples of the same metric are aggregated in Anodot.</br>Valid values are:
 gauge (average aggregation), counter (sum aggregation). (default is gauge)
 
-## Send Data Samples (1.0)
+### Send Data Samples (1.0)
 
 > Request Example - Sending metrics (1.0)
 
@@ -214,7 +214,7 @@ Metric 1.0 will look like this: Token1.Token2.Token3...tokenN.value
 * To assign one or more tags to a metric add the tags to the metric name with a prefix of a hashtag (#).
 * The token order must stay consistent with other metrics of the same type. 
 
-### Request
+#### Request
 
 In the request body you need to send an array of time series data points. The data points have the following parameters: 
 

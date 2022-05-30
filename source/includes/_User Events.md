@@ -1,4 +1,4 @@
-# User Events
+## User Events
 
 > End Point prefix is **/api/v2/user-events**
 
@@ -20,7 +20,7 @@ The added fields allow linking the user event to a specific event condition.
 
 You can find more information about the event conditions in our [Alert configuration documentation](https://support.anodot.com/hc/en-us/articles/360015501820-Defining-Advanced-Alert-Conditions)
 
-## Create Event
+### Create Event
 
 > Request Example - Create a User Event 
 
@@ -128,7 +128,7 @@ OR, Have the "Action" field filled with start or end.
 **Response Fields**
 The response is an object similar to the request, enabling you to verify that the object was created successfully.  
 
-## Edit Event
+### Edit Event
 
 > Request Example - Editing an Event
 
@@ -196,7 +196,7 @@ EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Option
 Type (New) | The user event type. Possible values:</br>Display - Used for Display Only</br>Influence - Used for influencing events</br>Suppress - Used to suppress specific metrics from an alert</br>OfficeHours - Used to pause an alert altogether.</br>This field is relevant for Suppress and OfficeHours events. [*Optional*]
 Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: Start, End.</br> This field is relevant for Suppress and OfficeHours events. [*Optional*]
 
-## Retrieve Event by ID
+### Retrieve Event by ID
 
 > Request example - Getting an Event by ID
 
@@ -244,7 +244,7 @@ Argument | Definition
 -------- | ----------
 ID | The ID of the event
 
-## Retrieve Events by Search Expression
+### Retrieve Events by Search Expression
 
 > Request example - Getting events using a timestamp and an empty expression
 
@@ -348,7 +348,7 @@ order | (string) Result order. Default: asc. Values: asc, desc.
 size | (integer) Number of results per page. Default: 10
 index | (integer) Page index, used for paged results.
 
-## Delete Event by ID
+### Delete Event by ID
 
 > Request Example - Delete event by Event ID
 
@@ -365,7 +365,7 @@ Argument | Definition
 -------- | ----------
 ID | The ID of the event
 
-## Delete Events
+### Delete Events
 
 > Request Example - Delete multiple events using expression
 
@@ -418,7 +418,7 @@ Argument | Definition
 ids[] | An array of event ids to locate a single or multiple events
 
 
-## *Categories*
+### *Categories*
 
 > End Point Prefix is **/api/v2/bc/user-events/categories**
 
@@ -427,7 +427,7 @@ Anodot provides default categories to help in event classification.
 These default categories are **Deployments**, **Alerts**, **Holidays** and **Other**.
 The default categories cannot be removed or modified, user defined categories can be added, edited and removed.
 
-## Create Event Category
+### Create Event Category
 
 > Request example - Creating an event category
 
@@ -465,7 +465,7 @@ imageUrl | A url to the image that will be displayed as an icon for the category
 
 **Response Fields**
 The response is an object similar to the request, enabling you to verify that the object was created successfully.
-## Retrieve all Categories
+### Retrieve all Categories
 
 > Request Example - Get all Categories
 
@@ -495,7 +495,7 @@ Response: An array of all the categories defined in the account
 ]
 ```
 
-## Delete Event Category by ID
+### Delete Event Category by ID
 
 > Request Example - Delete Event Category by ID
 
@@ -512,13 +512,13 @@ Argument | Definition
 -------- | ----------
 Id | (string) The category Id [**required**]
 
-## *Sources*
+### *Sources*
 
 A source is one of the properties of an event.
 
 > End Point Prefix is **/api/v2/bc/user-events/sources**
 
-## Create event Source
+### Create event Source
 
 > Request Example - Create Event Source
 
@@ -553,7 +553,7 @@ Argument | Definition
 name | The source name and the way it will be displayed. Name must be unique [**required**]
 imageUrl | A url to the image that will be displayed as an icon for the source [*optional*]. The ImageUrl must be located under a secure server - for example  https://myServer/myImage.png. The recommended image size is 32px by 32px.
 
-## Retrieve all event Sources
+### Retrieve all event Sources
 
 > Request Example - Get all event sources
 
@@ -595,7 +595,7 @@ Response: An array of all the sources defined in the account
     ]
 ```
 
-## Delete event Source by ID
+### Delete event Source by ID
 
 > Request Example - Delete Event Source by ID
 

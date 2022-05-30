@@ -1,7 +1,7 @@
 ---
 title: Anodot API Reference 
 
-#language_tabs: # must be one of https://git.io/vQNgJ
+# language_tabs: # must be one of https://git.io/vQNgJ
 #  - json: JSON
 #  - shell: cURL
   
@@ -13,6 +13,7 @@ toc_footers:
 
 includes:
   # - Resources
+  - Tab1
   - Authentication
   - Post Metrics
   - Schema
@@ -22,6 +23,7 @@ includes:
   - Alert actions
   - Alert Triggers
   - Anomaly
+  - Tab2
   - Feedback
   - Streams
   - Lookup Tables
@@ -30,6 +32,7 @@ includes:
   - User Events
   - Users
   - Webhook
+  - Tab3
   - Topology
   - Forecast
   - Need to know

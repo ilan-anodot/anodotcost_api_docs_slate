@@ -1,4 +1,4 @@
-# Tags
+## Tags
 
 A tag is a property/value pair that can be dynamically added/removed to a metric or set of metrics without effecting the name of the metric.<br/>
 For example: a tag can be accountManager=Joe which will be attached to the metrics related to the accounts Joe manages. If the accounts Joe manages change, the API lets you change the assignment of the tags to metrics without affecting the metric name.
@@ -15,7 +15,7 @@ Tags can be used to filter and aggregate data.
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## Create Tags
+### Create Tags
 
 To create a tag on a set of metrics that match a search expression.
 Multiple expressions can be associated to each tag which is treated an OR expression between them.
@@ -64,7 +64,7 @@ https://app.anodot.com/api/v2/metrics/tags \
   ]
     }'
 ```
-### Arguments
+#### Arguments
 Argument | Definition
 ---------|-----------
 tag key | tag key name
@@ -149,7 +149,7 @@ https://app.anodot.com/api/v2/metrics/tags \
 }
 ```
 
-## Get Tag by ID
+### Get Tag by ID
 
 Returns a tag's configuration based on the tag's ID.
 
@@ -162,7 +162,7 @@ https://app.anodot.com/api/v2/metrics/tags/<Id>\
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-### Arguments
+#### Arguments
 Argument | Definition
 -------- | ----------
 ID | The tag ID
@@ -274,7 +274,7 @@ ID | The tag ID
 ]
 ```
 
-## Get Tag by Search Expression
+### Get Tag by Search Expression
 
 Returns a tag's configuration based on a search expression.
 
@@ -288,7 +288,7 @@ curl -X GET \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-### Arguments
+#### Arguments
 Argument | Description
 -------- | ----------
 value-contains-string (optional)  | The string to search within the value
@@ -403,7 +403,7 @@ key-contains-string (optional) | The string to search within the key
 ]
 ```
 
-## List All tags
+### List All tags
 
 List all tag configurations in the account sent via the tag APIs.
 
@@ -524,11 +524,11 @@ https://app.anodot.com/api/v2/metrics/tags \
 ```
 
 
-## Delete Tags
+### Delete Tags
 
 Delete a tag and remove it from all metrics.
 
-### Arguments
+#### Arguments
 Argument | Definition
 -------- | ----------
 ID | The tag ID
@@ -542,10 +542,10 @@ curl \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer ${TOKEN}" \
 ```
-### Response
+#### Response
 No response body for this API
 
-## Assign Metrics to Tags
+### Assign Metrics to Tags
 
 > Example Request: Assign Metrics to Tags
 
@@ -595,7 +595,7 @@ The user will send an array of expressions that define the metrics he wants to a
 If a tag already exists then the tag will be removed from the metrics that previously matched the search expression; a tag will be added only to the metrics that match the current search expression.
 
 
-### Arguments
+#### Arguments
 Argument | Definition
 ---------|-----------
 tag key | tag key name
@@ -674,7 +674,7 @@ value |  the metric key value 
 ]
 ```
 
-## Add Metrics to Tags
+### Add Metrics to Tags
 
 > Example Request: Add Metrics to Tags
 
@@ -720,7 +720,7 @@ If a tag does not exist then it will create a new tag and assign the metrics to 
 
 **Note:** It can take up to 20 minutes until the metric tagging operation will be applied to the relevant metrics.
 
-### Arguments
+#### Arguments
 Argument | Definition
 ---------|-----------
 tag key | tag key name

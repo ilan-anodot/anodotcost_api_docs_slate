@@ -1,4 +1,4 @@
-# Alert Actions
+## Alert Actions
 
 > End Point prefix is **/api/v2/alert-actions**
 
@@ -7,7 +7,7 @@ Using this set of API calls you can manage the Alert Actions defined in your acc
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## List all alert actions
+### List all alert actions
 
 > Request Example: Get All Alert Actions
 
@@ -21,7 +21,7 @@ curl -X GET \
 Use this API to get All Alert actions and their respective ID's
 
 
-### Response Fields
+#### Response Fields
 
 > Response Example:
 
@@ -69,7 +69,7 @@ modified | epoch | timestamp of when the action was modified
 
 
 
-## Get alert action by ID
+### Get alert action by ID
 
 > Request Example: Get alert action by ID
 
@@ -82,14 +82,14 @@ curl -X GET \
 
 Use this API to get a specific alert action.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert action id to retrieve.
 
 
-### Response Fields
+#### Response Fields
 
 Similar to the results returned by the [List all alert actions] (#list-all-alert-actions) call. 
 
@@ -113,7 +113,7 @@ Similar to the results returned by the [List all alert actions] (#list-all-alert
 ]
 ```
 
-## Create a new alert action
+### Create a new alert action
 
 > Request Example: Create a new alert action
 
@@ -142,7 +142,7 @@ A Pro Tip:</br>
 Get example alert action parameters by calling the GET alerts action API. You can then use the configuration you got as a jumping off point to creating your own alerts actions.
 </aside>
 
-### Request Arguments
+#### Request Arguments
 
 Selected Request Arguments:
 
@@ -154,7 +154,7 @@ actionName | String | Name of the action as it shows up inside Anodot. Note that
 btnName | String | The text which appears 
 data | Array | Relevant parameters for defining the action. For OUTSIDE_LINK actions, the only parameter is url.
 
-### Response Fields
+#### Response Fields
 
 The response will show the parameters of the created alert action together with the newly created ID and the created/modified time. 
 
@@ -177,7 +177,7 @@ The response will show the parameters of the created alert action together with 
 ]
 ```
 
-## Update Alert Action
+### Update Alert Action
 
 >Request Example:
 
@@ -202,7 +202,7 @@ curl -X PUT \
 
 Use this API to edit an alert action
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -210,11 +210,11 @@ id | String | Alert action id to edit.
 
 Notice that you need to pass the ID of the action on the URL itself as well as the in the *body* of the call the updated definition of the action. The definition is the same as the one used in the alert action creation API. 
 
-### Response
+#### Response
 The updated configuration of the action (same structure as the Get Alert action call)
 
 
-## Delete alert action
+### Delete alert action
 
 >Request Example:
 
@@ -226,13 +226,13 @@ curl --location --request DELETE 'https://app.anodot.com/api/v2/alert-actions/{{
 
 Use this API to delete an alert action
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert action id to delete.
 
-### Response Fields
+#### Response Fields
 
 Assuming the operation was sucessfull you will recieve in the body of the reponse a confirmation how many alerts were deleted (supposed to be 1)
 

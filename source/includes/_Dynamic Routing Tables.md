@@ -1,4 +1,4 @@
-# Dynamic Routing Tables
+## Dynamic Routing Tables
 
 > End Point **/api/v2/dynamic-routing
 
@@ -13,7 +13,7 @@ Use the dynamic routing end point to:
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## GET Routing Tables
+### GET Routing Tables
 
 > Request Example: 
 
@@ -51,7 +51,7 @@ This request has no body
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is a list of the available routing tables used in the account</br>
 
@@ -65,7 +65,7 @@ editTime | epoch | Time the last update was done on the table in Anodot
 csv | String | TBD
 version | String | TBD
 
-## GET Routing table
+### GET Routing table
 
 > Request Example: 
 
@@ -77,7 +77,7 @@ curl -X GET 'https://app.anodot.com/api/v2/dynamic-routing/{id}/csv' \
 
 Get a single table based on its id.
 
-### Request Arguments
+#### Request Arguments
 
 Replace {id} with the requested table id you received from the [GET Routing Tables] (#get-routing-tables) request.
 
@@ -90,7 +90,7 @@ Replace {id} with the requested table id you received from the [GET Routing Tabl
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 The routing table content.
 
@@ -98,7 +98,7 @@ Column 1 | Column 2
 -|-
 Dimension Value | Email destination(s)
 
-## POST to upload a new table
+### POST to upload a new table
 
 > Request Example: 
 
@@ -112,7 +112,7 @@ curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing' \
 To upload a routing table, prepare a CSV file with the required routing rules and upload it as shown in this example.</br>
 Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -127,7 +127,7 @@ The CSV file format:</br>
 - UK,uk_ae1@myorg.com;uk_ae2@myorg.com</br>
 </aside>
 
-## POST to replace an existing table
+### POST to replace an existing table
 
 > Request Example:
 
@@ -141,7 +141,7 @@ curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing/{t
 To update the information in an existing routing table, first update the information in a CSV using the same name, the upload it using the original table id.</br>
 Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------

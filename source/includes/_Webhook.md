@@ -1,4 +1,4 @@
-# Anodot Webhook Channel
+## Anodot Webhook Channel
 
 
 
@@ -18,7 +18,7 @@ Epoch time is always in seconds (UTC time).</br>
 The alert templates show the structure (with iterators if a number of metrics and alerts descriptions are combined to the same alert message).
 </aside>
 
-### Main Fields
+#### Main Fields
 Field | Description
 ------|------------
 subject | Alert subject - same as alert email. Taken from Alert title
@@ -55,7 +55,7 @@ h - hour</br>
 m - minute</br>
 </aside>
 
-## Anomaly Alert 
+### Anomaly Alert 
 
 Anomaly alerts are the main type of Anodot alerts. Notice that Anomaly alerts have two versions for the webhook format - standard and extended. The extended version is open to select customers upon request. Please send a mail to [support@anodot.com](mailto:support@anodot.com) if you would like to start using the extended version. 
 On the right you can see the template and a sample of the standard Anomaly alert trigger. 
@@ -207,7 +207,7 @@ b123-af7046659d4e",
 } 
 ```
 
-## Anomaly Alert - Extended 
+### Anomaly Alert - Extended 
 In the extended version, the following fields are added to the webhook payload (not necessarily at the end of the 'standard' payload, so please pay attention to the template and example on the right)
 
 Field | Description
@@ -378,7 +378,7 @@ alertGroupStatus | An inidicator on the status of the alert group - it can be ei
  ]
 }
 ```
-## Static Alert 
+### Static Alert 
 
 A static alert trigger is fired when a specified metric crosses a designated threshold. For details on Static alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
 
@@ -515,7 +515,7 @@ A static alert trigger is fired when a specified metric crosses a designated thr
 } 
 ```
 
-## No Data Alert 
+### No Data Alert 
 
 A No Data alert trigger is fired when a specified metric ceases to send data points. For details on No Data alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
 
