@@ -224,7 +224,7 @@ Use this API to add a comment to the timeline of an existing incident. This is s
 Argument | Type | Description
 ---------|------|------------
 alertGroupId | String ($uuid)| The ID of the anomaly group (a.k.a. anomalyId) to which the comment should be attached. 
-text | String | The commment text
+text | String | The comment text
 userId | String | (optional) the user giving the feedback. Find this ID from your browser developer window.
 
 > Response Example

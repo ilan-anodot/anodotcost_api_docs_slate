@@ -36,9 +36,49 @@ html, body {
   -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
+body {
+  padding-top: 55px;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
+#anodot-navbar {
+  padding: 0;
+  padding-left: 10px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 280px;
+  height: 55px;
+  border-bottom: 1px solid #eee;
+  z-index: 50;
+  background-color: white;
+  list-style: none;
+  display: flex !important;
+  flex-wrap: nowrap;
+  width: calc((100% - 280px) * 0.55);
+  box-sizing: border-box;
+  overflow-x: auto;
+  align-items: center;
+  margin: 0;
+
+  li {
+    margin-right: 15px;
+    white-space: nowrap;
+  }
+  li:last-child {
+    margin-right: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: #253893;
+  }
+  li.active a {
+    font-weight: bold;
+  }
+}
 
 #toc > ul > li > a > span {
   float: right;
@@ -176,6 +216,38 @@ html, body {
     font-size: 12px;
   }
 
+  .toc-list-h3 {
+    display: none;
+    background-color: $nav-subitem-bg;
+  }
+
+  .toc-h3 {
+    padding-left: $nav-padding + $nav-padding + $nav-indent;
+    font-size: 12px;
+  }
+
+  .toc-list-h4 {
+    display: none;
+    background-color: $nav-subitem-bg;
+  }
+
+  .toc-h4 {
+    padding-left: $nav-padding + $nav-padding + $nav-padding + $nav-indent;
+    font-size: 12px;
+  }
+  .toc-list-h5 {
+    display: none;
+    background-color: $nav-subitem-bg;
+  }
+
+  .toc-h5 {
+    padding-left: $nav-padding + $nav-padding + $nav-padding + $nav-indent;
+    font-size: 12px;
+  }
+
+  .toc-h1 {
+    display: none; // Hide for usage in top tab
+  }
   .toc-footer {
     padding: 1em 0;
     margin-top: 1em;
@@ -344,7 +416,7 @@ html, body {
   }
 
   // the div is the tocify hidden div for placeholding stuff
-  &>h1, &>h2, &>div {
+  &>h1, &>h2, &>h3, &>h4, &>div {
     clear:both;
   }
 
@@ -376,6 +448,26 @@ html, body {
     background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
   }
 
+  h3 {
+    @extend %header-font;
+    font-size: 16px;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
+  }
+
+  h4 {
+    @extend %header-font;
+    font-size: 13px;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
+  }
+
   // h2s right after h1s should bump right up
   // against the h1s.
   h1 + h2, h1 + div + h2 {
@@ -383,14 +475,14 @@ html, body {
     border-top: none;
   }
 
-  h3, h4, h5, h6 {
+  h5, h6 {
     @extend %header-font;
     font-size: 15px;
     margin-top: 2.5em;
     margin-bottom: 0.8em;
   }
 
-  h4, h5, h6 {
+  h6 {
     font-size: 12px;
   }
 

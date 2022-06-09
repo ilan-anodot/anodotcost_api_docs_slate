@@ -1,4 +1,4 @@
 
-# Tab 2
+# Alerts
 
 Tab 2 description
