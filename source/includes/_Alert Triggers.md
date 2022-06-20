@@ -460,7 +460,7 @@ Metric peak, deltaAbsolute, deltaPercentage are computed based on the first brea
 Field | Type | Description / Example
 -|-|-
 status|string(Enum - open - closed)| example: closed
-startTime | integer(int32) | example: 1512882919.<br/>Start timestamp of the metric alert (epoch time in seconds).
+startTime | integer(int32) | example: 1512882919.<br/>The anomaly start (epoch time in seconds).
 endTime	| integer(int32) | example: 1512982919 | End timestamp of the metric alert (epoch time in seconds).<br/>null when metric is open.
 duration | integer(int32) | example: 300. Duration of the metric alert in seconds.
 anomalyId | string | example: 20262fb3-00ba-412c-a515-aec74c4824ca. Anomaly Id.
@@ -475,7 +475,7 @@ deltaPercentage | number(double) |example: 10.42. The percentage delta between t
 Field | Type | Description / Example
 -|-|-
 status | string(Enum - open - closed) |example: closed
-startTime| integer(int32) |example: 1512882919. Start timestamp of the metric alert (epoch time in seconds).
+startTime| integer(int32) |example: 1512882919. The last time the metric was seen (epoch time in seconds).
 endTime| integer(int32) |example: 1512982919. End timestamp of the metric alert (epoch time in seconds). null when metric is open.
 duration | integer(int32) |example: 300. Duration of the metric alert in seconds.
 lastSeenTime| integer(int32) |example: 1512382919. Last timestamp (epoch in seconds) the metric reported data at.
@@ -488,7 +488,7 @@ Metric peak is computed based on the first breach direction that occured.
 Field | Type | Description / Example
 -|-|-
 status | string(Enum - open - closed) |example: closed
-startTime |integer(int32) |example: 1512882919. Start timestamp of the metric alert (epoch time in seconds).
+startTime |integer(int32) |example: 1512882919. Breach start time (epoch time in seconds).
 endTime	| integer(int32) |example: 1512982919. End timestamp of the metric alert (epoch time in seconds). null when metric is open.
 duration |integer(int32) | example: 300. Duration of the metric alert in seconds.
 threshold |number(double) | example: 40.3. The static threshold crossed by the metric.
