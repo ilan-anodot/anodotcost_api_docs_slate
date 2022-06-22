@@ -2,7 +2,7 @@
 //= require ../lib/_imagesloaded.min
 ;(function () {
   'use strict';
-
+  const onPushState = new CustomEvent('onPushState');
   var htmlPattern = /<[^>]*>/g;
   var loaded = false;
 
@@ -78,6 +78,7 @@
         $toc.find(tocListSelector).filter(":not(.active)").slideUp(150);
         $toc.find(tocListSelector).filter(".active").slideDown(150);
         if (window.history.replaceState) {
+          window.dispatchEvent(onPushState);
           window.history.replaceState(null, "", best);
         }
         var thisTitle = $best.data("title");

@@ -1,4 +1,4 @@
-# Alert Configuration
+## Alert Configuration
 
 > End Point prefix is **/api/v2/alerts**
 
@@ -14,7 +14,7 @@ Use the *Alert Config API* to:
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## List all alert configurations
+### List all alert configurations
 
 > Request Example: Get All Alert Configurations
 
@@ -32,7 +32,7 @@ A Pro Tip:</br>
 Use this API to retrieve the alert ID's that are used to delete, edit, pause/resume alerts.
 </aside>
 
-### Response Fields
+#### Response Fields
 
 This call will return an array of alert configurations, each one with the following structure:
 
@@ -180,7 +180,7 @@ State | Array | The current state of the alert (paused/live)
 ]
 ```
 
-## Create a new alert
+### Create a new alert
 
 > Request Example: Create a new alert
 
@@ -302,7 +302,7 @@ A Pro Tip:</br>
 Get example alert configurations by calling the GET alerts API. You can then use the "configuration": {} section as a jumping off point to creating your own alerts.
 </aside>
 
-### Request Arguments
+#### Request Arguments
 
 Selected Request Arguments:
 
@@ -321,7 +321,7 @@ conditions | Array | Anomaly alerts require: direction, significance and duratio
 correlatedEvents | Array | Determines if static events that are sent via the events API are included in the alert. Filter out events based on a key:value pair.
 labels | Array | Assigns labels to the alert. Notice that if a label specified in the call does not exist in the system it will be created. 
 
-## Get Alert by ID
+### Get Alert by ID
 
 >Request Example:
 
@@ -428,16 +428,16 @@ Use this API to get a single alert configuration
 }
 ```
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert id to retrieve.
 
-### Response Fields
+#### Response Fields
 Similar to the results returned by the [List all alert configurations] (#list-all-alert-configurations) call. 
 
-## Update Alert Configuration
+### Update Alert Configuration
 
 >Request Example:
 
@@ -450,7 +450,7 @@ curl -X PUT \
 
 Use this API to edit an alert
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -458,10 +458,10 @@ id | String | Alert id to edit.
 
 Notice that you will in the *body* of this message the updated definition of the alert. The definition is the same as the one used in the alert creation API. 
 
-### Response
+#### Response
 The updated configuration of the alert (same structure as the Get Alert call)
 
-## Delete alert
+### Delete alert
 
 >Request Example:
 
@@ -474,13 +474,13 @@ curl -X DELETE \
 
 Use this API to delete an alert
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert id to delete.
 
-## Pause Alert
+### Pause Alert
 
 >Request Example:
 
@@ -493,13 +493,13 @@ curl -X POST \
 
 Use this API to pause an alert.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert id to pause.
 
-## Resume Alert
+### Resume Alert
 
 >Request Example:
 
@@ -512,7 +512,7 @@ curl -X POST \
 
 Use this API to resume an alert.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------

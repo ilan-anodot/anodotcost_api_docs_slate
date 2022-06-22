@@ -39,8 +39,11 @@ under the License.
       ga('create', 'UA-56098955-6', 'auto');
       ga('send', 'pageview');
     </script>
+    <script>
+
+    </script>
     <!-- End Google Analytics -->
-    
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZ1X1G6J7F"></script>
     <script>
@@ -49,7 +52,7 @@ under the License.
       gtag('js', new Date());
       gtag('config', 'G-RZ1X1G6J7F');
     </script>
-    <!-- End Global site tag (gtag.js) - Google Analytics -->\
+    <!-- End Global site tag (gtag.js) - Google Analytics -->
 
     <style media="screen">
       <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
@@ -60,6 +63,30 @@ under the License.
       }
       <%= Rouge::Themes::Base16::Solarized.render(:scope => '.highlight') %>
     </style>
+    <script>
+    <!-- Anodot Top Navbar Script -->
+      function onload(){
+        $("h1").each(function () {
+          const h1 = $(this);
+          const id = h1.attr('id')
+          $("#anodot-navbar").append(`<li onclick="ontabclick(id)" id="${id}-tab"><a href="#${id}">${h1.text()}</a></li>`)
+        })
+        const currentTab = $("#toc a.toc-h1.active").attr("href") || $("#toc a.toc-h1.active-parent").attr("href");
+        $(`${currentTab}-tab`).addClass("active")
+      }
+      function onhashchange(e){
+        setTimeout(() => {
+          const currentTab = $("#toc a.toc-h1.active").attr("href") || $("#toc a.toc-h1.active-parent").attr("href");
+          $("#anodot-navbar li").removeClass("active");
+          $(`${currentTab}-tab`).addClass("active");
+        }, 300)
+      };
+      window.addEventListener('onPushState', onhashchange)
+      function ontabclick(id){
+          $("#anodot-navbar li").removeClass("active");
+          $(`#${id}`).addClass("active");
+      };
+    </script>
     <%= stylesheet_link_tag :screen, media: :screen %>
     <%= stylesheet_link_tag :print, media: :print %>
     <% if current_page.data.search %>
@@ -74,7 +101,9 @@ under the License.
     <% end %>
   </head>
 
-  <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
+  <body onhashchange="onhashchange()" onload="onload()" class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
+    <ul id="anodot-navbar"></ul>
+
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -109,6 +138,33 @@ under the License.
                 <% h1[:children].each do |h2| %>
                   <li>
                     <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
+                    <% if h2[:children].length > 0 %>
+                      <ul class="toc-list-h3">
+                        <% h2[:children].each do |h3| %>
+                          <li>
+                            <a href="#<%= h3[:id] %>" class="toc-h3 toc-link" data-title="<%= h3[:content] %>"><%= h3[:content] %></a>
+                            <% if h3[:children].length > 0 %>
+                              <ul class="toc-list-h4">
+                                <% h3[:children].each do |h4| %>
+                                  <li>
+                                    <a href="#<%= h4[:id] %>" class="toc-h4 toc-link" data-title="<%= h4[:content] %>"><%= h4[:content] %></a>
+                                    <% if h4[:children].length > 0 %>
+                                      <ul class="toc-list-h4">
+                                        <% h4[:children].each do |h5| %>
+                                          <li>
+                                            <a href="#<%= h5[:id] %>" class="toc-h5 toc-link" data-title="<%= h5[:content] %>"><%= h5[:content] %></a>
+                                          </li>
+                                        <% end %>
+                                      </ul>
+                                    <% end %>
+                                  </li>
+                                <% end %>
+                              </ul>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    <% end %>
                   </li>
                 <% end %>
               </ul>

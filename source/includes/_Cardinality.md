@@ -1,10 +1,10 @@
-# Metrics Operations
+## Metrics Operations
 
 > End Point **GET /api/v2/metrics/cardinality**
 
 Use this API to find metrics cardinality per dimension. The query returns dimensions sorted by their values caridnality with metrics examples.
 
-## Get cardinality
+### Get cardinality
 
 > Request Example: Get the cardinality of all metrics in a given time frame
 
@@ -13,7 +13,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/metrics/cardinality
 --header 'Authorization: Bearer {bearer-token}'
 ```
 
-### Request 
+#### Request 
 
 Name | Description
 -----|------------
@@ -24,7 +24,7 @@ dims | A comma-seperated list of dimensions to return in result.
 stream | Name of stream to return results for
 from | starting index to fetch data from (0 based integer).
 
-### Response 
+#### Response 
 
 > Response Example: 
 
@@ -87,7 +87,7 @@ cardinality | The actual cardinality of the metric (Number)
 examples | An array containing some examples of the metric
 what | The measure to which this metric belongs to. 
 
-## Get cardinality Per Stream
+### Get cardinality Per Stream
 
 
 Use this API to find metrics cardinality per stream. 
@@ -99,7 +99,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/metrics/cardinality
 --header 'Authorization: Bearer {bearer-token}'
 ```
 
-### Request 
+#### Request 
 
 Name | Description
 -----|------------
@@ -110,7 +110,7 @@ dims | A comma-seperated list of dimensions to return in result.
 stream | Name of stream to return results for
 from | starting index to fetch data from (0 based integer).
 
-### Response 
+#### Response 
 
 > Response Example: 
 
@@ -174,7 +174,7 @@ examples | An array containing some examples of the metric
 what | The measure to which this metric belongs to. 
 
 
-## Get EPS (Events Per Second)
+### Get EPS (Events Per Second)
 
 > Request Example: Get the EPS of the top metrics in the account
 
@@ -185,14 +185,14 @@ curl --location --request GET 'https://app.anodot.com/api/v1/metrics/eps?token={
 Use this API in order to get the EPS (Events per second) of the top metrics in the account. The main use case for this is to see which metrics cause a load (if at all) at a given time. 
 Notice that this API still uses the V1 authentication (e.g. Data token on the URL) and and not the bearer-authentication. 
 
-### Request 
+#### Request 
 
 Name | Description
 -----|------------
 token | (Mandatory) Data token of the account
 rollup | (Mandatory) Requested time scale for the EPS. Available values : short, medium, long, longlong, weekly
 
-### Response 
+#### Response 
 
 > Response Example: Array of metric names and their EPS. 
 

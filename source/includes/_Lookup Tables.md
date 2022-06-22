@@ -1,4 +1,4 @@
-# Lookup Tables
+## Lookup Tables
 
 > End Point **/api/v2/lookup/data**
 
@@ -11,7 +11,7 @@ Use the lookup end point to:
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## Get lookup tables
+### Get lookup tables
 
 > Request Example: 
 
@@ -38,11 +38,11 @@ Get the list of lookup tables currently available at this account.
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is a list of the available lookup tables used in the account
 
-## POST / PUT lookup table
+### POST / PUT lookup table
 
 This endpoint supports two ways to load the CSV files
 
@@ -67,7 +67,7 @@ https://app.anodot.com/api/v2/lookup/data?filename=mylookup.csv \
 --data-binary '@/Users/myuser/filesforAnodot/mylookup.csv'
 ```
 
-### Request Arguments - Binary file stream
+#### Request Arguments - Binary file stream
 
 Argument | Type | Description
 ---------|------|------------
@@ -84,7 +84,7 @@ https://app.anodot.com/api/v2/lookup/data \
 -F 'filefield=@mylookup.csv'
 ```
 
-### Request Arguments - Form data
+#### Request Arguments - Form data
 
 Argument | Type | Description
 ---------|------|------------

@@ -1,6 +1,6 @@
-# Metrics Operations
+## Metrics Operations
 
-## Snooze Learning
+### Snooze Learning
 
 When should you use the *Snooze the learning API* ?
 
@@ -29,7 +29,7 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics/stl/add?to
 
 Use this request to snooze the learning of the metrics to a designated time.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -39,7 +39,7 @@ duration | number | The requested snooze duration in seconds.
 metricIds | Array of strings | The array of metric ids we wish to snooze. 
 
 
-## Resume Learning
+### Resume Learning
 
 > Request Example: Resuming the learning on two metrics.
 
@@ -56,7 +56,7 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics/stl/remove
 
 Use this request to resume the learning of the metrics you have snoozed earlier.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -65,7 +65,7 @@ timescale | Enum | The timescale of the metrics. e.g. 5m
 duration | number | The requested resume duration in seconds.
 metricIds | Array of strings | The array of metric ids we wish to resume. 
 
-## Get cardinality
+### Get cardinality
 
 > End Point **GET /api/v2/metrics/cardinality**
 
@@ -79,7 +79,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/metrics/cardinality
 --header 'Authorization: Bearer {bearer-token}'
 ```
 
-### Request 
+#### Request 
 
 Name | Description
 -----|------------
@@ -90,7 +90,7 @@ dims | A comma-seperated list of dimensions to return in result.
 stream | Name of stream to return results for
 from | starting index to fetch data from (0 based integer).
 
-### Response 
+#### Response 
 
 > Response Example: 
 
@@ -153,7 +153,7 @@ cardinality | The actual cardinality of the metric (Number)
 examples | An array containing some examples of the metric
 what | The measure to which this metric belongs to. 
 
-## Get cardinality Per Stream
+### Get cardinality Per Stream
 
 
 Use this API to find metrics cardinality per stream. 
@@ -165,14 +165,14 @@ otice that this API still uses the V1 authentication (e.g. Data token on the URL
 curl --location --request GET 'https://app.anodot.com/api/v1/metrics/cardinality/streams?sort=name&token={{data-token}}'
 ```
 
-### Request 
+#### Request 
 
 Name | Description
 -----|------------
 token | (Mandatory) Data token of the account
 sort | (Mandatory) How to sort the results. Available values : name, size
 
-### Response 
+#### Response 
 
 > Response Example: 
 
@@ -202,7 +202,7 @@ sort | (Mandatory) How to sort the results. Available values : name, size
 If successfull the API returns an array of stream names and the number of metrics for each one of them. 
 
 
-## Get EPS (Events Per Second)
+### Get EPS (Events Per Second)
 
 > Request Example: Get the EPS of the top metrics in the account
 
@@ -213,14 +213,14 @@ curl --location --request GET 'https://app.anodot.com/api/v1/metrics/eps?token={
 Use this API in order to get the EPS (Events per second) of the top metrics in the account. The main use case for this is to see which metrics cause a load (if at all) at a given time. 
 Notice that this API still uses the V1 authentication (e.g. Data token on the URL) and and not the bearer-authentication. 
 
-### Request 
+#### Request 
 
 Name | Description
 -----|------------
 token | (Mandatory) Data token of the account
 rollup | (Mandatory) Requested time scale for the EPS. Available values : short, medium, long, longlong, weekly
 
-### Response 
+#### Response 
 
 > Response Example: Array of metric names and their EPS. 
 

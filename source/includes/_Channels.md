@@ -1,4 +1,4 @@
-# Channels
+## Channels
 
 > End Point **GET /api/v2/channels**
 
@@ -9,7 +9,7 @@ Use the channel API endpoint to get the channels available in your account and l
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## Get channels
+### Get channels
 
 > Request Example: GET All channels in the account
 
@@ -38,7 +38,7 @@ https://app.anodot.com/api/v2/channels?type=slack&name=alert \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -62,7 +62,7 @@ name [**Optional**] | string | Limit the response to anodot channel names contai
 ] 
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is a list of channels
 
@@ -72,7 +72,7 @@ id | String ($uuid) | channel id. Use this id when you create alerts via API and
 type | String | Channel type. See possible values in [channel list] (#channel-list)
 name | String | Channel name.
 
-## Create channel
+### Create channel
 
 > Request Example: Create a webhook channel in the account
 
@@ -109,7 +109,7 @@ https://app.anodot.com/api/v2/channels/slack \
 
 
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -160,7 +160,7 @@ parameters  | JSON Object | A JSON object with the required parameters for the c
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is a list of channels
 
@@ -175,7 +175,7 @@ state | String| Channel state (Should be "Active" when just created)
 channelMeta | JSON | Channel metadata as stored in Anodot
 timezone | String | the time zone definition of the channel.
 
-### Channel List
+#### Channel List
 
 Type | Description
 -----| -----------

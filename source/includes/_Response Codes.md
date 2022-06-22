@@ -1,13 +1,13 @@
-# Response Codes
+## Response Codes
 
-## HTTP Responses
+### HTTP Responses
 Anodot APIs use HTTP status codes to indicate the success or failure of a request.
 
 An error indicates that the service did not successfully handle your request. In addition to the status code, the response may contain a JSON object with an errors array containing more detailed error messages (see Error response format bellow).
 
 If the service is able to handle your request, but some issues are present (e.g. one of the metric sent has an illegal timestamp but all the reset are ok), the HTTP status code will indicate success and the response body will contain the expected result with the addition of errors array containing detailed error messages.
 
-## HTTP Status Codes
+### HTTP Status Codes
 
 Error Code | Meaning
 -|-
@@ -18,7 +18,7 @@ Error Code | Meaning
 404 | Not Found
 500 | Server error
 
-## Error Response Fields
+### Error Response Fields
 
 > Error Response Example
 

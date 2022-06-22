@@ -1,4 +1,4 @@
-# Forecast
+## Forecast
 
 > Endpoint: **GET /api/v2/forecast/**
 
@@ -18,7 +18,7 @@ The data hierarchy is as follows: Forecast Tasks --> Each task has metrics --> E
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## GET forecast tasks
+### GET forecast tasks
 
 > Request Example: Getting all tasks in the account
 
@@ -39,7 +39,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks' \
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is an array of forecast tasks. Each one of them has the following fields:
 
@@ -49,7 +49,7 @@ forecastTaskId | String ($uuid) | Unique identifier of the forecast task.
 forecastTaskName | String | Readable name of the forecast task (to be used going forward in creating dashboards, etc.)
 
 
-## GET forecast results per task
+### GET forecast results per task
 
 > Request Example: Get forecast results for a specific task
 
@@ -61,7 +61,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{fo
 
 This call gets all the results for a specific task. This returns the results for all the metrics in the task. 
 
-### Request Fields
+#### Request Fields
 
 Field | Type | Description / Example
 -|-|-
@@ -139,7 +139,7 @@ forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you ca
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 <aside class="notice">
 The response is an array of forecast results. A forecast result will be a set of predicted data points per metric.
@@ -155,7 +155,7 @@ last_updated_ts | timestamp (in epoch) | The time that this record was updated.
 metric_id | String | Name of forecast metric
 points | Array | An array of forecast data points. 
 
-## GET forecast metrics 
+### GET forecast metrics 
 
 > Request Example: Get forecast metrics 
 
@@ -167,7 +167,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/forecast/metrics' \
 
 This call gets all the forecast metrics in the account
 
-### Request Fields
+#### Request Fields
 
 None
 
@@ -183,7 +183,7 @@ None
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 The response itself looks as following: 
 
@@ -191,7 +191,7 @@ Field | Type | Description / Example
 -|-|-
 metric_id | Array | An array of forecast metric
 
-## GET task metrics
+### GET task metrics
 
 > Request Example: Get forecast metrics for a specific task
 
@@ -203,7 +203,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{fo
 
 This call gets all the metrics for a specific task. 
 
-### Request Fields
+#### Request Fields
 
 Field | Type | Description / Example
 -|-|-
@@ -228,12 +228,12 @@ forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you ca
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is list of metric IDs covered by this task.
 
 
-## GET forecast results per task
+### GET forecast results per task
 
 > Request Example: Get forecast results for a specific metric per task
 
@@ -244,7 +244,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{fo
 ```
 
 This call gets all the forecast results for a specific metric of a given task.
-### Request Fields
+#### Request Fields
 
 Field | Type | Description / Example
 -|-|-
@@ -290,11 +290,11 @@ metricID | String ($uuid) | Unique identifier of the forecast metric (you can ge
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is an array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
 
-## GET forecast results
+### GET forecast results
 
 > Request Example: Get forecast results for a specific metric 
 
@@ -305,7 +305,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/forecast/metrics/{{
 ```
 
 This call gets all the forecast results for a specific metric regardless of the task.
-### Request Fields
+#### Request Fields
 
 Field | Type | Description / Example
 -|-|-
@@ -351,11 +351,11 @@ forecastFunction (Optional) | enum | A function which enables aggregation of for
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is an array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
 
-## GET forecast results history
+### GET forecast results history
 
 > Request Example: Get forecast results for a specific metric 
 
@@ -366,7 +366,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/forecast/metrics/{{
 ```
 
 This call gets all the forecast results for a specific metric regardless of the task.
-### Request Fields
+#### Request Fields
 
 Field | Type | Description / Example
 -|-|-
@@ -480,7 +480,7 @@ for_date | timestamp (epoch) | The date for which to get the historical forecast
 }
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is built of two arrays: 
 

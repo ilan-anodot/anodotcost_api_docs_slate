@@ -1,6 +1,6 @@
-# Alert Triggers
+## Alert Triggers
 
-## The Alert Trigger Object
+### The Alert Trigger Object
 
 The Alert Trigger object is sent when an anomaly / static / no-data alert matches all its conditions.
 Alert Triggers can be sent in groups based on correlations, proximity in time and recipients.
@@ -16,7 +16,7 @@ The Alert Triggers API manages and queries these triggers and groups.
 
 
 
-## Get Triggered Alerts 
+### Get Triggered Alerts 
 > Request Example: Get Triggered Alerts
 
 ```shell
@@ -31,7 +31,7 @@ curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered?alertConfigurationId
 --header 'Authorization: Bearer {{bearer-token}}' 
 ```
 
-### Request Arguments
+#### Request Arguments
 
 **Note** - All parameters are optional, however calling this API with no parameters will return ALL triggered alerts of the past year which is a lot of data and not recommended. So please use at least the 'startTime' as a parameter. 
 
@@ -230,21 +230,21 @@ alertConfigurationIds | string | Alert configuration ID, limit the call to fetch
 }
 ```
 
-### Alert Response Fields
+#### Alert Response Fields
 
 Field | Type | Description / Example
 -|-|-
 total | number | Number of alert groups which meet the criteria.
 alertGroups | Array | Array of [Alert Group](#alert-group) objects. 
 
-## Count Triggered Alerts 
+### Count Triggered Alerts 
 > Request Example: Count Triggered Alerts
 
 ```shell
 curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered/count?startTime=1616929887&types=anomaly' \
 --header 'Authorization: Bearer {{bearer-token}}' 
 ```
-### Request Arguments
+#### Request Arguments
 
 Request arguments are the same as the [List all triggered alerts](#get-triggered-alerts) API Call and will enable you to filter the triggered alerts count you will get.
 
@@ -256,13 +256,13 @@ Request arguments are the same as the [List all triggered alerts](#get-triggered
 }
 ```
 
-### Alert Response Fields
+#### Alert Response Fields
 
 Field | Type | Description / Example
 -|-|-
 total | number | Number of alert triggers which meet the criteria.
 
-## Acknowledge an Alert Trigger
+### Acknowledge an Alert Trigger
 
 > Request Structure: POST /triggered/{alert-id}/acknowledge/add
 
@@ -278,18 +278,18 @@ curl --location --request POST 'https://app.anodot.com/api/v2/alerts/triggered/{
 
 Acknowledge the Alert Trigger
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 groupId | string | ID of the triggered alert group **Required**
 userId | application/json | **Required**. This Id specifies which user performed the Acknowledgement.
 
-### Request Response
+#### Request Response
 
 None.
 
-## Remove an Acknowledgement from an Alert Trigger
+### Remove an Acknowledgement from an Alert Trigger
 
 > Request Structure: POST /triggered/{alert-id}/acknowledge/remove
 
@@ -305,18 +305,18 @@ curl --location --request POST 'https://app.anodot.com/api/v2/alerts/triggered/{
 
 Remove the Ack from the alert trigger
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
 groupId | string | ID of the triggered alert group **Required**
 userId | application/json | The object that will be removed **Required**. This Id specifies which user is removed from the Acknowledgement.
 
-### Request Response
+#### Request Response
 
 None.
 
-## Assign an Alert Trigger
+### Assign an Alert Trigger
 
 > Request Structure: PUT /triggered/{alert-id}/assignee
 
@@ -333,7 +333,7 @@ curl --location --request PUT 'https://app.anodot.com/api/v2/alerts/triggered/{{
 
 Assign an Alert Trigger
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -342,11 +342,11 @@ assigneeId | unique user identifier | **Required**. This Id specifies to which u
 assignerId | unique user identifier | **Required**. This Id specifies which user performed the Assignment.
 
 
-### Request Response
+#### Request Response
 
 None.
 
-## Remove an Assignment from an Alert Trigger
+### Remove an Assignment from an Alert Trigger
 
 > Request Structure: DELETE /triggered/{alert-id}/assignee
 
@@ -363,7 +363,7 @@ curl --location --request DELETE 'https://app.anodot.com/api/v2/alerts/triggered
 
 Remove assignment from an Alert Trigger
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -372,13 +372,13 @@ assigneeId | unique user identifier | **Required**. This Id specifies to which u
 assignerId | unique user identifier | **Required**. This Id specifies which user performed the Assignment.
 
 
-### Request Response
+#### Request Response
 
 None.
 
-## Common Objects
+### Common Objects
 
-### Alert Group
+#### Alert Group
 
 Field | Type | Description / Example
 -|-|-
@@ -387,7 +387,7 @@ name | string | example: Jetty servers availability. Alert name when grouping by
 alerts | Array | Array of [Alert objects](#alert)
 stars | String Array | The ids of all the users that acknowledged the alert group
 
-### Alert 
+#### Alert 
 
 Field | Type | Description / Example
 -|-|-
@@ -405,14 +405,14 @@ updatedTime|integer(int32) |example: 1512882919<br/>Last timestamp the alert was
 endTime|integer(int32)|example: 1512982919<br/>End timestamp of the alert (epoch time in seconds). May be empty for non 'closed' alerts.
 channels| object array | Array of [channels](#channels-array) associated with the alert.
 metrics | object array | Array of [metrics](#metrics-array) different types of alerts hold different metric interval objects.
-### Channels Array
+#### Channels Array
 
 Field | Type | Description / Example
 -|-|-
 id | string | example: 20262fb3-00ba-412c-a515-aec74c4824ca. <br/>Channel Id.
 type | string(Enum - user - email - webhook - slack)|example: email.
 name |string |example: NOC Channel. Channel name.
-### Metrics Array
+#### Metrics Array
 
 Field | Type | Description / Example
 -|-|-
@@ -429,14 +429,14 @@ displayStartTime | integer |example: 1512982919<br/>The recommend time to displa
 displayEndTime |integer |example: 1512982919<br/>The recommend time to display the metrics until (epoch time in seconds).
 intervals | Array | Array of metric interval breaches.<br/>One of:<br/>* [Anomaly Metric Interval](#anomaly-metric-interval-object)<br>* [NoData Metric Interval](#no-data-metric-interval-object)<br/>* [StaticTHMetricInterval](#static-th-metric-interval-object)
 
-### Properties/Tags Array
+#### Properties/Tags Array
 
 Field | Type | Description / Example
 -|-|-
 key | string | example: server. Property key.
 value| string | example: anodot32. Property value.
 
-### Metric Snooze Object
+#### Metric Snooze Object
 
 Field | Type | Description / Example
 -|-|-
@@ -444,7 +444,7 @@ userId | string |example: 20262fb3-00ba-412c-a515-aec74c4824ca.<br/>The Id of th
 snoozeTime | integer |example: 1525586116.<br/>Epoch time (seconds) of when the metric was snoozed
 resumeTime | integer |example: 1525586116<br/>Epoch time (seconds) of when the metric should resume after snooze
 
-### Metric Origin Object
+#### Metric Origin Object
 
 Field | Type | Description / Example
 -|-|-
@@ -452,7 +452,7 @@ type | string(Enum - alert - composite - stream) | example: alert. Origin type.
 id | string | example: 20262fb3-00ba-412c-a515-aec74c4824ca<br/>Origin Id.
 title | string | example: GA sessions of my application. Origin title.
 
-### Anomaly Metric Interval Object
+#### Anomaly Metric Interval Object
 
 Represents a metric anomaly caused by a baseline breach.
 Metric peak, deltaAbsolute, deltaPercentage are computed based on the first breach direction that occured.
@@ -470,7 +470,7 @@ peak | number(double)| example: 45.99. The highest or lowest value of the metric
 deltaAbsolute | number(double) |example: 3.76. The absolute delta between the metric value and the baseline sleeve.
 deltaPercentage | number(double) |example: 10.42. The percentage delta between the metric value and the baseline sleeve.
 
-### No Data Metric Interval Object
+#### No Data Metric Interval Object
 
 Field | Type | Description / Example
 -|-|-
@@ -480,7 +480,7 @@ endTime| integer(int32) |example: 1512982919. End timestamp of the metric alert 
 duration | integer(int32) |example: 300. Duration of the metric alert in seconds.
 lastSeenTime| integer(int32) |example: 1512382919. Last timestamp (epoch in seconds) the metric reported data at.
 
-### Static TH Metric Interval Object
+#### Static TH Metric Interval Object
 
 Represents a metric static threshold breach.
 Metric peak is computed based on the first breach direction that occured.

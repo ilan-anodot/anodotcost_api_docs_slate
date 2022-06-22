@@ -1,4 +1,4 @@
-# Rates and Limits
+## Rates and Limits
 
 <aside class = "success">
 The default rate limit for Anodot end-points is **500 calls per minute**.

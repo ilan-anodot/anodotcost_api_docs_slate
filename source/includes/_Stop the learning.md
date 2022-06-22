@@ -1,4 +1,4 @@
-# Stop the Learning
+## Stop the Learning
 
 > End Point prefix is **/api/v1/metrics**
 
@@ -16,7 +16,7 @@ To handle these scenarios, the *STL API* allows you to:
 * Snooze the learning of noisy metrics, thus prevening the side effects.
 * Resume the learning when the metrics resume close to normal values.
 
-## Snooze Learning
+### Snooze Learning
 
 > Request Example: POST /stl/add
 
@@ -31,7 +31,7 @@ To handle these scenarios, the *STL API* allows you to:
 
 Use this request to snooze the learning of the metrics to a designated time.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -40,9 +40,9 @@ timescale | Enum | The timescale to be snoozed.</br>This will be the timescale u
 duration | number | The requested snooze duration in seconds.
 metricIds | Array of strings | The array of metric ids we wish to snooze. 
 
-### Response
+#### Response
 
-## Resume Learning
+### Resume Learning
 
 > Request Example: POST /stl/remove
 
@@ -57,7 +57,7 @@ metricIds | Array of strings | The array of metric ids we wish to snooze.
 
 Use this request to resume the learning of the metrics you have snoozed earlier.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------

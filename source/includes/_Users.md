@@ -1,4 +1,4 @@
-# Users and Groups
+## Users and Groups
 
 > End Point **/api/v2/users
 
@@ -6,7 +6,7 @@ The below end-points are meant to help you better understand how users in your a
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## GET Users
+### GET Users
 
 > Request Example: Getting all users in the account  
 
@@ -57,7 +57,7 @@ This request has no body
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is an array of "user" items. Each one of them has the following fields:
 
@@ -81,7 +81,7 @@ The below end-points are meant to help you better manage groups in your Anodot a
 
 Authentication type: [Access Token Authentication] (#access-tokens).
 
-## GET Groups
+### GET Groups
 
 > Request Example: Getting list of all groups in the account
 
@@ -113,7 +113,7 @@ This request has no body
 ]
 ```
 
-### Response Fields
+#### Response Fields
 
 The response is an array of "group" items. Each one of them has the following fields:
 

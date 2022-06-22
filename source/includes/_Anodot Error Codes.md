@@ -1,4 +1,4 @@
-# Anodot Error Codes
+## Anodot Error Codes
 
 Error Code | Description
 ---------- | -----------

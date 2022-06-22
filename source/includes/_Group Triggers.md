@@ -1,4 +1,4 @@
-## Get Triggered Alert Groups
+### Get Triggered Alert Groups
 
 > Example Request: Get list of alert groups by search parameters
 
@@ -10,7 +10,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/alerts/trigger-grou
 
 Fetch alert triggers for a specific time frame based on a given set of filters.
 Arrays can be passed as comma seperated list of strings.
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -135,7 +135,7 @@ size | integer | Maximum number of records to return per page.
 }
 ```
 
-## Get Alert Trigger by Group Id
+### Get Alert Trigger by Group Id
 
 > Request Structure: GET Anomaly Group by ID
 
@@ -147,7 +147,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/alerts/trigger-grou
 Find trigger by group Id
 Fetch a single alert grouptrigger instance.
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -241,7 +241,7 @@ groupId | string | ID of the alert group **required**
   ]
 }
 ```
-## Get Triggered Alerts by TriggerId
+### Get Triggered Alerts by TriggerId
 
 > Request Example: Get Triggered Alert by TriggerID
 
@@ -250,7 +250,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/alerts/triggers?tri
 --header 'Authorization: Bearer {{bearer-token}'
 ```
 
-### Request Arguments
+#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
