@@ -1,4 +1,8 @@
+# Integrations
 
-# Anomaly
-
-Tab 3 description
+Incoming and outgoing integrations
+* Posting metrics
+* Stream creation
+* Alert channel creation
+* Posting events
+* Topology resources

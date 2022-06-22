@@ -263,6 +263,8 @@ delta (number) | Delta of the metric anomaly peak relative to the baseline. Unit
 tokenMapClustersLimit (integer) | Number of token map clusters to fetch
 toklenMapClusterLimit (integer) | Max number of tokens to include per cluster
 
+#### Response
+
 > Response Example:
 
 ```json
@@ -286,7 +288,6 @@ toklenMapClusterLimit (integer) | Max number of tokens to include per cluster
 ]
 ```
 
-#### Response 
 An array of key-values with tokens of the specific anomaly.
 
 Argument | Description

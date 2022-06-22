@@ -23,13 +23,9 @@ See details below.
 
 ### Access Tokens
 
-To use access token authentication, follow these 3 simple steps:
-
-**Step 1:** Create an access-key in the [Token Management](https://support.anodot.com/hc/en-us/articles/360002631114-Token-Management) page within Anodot.
-
 > Endpoint: **/access-token** :
 
-> Request example:
+> Step 2 - Request example:
 
 ```shell
 POST 'https://{{app-url}}/api/v2/access-token/?responseformat=JSON' \
@@ -39,20 +35,15 @@ POST 'https://{{app-url}}/api/v2/access-token/?responseformat=JSON' \
 }
 '
 ```
-#### Request Arguments
 
-Argument | Description
----------|------|------------
-refreshToken | Copied from Anodot app, see step 1
-responseformat [**Optional**] | Can be set to JSON (case sensitive!) if you would like to get the response in a json format.
-
-> The Response contains the access-token. Option 1 is in plain-text:
+> Step 2 response - contains the access-token
+> Option 1 is in plain-text:
 
 ```shell
 "{{bearer-token-string}}"
 ```
 
-> Second option is in a JSON format:
+> Option 2 is in JSON format:
 
 ```json
 {
@@ -60,17 +51,7 @@ responseformat [**Optional**] | Can be set to JSON (case sensitive!) if you woul
 }
 ```
 
-
-**Step 2:** Use the access-key's token to request an bearer-token.</br>The retrieved bearer-token is valid for 24 hours.
-
-*Response Codes:*
-
-Code | Description
----- | -----------
-200 | OK - The response includes a token
-401 | NOK - Token Mismatch
-
-> Using the token you get in subsequent calls:
+> Step 3 - Using the token you get in subsequent calls:
 
 ```shell
 curl -X GET \
@@ -80,8 +61,28 @@ https://{{app-url}}.anodot.com/api/v2/feedbacks \
 -d '{"startTime" : 1578391000, "endTime": 1578392000}'
 ```
 
+To use access token authentication, follow these 3 simple steps:
+
+**Step 1:** Create an access-key in the [Token Management](https://support.anodot.com/hc/en-us/articles/360002631114-Token-Management) page within Anodot.
+
+**Step 2:** Use the access-key's token to request a bearer-token.</br>The retrieved bearer-token is valid for 24 hours.
+
 **Step 3:** Use the retrieved bearer-token in your subsequent API calls<br/>
 Set the Authorization header of your calls with *Bearer* and the retrieved bearer-token.
+
+*Step 2 Request Arguments*
+
+Argument | Description
+---------|------|------------
+refreshToken | Copied from Anodot app, see step 1
+responseformat [**Optional**] | Can be set to JSON (case sensitive!) if you would like to get the response in a json format.
+
+*Response Codes:*
+
+Code | Description
+---- | -----------
+200 | OK - The response includes a token
+401 | NOK - Token Mismatch
 
 <aside class="notice">
 Remember:<br/>Access token expiration is controlled via the 'User session timeout' configuration in the settings page, under the Authentication tab.
@@ -101,7 +102,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/customers/id' \
 --data-raw ''
 '
 ```
-#### Request Arguments
+**Request Arguments**
 
 None.
 

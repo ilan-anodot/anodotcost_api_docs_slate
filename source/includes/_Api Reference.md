@@ -9,9 +9,6 @@
 > * **New!** US West coast customers, Use [https://app-oregon.anodot.com](https://app-oregon.anodot.com)<br/>
 > * Personalized URL scheme? Use [https://my-org.anodot.com](https://my-org.anodot.com)
 
-Welcome to the Anodot API Reference Site.
-Use the Anodot APIs to access Anodot Objects.
-
 The Anodot API endpoints can be used to:
 
 * Post metrics to Anodot using Metric 2.0 and Metric 3.0 protocols.

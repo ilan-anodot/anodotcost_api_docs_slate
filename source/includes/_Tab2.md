@@ -1,4 +1,4 @@
 
 # Alerts
 
-Tab 2 description
+This section lists Alert configuration and Alert trigger APIs

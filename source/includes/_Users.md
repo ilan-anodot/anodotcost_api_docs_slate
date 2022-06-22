@@ -19,6 +19,8 @@ curl -X GET 'https://app.anodot.com/api/v2/users' \
 Get the list of all users in the account.
 This request has no body
 
+#### Response Fields
+
 > Response Example:
 
 ```json
@@ -57,8 +59,6 @@ This request has no body
 ]
 ```
 
-#### Response Fields
-
 The response is an array of "user" items. Each one of them has the following fields:
 
 Field | Type | Description / Example
@@ -94,6 +94,8 @@ curl -X GET 'https://app.anodot.com/api/v2/groups' \
 Get the list of all groups in the account.
 This request has no body
 
+#### Response Fields
+
 > Response Example:
 
 ```json
@@ -112,8 +114,6 @@ This request has no body
     }
 ]
 ```
-
-#### Response Fields
 
 The response is an array of "group" items. Each one of them has the following fields:
 

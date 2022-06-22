@@ -34,15 +34,6 @@ Use this API to retrieve the alert ID's that are used to delete, edit, pause/res
 
 #### Response Fields
 
-This call will return an array of alert configurations, each one with the following structure:
-
-Field | Type | Description / Example
--|-|-
-id | String | Alert id. This id can be used in future calls for alert creation.
-Meta | Array | Alert meta deta such as creation details (time, owner, etc.). 
-Configuration | Array | The configuration details for the alert. For a detailed breakdown, see [Create a new alert] (#create-a-new-alert).
-State | Array | The current state of the alert (paused/live)
-
 > Response Example:
 
 ```json
@@ -179,6 +170,15 @@ State | Array | The current state of the alert (paused/live)
   }
 ]
 ```
+
+This call will return an array of alert configurations, each one with the following structure:
+
+Field | Type | Description / Example
+-|-|-
+id | String | Alert id. This id can be used in future calls for alert creation.
+Meta | Array | Alert meta deta such as creation details (time, owner, etc.). 
+Configuration | Array | The configuration details for the alert. For a detailed breakdown, see [Create a new alert] (#create-a-new-alert).
+State | Array | The current state of the alert (paused/live)
 
 ### Create a new alert
 
