@@ -11,7 +11,6 @@ Use the *Alert Config API* to:
 * Pause / Resume an alert
 * Delete an existing alert
 
-
 Authentication type: [Access Token Authentication] (#access-tokens).
 
 ### List all alert configurations
