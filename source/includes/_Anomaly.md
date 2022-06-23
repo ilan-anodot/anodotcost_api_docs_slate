@@ -14,7 +14,7 @@ The anomaly API can be used to get and anlalyze the list of anomalies in your ac
 > Request Example: Get all anomalies
 
 ```shell
-curl -X GET 'https://app.anodot.com/api/v2/anomalies' \
+curl -X GET 'https://app.anodot.com/api/v2/anomalies?startDate=1655769600&endDate=1655856000&resolution=short,medium,long,longlong,weekly&state=both'' \
 -H 'Authorization: Bearer {bearer-token} \
 -H 'Content-Type: application/json'
 ```
@@ -28,8 +28,8 @@ Argument | Description
 q * (string) | Search Query - include only anomalies of abnormal metrics that are part of the given search query.
 startDate (integer) | Filter anomalies that started after this given time (inclusive). Units are epoch in seconds.
 endDate (integer) | Relevant only when requesting closed anomalies, only anomalies that started before the given time are retrieved (inclusive). Units are epoch in seconds.
-state (string) | Anomaly state {open, closed, both}
-resolution (string) | Include anomalies of the listed timescales,<br>currently supported timescales are: {short (1 min), medium (5 min), long (1 hour), longlong (1 day), weekly}.<br>The list passed should be comma separated string list. Available values : short, medium, long, longlong
+state (string) | Anomaly state {open, closed, both}. Default: both
+resolution (string) | Include anomalies of the listed timescales,<br>currently supported timescales are: {short (1 min), medium (5 min), long (1 hour), longlong (1 day), weekly}.<br>The list passed should be comma separated string list, i.e. 'short,medium'. If you do not send this parameter, the default is 'medium'.  
 durationUnit (string) | Can be one of the following: {seconds, minutes, hours, days}.
 durationValue (integer) | Minimum anomaly duration. Units are based on durationUnits.
 score (number) | Minimum anomaly score in range (0,1) (inclusive).
@@ -206,17 +206,18 @@ percentageDelta (double) | Percentage breach delta relative to the baseline | 34
 > Request Example: Get count of anomalies
 
 ```shell
-curl -X GET 'https://app.anodot.com/api/v2/anomalies/count?startDate=1648512000&endDate=1648598400' \
+curl -X GET 'https://app.anodot.com/api/v2/anomalies/count?startDate=1648512000&endDate=1648598400&resolution=short,medium,long,longlong,weekly' \
 -H 'Authorization: Bearer {bearer-token} \
 -H 'Content-Type: application/json'
 ```
 
-Get a total number of anomalies identified by Anodot for a time frame.
+Get a total number of anomalies identified by Anodot for a time frame. Note that all the filters which you can use in the [List Anomalies](#list-anomalies) call apply here. It is recommended to use at elast the resolution parameter - otherwise you will get a subset of the results.
 
 Argument | Description
 -------- | -----------
 startDate (integer) | Filter anomalies that started after this given time (inclusive). Units are epoch in seconds.
 endDate (integer) | Relevant only when requesting closed anomalies, only anomalies that started before the given time are retrieved (inclusive). Units are epoch in seconds.
+resolution (string) | Include anomalies of the listed timescales,<br>currently supported timescales are: {short (1 min), medium (5 min), long (1 hour), longlong (1 day), weekly}.<br>The list passed should be comma separated string list, i.e. 'short,medium'. If you do not send this parameter, the default is 'medium'.  
 
 #### Response
 
