@@ -1,22 +1,55 @@
---- 
-includes: 
-   - errors 
 
---- 
+> End Point **https://api.mypileus.io/api/v1**
 
-## Introduction 
+## Authentication
+The following call will enable you to get an authentication token for the subsequent API calls. Please notice that the token recieved is valid for 24 hours.
 
-Pileus API 
+You can either use basic authentication (recommended) or send the parameters in the body.
 
-**Version:** 1.0.0-oas3 
 
-## /USERS
-### ***GET*** 
+> Request example: Getting an authentication token
+
+```shell
+curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' \
+--header 'Authorization: Basic eWFyaXZAYW5vZG90LmNvbTpUd2Vyay0zMA==' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "coyote@acme.com",
+    "password": "thisismypassword"
+}'
+```
+
+> Response example - invalid credentials.
+
+```json
+{
+    "Error": "Failed Retrieving Authentication Token"
+}
+```
+
+
+> Response example - token
+
+```json
+{
+   "Authorization": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",  
+ 	"apikey": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX:-1" 
+}
+```
+
+## Users 
+
+### Get List of Users 
 
 **Summary:** retrieve users
 
-#### HTTP Request 
-`***GET*** /users` 
+> Request example: Getting list of users
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/users' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}'
+```
 
 **Parameters**
 
@@ -25,16 +58,62 @@ Pileus API
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
 
+
 **Responses**
+
+The response is comprised of an array of users, according to the following table:
+
+**TBD**
 
 | Code | Description |
 | ---- | ----------- |
-| 200 | User retrival success |
+| 200 | User retrieval success |
 | 404 | User not found |
 | 500 | Server error |
 
-## /DIVISIONS
-### ***GET*** 
+> Response Example
+
+```json
+{
+    "id": 606,
+    "user_key": "c6d9e30e-cf36-4957-a41a-d08fbafa5093",
+    "user_name": "yariv@anodot.com",
+    "user_display_name": "yariv",
+    "user_type": "1",
+    "registration_time": "2020-04-27T20:58:36.000Z",
+    "registration_status_id": null,
+    "last_login_time": null,
+    "first_name": "Yariv",
+    "last_name": "Zur",
+    "company_name": "anodot",
+    "job_title": "",
+    "pricing_plan_id": null,
+    "trial_days": null,
+    "payment_customer_id": null,
+    "payment_billing_url": null,
+    "slack_webhook_url": null,
+    "pricing_amount_monthly": 400,
+    "pricing_amount_yearly": 3840,
+    "is_active": 1,
+    "is_read_only": 0,
+    "db_creation_time": "2020-09-22T19:41:31.000Z",
+    "db_update_time": null,
+    "remaining_trial_days": null,
+    "userHash": "{{user-hash}}",
+    "role_id": "34o48a5a",
+    "accounts": "TBD",
+    "root_user": true,
+    "parent_level": 0,
+    "is_parent": true,
+    "settings": {
+        "default_account_id": null
+    },
+    "childs": "TBD",
+}
+```
+
+## Divisions
+### Get Divisions 
 
 **Summary:** retrieve divisions
 
@@ -194,15 +273,20 @@ Pileus API
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
-## /BUDGETS
-### ***GET*** 
+## Budgets
+### Get Budget 
 
 **Summary:** Retrieves budgets for given user
 
 **Description:** The call is used to retrieve budgets created by api-key defined user
 
-#### HTTP Request 
-`***GET*** /budgets` 
+> Request Example: Getting a budget
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/budgets' \
+--header 'apikey: {{api-key}}' \
+--header 'Authorization: {{bearer-token'
+```
 
 **Parameters**
 
@@ -219,14 +303,56 @@ Pileus API
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
-### ***PUT*** 
+### Edit Budget 
 
 **Summary:** update budget for given user
 
 **Description:** The call is used to update budget created by api-key defined user
 
-#### HTTP Request 
-`***PUT*** /budgets` 
+```shell
+curl --location --request PUT 'https://api.mypileus.io/api/v1/budgets?budgetId={{budgetId}}' \
+--header 'apikey: {{api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "budgetName": "string",
+  "budgetAmount": 0,
+  "budgetAmounts": [
+    {
+      "date": "string",
+      "amount": 0
+    }
+  ],
+  "budgetAlerts": [
+    {
+      "alertPercent": 0,
+      "alertEmail": "string",
+      "whenToAlert": [
+        "actualUsage"
+      ],
+      "alertGranularity": [
+        "daily"
+      ]
+    }
+  ],
+  "includeFilters": {
+    "filter_name": [
+      "linkedaccid"
+    ]
+  },
+  "excludeFilters": {
+    "filter_name": [
+      "linkedaccid"
+    ]
+  },
+  "budgetType": "expiring",
+  "budgetAmountType": "fixed",
+  "startDate": "string",
+  "endDate": "string",
+  "isFlexible": true,
+  "budgetId": "string"
+}'
+```
 
 **Parameters**
 
@@ -243,14 +369,57 @@ Pileus API
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
-### ***POST*** 
+### Create Budget
 
 **Summary:** create budget for given user
 
 **Description:** The call is used to create budgets created by api-key defined user
 
-#### HTTP Request 
-`***POST*** /budgets` 
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v1/budgets' \
+--header 'apikey: {{api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "budgetName": "string",
+  "budgetAmount": 0,
+  "budgetAmounts": [
+    {
+      "date": "string",
+      "amount": 0
+    }
+  ],
+  "budgetAlerts": [
+    {
+      "alertPercent": 0,
+      "alertEmail": "string",
+      "whenToAlert": [
+        "actualUsage"
+      ],
+      "alertGranularity": [
+        "daily"
+      ]
+    }
+  ],
+  "includeFilters": {
+    "filter_name": [
+      "linkedaccid"
+    ]
+  },
+  "excludeFilters": {
+    "filter_name": [
+      "linkedaccid"
+    ]
+  },
+  "budgetType": "expiring",
+  "budgetAmountType": "fixed",
+  "startDate": "string",
+  "endDate": "string",
+  "isFlexible": true,
+  "budgetId": "string"
+}'
+```
+
 
 **Parameters**
 
