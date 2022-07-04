@@ -116,7 +116,7 @@ Properties | Key-value pairs, can be whatever the user wants to add as addition
 StartDate |The start time of the event. Needs to be in epochtime (seconds)[**required**]
 EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
 Type (New) | The user event type. Possible values:</br>DISPLAY - Used for Display Only</br>INFLUENCE - Used for influencing events</br>SUPPRESS - Used to suppress specific metrics from an alert. Can also be used as Display and influencing events </br>OFFICE_HOURS - Used to pause an alert altogether. Can also be used as Display and influencing events</br>This field is mandatory for SUPPRESS and OFFICE_HOURS event types. [*Optional*]
-Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: START, END. [*Optional*]</br>This field is mandatory for SUPPRESS and OFFICE_HOURS events types. 
+Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: START, END. [*Optional*]</br>This field is mandatory for OFFICE_HOURS event type. 
 
 <aside class="success">
 Note the enhanced validation:</br>
