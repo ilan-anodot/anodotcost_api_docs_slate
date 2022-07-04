@@ -20,9 +20,6 @@ curl -X GET \
 
 Use this API to get All Alert actions and their respective ID's
 
-
-#### Response Fields
-
 > Response Example:
 
 ```json
@@ -54,6 +51,8 @@ Use this API to get All Alert actions and their respective ID's
 ]
 ```
 
+**Response Fields**
+
 This call will return an array of alert actions, each one with the following structure:
 
 Field | Type | Description / Example
@@ -82,17 +81,11 @@ curl -X GET \
 
 Use this API to get a specific alert action.
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert action id to retrieve.
-
-
-#### Response Fields
-
-Similar to the results returned by the [List all alert actions] (#list-all-alert-actions) call. 
-
 
 > Response Example:
 
@@ -113,7 +106,18 @@ Similar to the results returned by the [List all alert actions] (#list-all-alert
 ]
 ```
 
+**Response Fields**
+
+Similar to the results returned by the [List all alert actions] (#list-all-alert-actions) call. 
+
 ### Create a new alert action
+
+Create a new alert action.</br>
+
+<aside class="success">
+A Pro Tip:</br>
+Get example alert action parameters by calling the GET alerts action API. You can then use the configuration you got as a jumping off point to creating your own alerts actions.
+</aside>
 
 > Request Example: Create a new alert action
 
@@ -135,14 +139,7 @@ curl --location --request POST 'https://app.anodot.com/api/v2/alert-actions/crea
 ]'
 ```
 
-Create a new alert action.</br>
-
-<aside class="success">
-A Pro Tip:</br>
-Get example alert action parameters by calling the GET alerts action API. You can then use the configuration you got as a jumping off point to creating your own alerts actions.
-</aside>
-
-#### Request Arguments
+**Request Arguments**
 
 Selected Request Arguments:
 
@@ -153,10 +150,6 @@ actionType | Array | The type of the action defined. Currently - only "OUTSIDE_L
 actionName | String | Name of the action as it shows up inside Anodot. Note that this is different than the text which is actually shown on the button when the alert recipient activates the action.
 btnName | String | The text which appears 
 data | Array | Relevant parameters for defining the action. For OUTSIDE_LINK actions, the only parameter is url.
-
-#### Response Fields
-
-The response will show the parameters of the created alert action together with the newly created ID and the created/modified time. 
 
 > Response Example:
 
@@ -177,7 +170,13 @@ The response will show the parameters of the created alert action together with 
 ]
 ```
 
+**Response Fields**
+
+The response will show the parameters of the created alert action together with the newly created ID and the created/modified time. 
+
 ### Update Alert Action
+
+Use this API to edit an alert action
 
 >Request Example:
 
@@ -200,9 +199,7 @@ curl -X PUT \
 ]'
 ```
 
-Use this API to edit an alert action
-
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -210,11 +207,14 @@ id | String | Alert action id to edit.
 
 Notice that you need to pass the ID of the action on the URL itself as well as the in the *body* of the call the updated definition of the action. The definition is the same as the one used in the alert action creation API. 
 
-#### Response
+**Response**
+
 The updated configuration of the action (same structure as the Get Alert action call)
 
 
 ### Delete alert action
+
+Use this API to delete an alert action
 
 >Request Example:
 
@@ -224,17 +224,11 @@ curl --location --request DELETE 'https://app.anodot.com/api/v2/alert-actions/{{
 --data-raw ''"
 ```
 
-Use this API to delete an alert action
-
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert action id to delete.
-
-#### Response Fields
-
-Assuming the operation was sucessfull you will recieve in the body of the reponse a confirmation how many alerts were deleted (supposed to be 1)
 
 > Response Example:
 
@@ -243,3 +237,7 @@ Assuming the operation was sucessfull you will recieve in the body of the repons
     "numDeleted": 1
 }
 ```
+
+**Response Fields**
+
+Assuming the operation was sucessfull you will recieve in the body of the reponse a confirmation how many alerts were deleted (supposed to be 1)

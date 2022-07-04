@@ -29,7 +29,7 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics/stl/add?to
 
 Use this request to snooze the learning of the metrics to a designated time.
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -56,7 +56,7 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics/stl/remove
 
 Use this request to resume the learning of the metrics you have snoozed earlier.
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -79,7 +79,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/metrics/cardinality
 --header 'Authorization: Bearer {bearer-token}'
 ```
 
-#### Request 
+**Request Arguments**
 
 Name | Description
 -----|------------
@@ -89,8 +89,6 @@ size | size of dimensions to return
 dims | A comma-seperated list of dimensions to return in result.
 stream | Name of stream to return results for
 from | starting index to fetch data from (0 based integer).
-
-#### Response 
 
 > Response Example: 
 
@@ -142,6 +140,8 @@ from | starting index to fetch data from (0 based integer).
 }
 ```
 
+**Response**
+
 If successfull the API returns an array of cardinality objects as described below in additional to high level metadata. 
 
 Paramater | Description
@@ -155,7 +155,6 @@ what | The measure to which this metric belongs to.
 
 ### Get cardinality Per Stream
 
-
 Use this API to find metrics cardinality per stream. 
 otice that this API still uses the V1 authentication (e.g. Data token on the URL) and and not the bearer-authentication. 
 
@@ -165,14 +164,12 @@ otice that this API still uses the V1 authentication (e.g. Data token on the URL
 curl --location --request GET 'https://app.anodot.com/api/v1/metrics/cardinality/streams?sort=name&token={{data-token}}'
 ```
 
-#### Request 
+**Request**
 
 Name | Description
 -----|------------
 token | (Mandatory) Data token of the account
 sort | (Mandatory) How to sort the results. Available values : name, size
-
-#### Response 
 
 > Response Example: 
 
@@ -199,8 +196,9 @@ sort | (Mandatory) How to sort the results. Available values : name, size
 }
 ```
 
-If successfull the API returns an array of stream names and the number of metrics for each one of them. 
+**Response**
 
+If successfull the API returns an array of stream names and the number of metrics for each one of them. 
 
 ### Get EPS (Events Per Second)
 
@@ -213,14 +211,12 @@ curl --location --request GET 'https://app.anodot.com/api/v1/metrics/eps?token={
 Use this API in order to get the EPS (Events per second) of the top metrics in the account. The main use case for this is to see which metrics cause a load (if at all) at a given time. 
 Notice that this API still uses the V1 authentication (e.g. Data token on the URL) and and not the bearer-authentication. 
 
-#### Request 
+**Request Arguments**
 
 Name | Description
 -----|------------
 token | (Mandatory) Data token of the account
 rollup | (Mandatory) Requested time scale for the EPS. Available values : short, medium, long, longlong, weekly
-
-#### Response 
 
 > Response Example: Array of metric names and their EPS. 
 
@@ -272,6 +268,8 @@ rollup | (Mandatory) Requested time scale for the EPS. Available values : short,
     }
 ]
 ```
+
+**Response**
 
 If successfull the API returns an array of cardinality objects as described below in additional to high level metadata. 
 

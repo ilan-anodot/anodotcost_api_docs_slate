@@ -24,7 +24,7 @@ https://app.anodot.com/api/v2/feedbacks \
 -d '{"startTime" : 1578391000, "endTime": 1578392000}'
 ```
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -62,7 +62,7 @@ endTime [**Required**] | Epoch | Time the feedback was given.<br/>Default value 
 }
 ```
 
-#### Response Fields
+**Response Fields**
 
 Field | Type | Description / Example
 -|-|-
@@ -110,7 +110,7 @@ https://app.anodot.com/api/v2/feedbacks \
 Feedback can be submitted in the Anodot app from The alert console, the investigation page, the insights widget and from the triggers you recieve to your inbox, slack or other channels.
 Use the POST call to provide your feedback using an API.
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -134,7 +134,7 @@ origin | Enum | Possible value:</br>api</br>
 }
 ```
 
-#### Response Fields
+**Response Fields**
 
 Field | Type | Description / Example
 -|-|-
@@ -175,7 +175,7 @@ To find the feedback id you with to update:
 * Use the feedback id you have received in the response to the original POST call
 * Or, find the relevant feedback entry using the GET feedback call.
 
-#### Request Fields
+**Request Fields**
 
 Two additional fields can be used in the PUT call:
 
@@ -198,7 +198,7 @@ comment | string | Optional free text comment.
 }
 ```
 
-#### Response Fields
+**Response Fields**
 
 The same fields are returned.</br>The modifiedTime field is updated with the PUT time.
 
@@ -219,7 +219,7 @@ curl --location --request POST 'https://app.anodot.com//api/v2/timeline/comments
 
 Use this API to add a comment to the timeline of an existing incident. This is similar to the comment being sent as part of the [Update Feedback](#update-feedback) call, but without a specific feedback. 
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -237,7 +237,7 @@ userId | String | (optional) the user giving the feedback. Find this ID from you
 }
 ```
 
-#### Response Fields
+**Response Fields**
 
 Field | Type | Description / Example
 -|-|-
