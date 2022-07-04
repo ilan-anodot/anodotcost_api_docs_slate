@@ -26,6 +26,8 @@ curl -X GET 'https://app.anodot.com/api/v2/dynamic-routing' \
 Get the list of routing tables in the account.
 This request has no body
 
+#### Response Fields
+
 > Response Example:
 
 ```json
@@ -51,8 +53,6 @@ This request has no body
 ]
 ```
 
-#### Response Fields
-
 The response is a list of the available routing tables used in the account</br>
 
 Field | Type | Description / Example
@@ -67,6 +67,10 @@ version | String | TBD
 
 ### GET Routing table
 
+Get a single table based on its id.
+
+#### Request Arguments
+
 > Request Example: 
 
 ```shell
@@ -75,11 +79,9 @@ curl -X GET 'https://app.anodot.com/api/v2/dynamic-routing/{id}/csv' \
 -H 'Content-Type: multipart/form-data'
 ```
 
-Get a single table based on its id.
-
-#### Request Arguments
-
 Replace {id} with the requested table id you received from the [GET Routing Tables] (#get-routing-tables) request.
+
+#### Response Fields
 
 > Response Example:
 
@@ -90,8 +92,6 @@ Replace {id} with the requested table id you received from the [GET Routing Tabl
 ]
 ```
 
-#### Response Fields
-
 The routing table content.
 
 Column 1 | Column 2
@@ -99,6 +99,11 @@ Column 1 | Column 2
 Dimension Value | Email destination(s)
 
 ### POST to upload a new table
+
+To upload a routing table, prepare a CSV file with the required routing rules and upload it as shown in this example.</br>
+Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
+
+#### Request Arguments
 
 > Request Example: 
 
@@ -108,11 +113,6 @@ curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing' \
 -H 'Content-Type: multipart/form-data' \
 --form 'file=@/Users/myuser/Downloads/routing_table_sample.csv'
 ```
-
-To upload a routing table, prepare a CSV file with the required routing rules and upload it as shown in this example.</br>
-Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
-
-#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------
@@ -129,6 +129,11 @@ The CSV file format:</br>
 
 ### POST to replace an existing table
 
+To update the information in an existing routing table, first update the information in a CSV using the same name, the upload it using the original table id.</br>
+Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
+
+#### Request Arguments
+
 > Request Example:
 
 ```shell
@@ -137,11 +142,6 @@ curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing/{t
 -H 'Content-Type: multipart/form-data' \
 --form 'File=@/Users/myuser/Downloads/routing_table_sample.csv'
 ```
-
-To update the information in an existing routing table, first update the information in a CSV using the same name, the upload it using the original table id.</br>
-Make sure to include the ".csv" suffix in your call when you specify the file name to upload.
-
-#### Request Arguments
 
 Argument | Type | Description
 ---------|------|------------

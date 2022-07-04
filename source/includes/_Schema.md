@@ -65,6 +65,8 @@ curl --location --request POST 'https://app.anodot.com/api/v2/stream-schemas' \
 
 Use this request to create a new schema
 
+**Request Arguments**
+
 Argument | Type | Description
 ------|------|------------
 version | String | (Optional) Describe the schema version
@@ -87,8 +89,7 @@ keepLastValue | Boolean | true - use the last received value as the completion v
 value | Float | The completion value to use, in case keepLastValue is false.
 
 
-#### Response
-The response contains the schema details and provides a schema id for you to use when posting metrics to this schema.
+#### Response fields
 
 > Response Example
 
@@ -140,9 +141,9 @@ The response contains the schema details and provides a schema id for you to use
 }
 ```
 
-### Get User Stream Schema
+The response contains the schema details and provides a schema id for you to use when posting metrics to this schema.
 
-After you've created the schema, you can use this call to get the list of all schemas in the account. 
+### Get User Stream Schema
 
 > Request Example: Get all schemas
 
@@ -151,13 +152,9 @@ curl --location --request GET 'https://app.anodot.com/api/v2/stream-schemas/sche
 --header 'Authorization: Bearer {{bearer-token}}'
 ```
 
-#### Response
-If the request is successfull, you will get an array of "streamsSchemaWrapper" objects. Each of these objects has the following properties:
+After you've created the schema, you can use this call to get the list of all schemas in the account. 
 
-Argument | Description
----------|------------
-schema | Schema object (see above for definition)
-meta | Create and modified time of the schema.
+#### Response fields
 
 > Response Example
 
@@ -200,13 +197,15 @@ meta | Create and modified time of the schema.
        "schemaCubesWrapper": {}
    }
 ```
+
+If the request is successfull, you will get an array of "streamsSchemaWrapper" objects. Each of these objects has the following properties:
+
+Argument | Description
+---------|------------
+schema | Schema object (see above for definition)
+meta | Create and modified time of the schema.
+
 ### Get Stream Schema
-
-Use this API to get a specific schema by Id.
-
-Name | Description
------|------------
-id (string) | Schema Id to retrieve
 
 > Request Example: Get a schema by Id
 
@@ -215,7 +214,13 @@ curl --location --request GET 'https://app.anodot.com/api/v2/stream-schemas/1111
 --header 'Authorization: Bearer {{bearer-token}}'
 ```
 
-#### Response
+Use this API to get a specific schema by Id.
+
+Name | Description
+-----|------------
+id (string) | Schema Id to retrieve
+
+#### Response fields
 
 > Respone Example:
 
@@ -275,6 +280,8 @@ Name | Description
 -----|------------
 id (string) | Schema Id to delete.
 
+#### Response fields
+
 > Respone Example: 
 
 ```json
@@ -283,7 +290,6 @@ id (string) | Schema Id to delete.
 }
 ```
 
-#### Response
 If successful - the call will return the id of the schema which was deleted.
 
 

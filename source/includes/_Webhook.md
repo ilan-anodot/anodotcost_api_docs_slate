@@ -1,7 +1,5 @@
 ## Anodot Webhook Channel
 
-
-
 The Anodot Webhook channel is used by customers to create custom handling of Alert triggers. The trigger is sent to a webhook URL the customer specifies and then you can create your own handling of the payload you get from Anodot. Instructions on setting up the webhook from the Anodot application can be found  - [here](https://support.anodot.com/hc/en-us/articles/208206925-Anodot-Webhook-integration)
 
 The Anodot Webhook format has four variants, based on the Alert type:
@@ -18,7 +16,8 @@ Epoch time is always in seconds (UTC time).</br>
 The alert templates show the structure (with iterators if a number of metrics and alerts descriptions are combined to the same alert message).
 </aside>
 
-#### Main Fields
+### Main Fields
+
 Field | Description
 ------|------------
 subject | Alert subject - same as alert email. Taken from Alert title
@@ -57,9 +56,6 @@ m - minute</br>
 </aside>
 
 ### Anomaly Alert 
-
-Anomaly alerts are the main type of Anodot alerts. Notice that Anomaly alerts have two versions for the webhook format - standard and extended. The extended version is open to select customers upon request. Please send a mail to [support@anodot.com](mailto:support@anodot.com) if you would like to start using the extended version. 
-On the right you can see the template and a sample of the standard Anomaly alert trigger. 
 
 > Anomaly Alert Template: 
 
@@ -123,6 +119,11 @@ On the right you can see the template and a sample of the standard Anomaly alert
 ]
 }
 ```
+
+Anomaly alerts are the main type of Anodot alerts. Notice that Anomaly alerts have two versions for the webhook format - standard and extended. The extended version is open to select customers upon request. Please send a mail to [support@anodot.com](mailto:support@anodot.com) if you would like to start using the extended version. 
+On the right you can see the template and a sample of the standard Anomaly alert trigger. 
+
+#### Anomaly alert response
 
 > Anomaly Alert Response Example (With Multiple Metrics):
 
@@ -210,17 +211,6 @@ b123-af7046659d4e",
 ```
 
 ### Anomaly Alert - Extended 
-In the extended version, the following fields are added to the webhook payload (not necessarily at the end of the 'standard' payload, so please pay attention to the template and example on the right)
-
-Field | Description
-------|------------
-upperAbsoluteDelta</br>lowerAbsoluteDelta | The upper/lower absolute delta value (the difference in the "from" and "to" values below) 
-from | The initial delta value
-to | The final delta value
-closeReasonPhrase | Whenever an alert is closed, this field will specify the reason that alert is closed (field is per metric).
-impact | Business impact data. An object containing the impact, currency and effect of an anomaly. For a deeper explanation on business impact, please read [here](https://support.anodot.com/hc/en-us/articles/360016317859-Measuring-Business-Impact)
-actions | An array of actions defined by the alert owner. Each element in the array has a name, URL, buttonName and type. For a deeper explanation on actions, please read [here](https://support.anodot.com/hc/en-us/articles/360019505219-Actions). 
-alertGroupStatus | An inidicator on the status of the alert group - it can be either 'open' or 'close'. It will turn to 'close' after *all* metrics in the alert gruop return to their normal baseline.   
 
 > Anomaly Alert Extended Template: 
 
@@ -305,6 +295,20 @@ alertGroupStatus | An inidicator on the status of the alert group - it can be ei
 }
 ```
 
+In the extended version, the following fields are added to the webhook payload (not necessarily at the end of the 'standard' payload, so please pay attention to the template and example on the right)
+
+Field | Description
+------|------------
+upperAbsoluteDelta</br>lowerAbsoluteDelta | The upper/lower absolute delta value (the difference in the "from" and "to" values below) 
+from | The initial delta value
+to | The final delta value
+closeReasonPhrase | Whenever an alert is closed, this field will specify the reason that alert is closed (field is per metric).
+impact | Business impact data. An object containing the impact, currency and effect of an anomaly. For a deeper explanation on business impact, please read [here](https://support.anodot.com/hc/en-us/articles/360016317859-Measuring-Business-Impact)
+actions | An array of actions defined by the alert owner. Each element in the array has a name, URL, buttonName and type. For a deeper explanation on actions, please read [here](https://support.anodot.com/hc/en-us/articles/360019505219-Actions). 
+alertGroupStatus | An inidicator on the status of the alert group - it can be either 'open' or 'close'. It will turn to 'close' after *all* metrics in the alert gruop return to their normal baseline.   
+
+#### Anomaly alert extended response
+
 > Anomaly Alert Extended Response Example:
 
 ```json
@@ -384,8 +388,6 @@ alertGroupStatus | An inidicator on the status of the alert group - it can be ei
 ```
 ### Static Alert 
 
-A static alert trigger is fired when a specified metric crosses a designated threshold. For details on Static alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
-
 > Static Alert Template: 
 
 ```json
@@ -447,6 +449,9 @@ A static alert trigger is fired when a specified metric crosses a designated thr
 }
 ```
 
+A static alert trigger is fired when a specified metric crosses a designated threshold. For details on Static alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
+
+#### Static alert response
 
 > Static Alert Response Example (With Multiple Metrics):
 
@@ -523,8 +528,6 @@ A static alert trigger is fired when a specified metric crosses a designated thr
 
 ### No Data Alert 
 
-A No Data alert trigger is fired when a specified metric ceases to send data points. For details on No Data alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
-
 > No Data Alert Template: 
 
 ```json
@@ -582,9 +585,11 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 "description" :"{{description}}",
 "severity":"{{severity}}"
 }
-]
-}
 ```
+
+A No Data alert trigger is fired when a specified metric ceases to send data points. For details on No Data alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
+
+#### No data alert response
 
 > No Data Alert Response Example (With Multiple Metrics):
 
@@ -622,4 +627,3 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 ]
 } 
 ```
-
