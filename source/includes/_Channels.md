@@ -185,3 +185,8 @@ jira | Open the alert as ticket in a JIRA project
 opsgenie | Create an OpsGenie alert
 msteams | Post the alert as an MS Teams message on an MS Teams channel
 tamtam | Send the alert as a TamTam message
+slackapp | Use Anodot's Slack App to handle the alerts
+mattermost | Create a mattermost message
+sns | Send alerts as AWS sns messages
+telegram | Send alerts as telegram messages
+
