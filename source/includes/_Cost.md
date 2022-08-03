@@ -289,7 +289,7 @@ The response is comprised of an array of cost centers, according to the followin
 
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/divisions' \
---header 'apikey: ae853bda-2f0b-479d-85cc-226e61381cdc:21:0' \
+--header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{Bearer-token}}'
 ```
 
@@ -952,10 +952,27 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/usage/anomaly-dete
 **Description:** The call is used to update anomaly detection rule created by api-key defined user
 
 > Request Example: Editing an Anomaly Detection Rule
+
 ```shell
-curl --location --request PUT 'https://api.mypileus.io/api/v1/usage/anomaly-detections/rules?ruleId=sdfsd' \
+curl --location --request PUT 'https://api.mypileus.io/api/v1/usage/anomaly-detections/rules' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
+--data-raw '{
+  "ruleName": "string",
+  "minPercentChange": 0,
+  "minAmountChange": 0,
+  "includeFilters": {
+    "filter_name": [
+      "string"
+    ]
+  },
+  "excludeFilters": {
+    "filter_name": [
+      "string"
+    ]
+  },
+  "ruleId": "string"
+}'
 ```
 
 
@@ -980,8 +997,30 @@ curl --location --request PUT 'https://api.mypileus.io/api/v1/usage/anomaly-dete
 
 **Description:** The call is used to create anomaly detection rule created by api-key defined user
 
-#### HTTP Request 
-`***POST*** /usage/anomaly-detections/rules` 
+> Request Example: Creating an anomaly detection rule
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v1/usage/anomaly-detections/rules' \
+--header 'apikey: {{account-api-token}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "ruleName": "string",
+  "minPercentChange": 0,
+  "minAmountChange": 0,
+  "includeFilters": {
+    "filter_name": [
+      "string"
+    ]
+  },
+  "excludeFilters": {
+    "filter_name": [
+      "string"
+    ]
+  },
+  "ruleId": "string"
+}'
+```
 
 **Parameters**
 
@@ -1004,8 +1043,13 @@ curl --location --request PUT 'https://api.mypileus.io/api/v1/usage/anomaly-dete
 
 **Description:** The call is used to delete anomaly detection rule created by api-key defined user
 
-#### HTTP Request 
-`***DELETE*** /usage/anomaly-detections/rules` 
+> Request Example: Delete an anomaly detection rule
+
+```shell
+curl --location --request DELETE 'https://api.mypileus.io/api/v1/usage/anomaly-detections/rules?ruleId=sdfsd' \
+--header 'apikey: {{account-api-token}}' \
+--header 'Authorization: {{Bearer-token}}'
+```
 
 **Parameters**
 
