@@ -14,14 +14,27 @@ Authentication type: [Access Token Authentication] (#access-tokens).
 
 ### Get Feedback
 
-> Request Example: 
+<aside class="notice">
+We've recently introduced feedback also on noData and Static alerts. This means that you can call the Get Feedback API with /static or /nodata to get the feedback for those types. Calling without any parameter will return only the anomaly feedbacks.</aside>
+
+> Request Example: Getting Feedback on anomaly alerts
 
 ```shell
 curl -X GET \
-https://app.anodot.com/api/v2/feedbacks \
+https://app.anodot.com/api/v2/feedbacks?startDate=1647388810&endDate=1647860710' \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--d '{"startTime" : 1578391000, "endTime": 1578392000}'
+
+```
+
+> Request Example: Getting Feedback on static alerts
+
+```shell
+curl -X GET \
+https://app.anodot.com/api/v2/feedbacks/static' \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+
 ```
 
 **Request Arguments**
@@ -78,7 +91,8 @@ alerts[] | Array | An array of alerts related to the feedback instance.
 anomalyGroupID | String | A unique identifier of alert group related to the feedback instance.
 score | Number | Score of the anomaly for which the feedback was given.
 
-##### Alerts Array Fields
+**Alerts Array Fields** 
+
 Field | Type | Description / Example
 -|-|-
 Id | String | Link to the *alert settings* in the Anodot platform.
