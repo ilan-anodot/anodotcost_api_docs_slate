@@ -92,6 +92,44 @@ It will now be:
 
 In the following calls, we refer to this new string as **{{account-api-key}}**
 
+## Pagination
+
+Today, Each API call is limited to returning **5000** rows. In case you need to get more results, you can use the pagination capability of the APIs
+
+
+> Pagination Call Example: First Request
+
+```json
+{ 
+  "data": "[item1, item2, … , item5000]",
+   "nextToken": 2 
+}
+```
+
+
+> Pagination Call Example: Calling with token=2
+
+```json
+{ 
+  "data": "[item5001, item5002, … , item6000]",
+   "nextToken": null 
+}
+```
+
+In order to get the full date (in case **next_token** is not null), you need to make the same API request with **token=next_token_value** until **nexToken** returns with a null value.
+
+The following APIs currently support pagination:
+
+* [Cost and Usage](#get-cost-amp-usage)
+* [Kubernetes Cost and Usage](#get-kubernetes-cost)
+
+<aside class="warning">
+Important - In order to use pagination, you need to use /v2 on the API calls instead of /v1.
+</aside>
+
+To use pagination the user needs to add an additional parameter called **token** to the query parameter. You do not need to attach **token** for the first call. 
+However - you will see in the response of the relevant calls a field called **nextToken** (see example on the right)
+
 ## Users 
 
 ### Get List of Users 
@@ -247,8 +285,13 @@ The response is comprised of an array of cost centers, according to the followin
 
 **Summary:** retrieve divisions
 
-#### HTTP Request 
-`***GET*** /divisions` 
+> Request Example: Get Divisions
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/divisions' \
+--header 'apikey: ae853bda-2f0b-479d-85cc-226e61381cdc:21:0' \
+--header 'Authorization: {{Bearer-token}}'
+```
 
 **Parameters**
 
@@ -256,6 +299,9 @@ The response is comprised of an array of cost centers, according to the followin
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
+
+> Response Example: TBD
+
 
 **Responses**
 
@@ -275,7 +321,7 @@ The response is comprised of an array of cost centers, according to the followin
 > Request Example - Getting cost and usage
 
 ```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupby=service&startdate=2021-12-31&enddate=2022-07-01&periodGranLevel=month' \
+curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupby=service&startDate=2021-12-31&endDate=2022-07-01&periodGranLevel=month' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
 ```
@@ -297,6 +343,49 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-
 | wheres | query | conditions of type if x equals y when retrieving data | No |  |
 | filters | query | conditions of type if x in (y,z,w) when retrieving data | No |  |
 | excludeFilters | query | conditions of type if x not in (y,z,w) when retrieving data | No |  |
+
+> Response Example 
+
+```json
+[
+    {
+        "group_by": "undefined",
+        "usage_date": "2022-05",
+        "account_id": "932213950603",
+        "total_cost": 36564.952178,
+        "total_usage_quantity": 1096079113.54,
+        "resource_name": "",
+        "resource_id": ""
+    },
+    {
+        "group_by": "undefined",
+        "usage_date": "2022-06",
+        "account_id": "932213950603",
+        "total_cost": 41454.924133,
+        "total_usage_quantity": 1247146351.53,
+        "resource_name": "",
+        "resource_id": ""
+    },
+    {
+        "group_by": "undefined",
+        "usage_date": "2022-07",
+        "account_id": "932213950603",
+        "total_cost": 75231.838587,
+        "total_usage_quantity": 2346800877.42,
+        "resource_name": "",
+        "resource_id": ""
+    },
+    {
+        "group_by": "undefined",
+        "usage_date": "2022-08",
+        "account_id": "932213950603",
+        "total_cost": 11307.24461,
+        "total_usage_quantity": 141920221.13,
+        "resource_name": "",
+        "resource_id": ""
+    }
+]
+```
 
 **Responses**
 
@@ -862,8 +951,13 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/usage/anomaly-dete
 
 **Description:** The call is used to update anomaly detection rule created by api-key defined user
 
-#### HTTP Request 
-`***PUT*** /usage/anomaly-detections/rules` 
+> Request Example: Editing an Anomaly Detection Rule
+```shell
+curl --location --request PUT 'https://api.mypileus.io/api/v1/usage/anomaly-detections/rules?ruleId=sdfsd' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
 
 **Parameters**
 
@@ -939,7 +1033,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/usage/anomaly-dete
 > Request Example: Get Kubernetes Cost
 
 ```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage?groupby=service&startdate=2022-01-01&enddate=2022-07-01&periodGranLevel=month' \
+curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage?groupBy=cluster&startDate=2022-05-01&endDate=2022-08-01&periodGranLevel=month&costUsageType=compute' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{Bearer-token}}'
 ```
@@ -950,21 +1044,47 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-an
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| groupBy | query | The group by value that will be used for the results | Yes |  |
+| groupBy | query | The group by value that will be used for the results. Possible values: Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | Yes |  |
 | startDate | query | Start date of the cost and usage data examination | Yes |  |
 | endDate | query | End date of the cost and usage data examination | Yes |  |
-| periodGranLevel | query | Granularity level of the period in the output data | Yes |  |
-| costUsageType | query |  | No |  |
-| usageType | query |  | No |  |
-| metricType | query |  | No |  |
-| isNetUnblended | query |  | No |  |
-| isAmortized | query |  | No |  |
-| isNetAmortized | query |  | No |  |
-| wheres | query | conditions of type if x equals y when retrieving data | No |  |
-| filters | query | conditions of type if x in (y,z,w) when retrieving data | No |  |
-| excludeFilters | query | conditions of type if x not in (y,z,w) when retrieving data | No |  |
+| periodGranLevel | query | Granularity level of the period in the output data. Available values : month, week, day | Yes |  |
+| costUsageType | query | Available valuye: Available values : compute, dataTransfer, storage | Yes |  |
+| usageType | query | Available values : CPU, Memory | No |  |
+| metricType | query | Available values : actual, requirements | No |  |
+| isNetUnblended | query | Available values : true, false | No |  |
+| isAmortized | query | Available values : true, false | No |  |
+| isNetAmortized | query | Available values : true, false | No |  |
+| wheres | query | conditions of type if x equals y when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
+| filters | query | conditions of type if x in (y,z,w) when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
+| excludeFilters | query | conditions of type if x not in (y,z,w) when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
 
 **Responses**
+
+> Response example: Getting Kubernetes Cost
+
+```json
+{
+    "data": [
+        {
+            "groupBy": "us-east-1:932213950603:cw-test-2",
+            "usageDate": "2022-05",
+            "accountId": "932213950603",
+            "clusterName": "us-east-1:932213950603:cw-test-2",
+            "totalCost": 61.9,
+            "totalUsage": 253883145259.66
+        },
+        {
+            "groupBy": "us-east-1:932213950603:my-cluster-name",
+            "usageDate": "2022-05",
+            "accountId": "932213950603",
+            "clusterName": "us-east-1:932213950603:my-cluster-name",
+            "totalCost": 7.74,
+            "totalUsage": 31338272009.87
+        }
+    ],
+    "nextPage": null
+}
+```
 
 | Code | Description |
 | ---- | ----------- |
@@ -978,8 +1098,14 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-an
 
 **Description:** The call is used to retrieve kubernetes Pod cost and usage data grouped
 
-#### HTTP Request 
-`***GET*** /kubernetes/cost-and-usage/pod` 
+> Request Example: Getting Kubernetes cost per pod / cluster 
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage/pod?startDate=2022-05-01&endDate=2022-08-01&periodGranLevel=month&clusterName=us-east-1:932213950603:cw-test-2' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
 
 **Parameters**
 
@@ -992,6 +1118,31 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-an
 | clusterName | query | The cluster name that the pod running on. cluster name formatting should be in following format- [CLUSTER_REGION]:[CLUSTER_ACCOUNT_ID]:[CLUSTER_NAME] for example us-east-1:123456789012:prod-cluster | No |  |
 | nodeName | query |  | No |  |
 | podName | query | pod name formatting should be in following format- [POD_NAMESPACE]:[POD_NAME] for example kube-system:aws-node-k5jgh | Yes |  |
+
+> Response Example: 
+
+```json
+{
+    "data": [
+        {
+            "groupBy": "us-east-1:932213950603:cw-test-2",
+            "usageDate": "2022-05",
+            "accountId": "932213950603",
+            "clusterName": "us-east-1:932213950603:cw-test-2",
+            "totalCost": 61.9,
+            "totalUsage": 253883145259.66
+        },
+        {
+            "groupBy": "us-east-1:932213950603:my-cluster-name",
+            "usageDate": "2022-05",
+            "accountId": "932213950603",
+            "clusterName": "us-east-1:932213950603:my-cluster-name",
+            "totalCost": 7.74,
+            "totalUsage": 31338272009.87
+        }
+    ]
+}
+```
 
 **Responses**
 
@@ -1196,3 +1347,409 @@ curl --location --request DELETE 'https://api.mypileus.io/api/v1/users/events/fd
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
+## MSP Customers
+### Get MSP Customers
+
+**Summary:** Retrieves list of customers for an MSP
+
+**Description:** The call is used to retrieve list of customers for an MSP
+
+> Request Example: Get MSP Customers
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/msp/customers' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| startDate | query | Start date of events | Yes | date |
+| endDate | query | Start date of events | Yes | date |
+
+**Responses**
+
+> Response Example: Events
+
+```json
+[
+    {
+        "date": "2022-07-07",
+        "creationTime": "2022-07-07 12:46:08",
+        "createdBy": "PileusUser",
+        "uuid": "eventId",
+        "divisionId": "0",
+        "accountKey": "649",
+        "userKey": "userKey",
+        "accountId": "accountID",
+        "description": "Its time to get the API going!",
+        "title": "The Big API Palooza"
+    }
+]
+```
+
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+The response is an array of events within the given time frame.
+
+**Event Structure**
+
+| Field | Description |
+| ----- | ----------- |
+| account_id | The payer account id |
+| uuid | The event id |
+| creation_time | Time and date when this event was created in format YYYY-MM-DD hh:mm:ss |
+| date | Date of the event in format YYYY-MM-DD |
+| description | The description of the event |
+| title | The title of the event |
+| user_key | Identifier of user, who created this event |
+| updating_time | The last time and date when this event was updated in format YYYY-MM-DD hh:mm:ss |
+
+### Create MSP Customer
+
+**Summary:** Create MSP customer
+
+**Description:** The call is used to create a new customer for an MSP
+
+> Request Example: Create MSP Customer
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v1/msp/customers' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "customerName",
+    "linkedAccountsIds": [“19923818823”, “342134123”],
+    "code": "customerCode"
+}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| title | body | Event title | Yes | String |
+| description | body | Event description | Yes | String |
+| date | body | Event date | Yes | date |
+| createdBy | body | Name of user creating the event | Yes | String |
+
+**Responses**
+
+> Response Example - Event Creation
+
+```json
+{
+    "account_id": "{{acccountID}}",
+    "uuid": "fd50e8f0-823a-456e-9df8-7e14f8df3fb7",
+    "account_key": "{{accountKey}}",
+    "division_id": "0",
+    "user_key": "{{user-Key}}",
+    "creation_time": "2022-07-07 13:00:50",
+    "created_by": "Anodot User",
+    "title": "The Big API Palooza II",
+    "description": "Its time to get the API going!",
+    "date": "2022-07-07"
+}
+```
+
+| Code | Description |
+| ---- | ----------- |
+| 201 | successful Creation |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+### Edit MSP Customer
+
+**Summary:** Update an MSP customer
+
+**Description:** The call is used to update an MSP customer
+
+> Request Example - Edit an MSP customer
+
+```shell
+curl --location --request PUT 'https://api.mypileus.io/api/v1/msp/customers/fd50e8f0-823a-456e-9df8-7e14f8df3fb7' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "customerName",
+    "linkedAccountsIds": [“19923818823”, “342134123”],
+    "code": "customerCode"
+}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| id | path | The customer ID to update | Yes |  |
+
+**Responses**
+
+The response will contain the updated customer in the regular structure.
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+### Delete MSP Customers
+
+**Summary:** delete an MSP customer
+
+**Description:** The call is used to delete an MSP customer
+
+> Request Example: Delete MSP Customer
+
+```shell
+curl --location --request DELETE 'https://api.mypileus.io/api/v1/msp/customers/fd50e8f0-823a-456e-9df8-7e14f8df3fb7' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw ''
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| id | path | The customer Id to remove | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful deletion |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+## MSP Billing Rules
+### Get MSP Billing Rules
+
+**Summary:** Retrieves list of MSP Billing Rules
+
+**Description:** The call is used to retrieve list of billing rules for an MSP
+
+> Request Example: Get MSP Billing Relues
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/msp/billing-rules' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+
+**Responses**
+
+> Response Example: Get MSP Billing Rules
+
+```json
+[
+   {
+       "id": "2eee54d8",
+       "name": "test1",
+       "accountId": "932213950603",
+       "creationDate": "2022-07-07",
+       "frequency": "one time",
+       "customers": "ALL",
+       "effectiveMonth": "2022-06",
+       "marginType": "custom-service-calc-cost",
+       "margin": "20",
+       "disableMinimumFee": false,
+       "excludeAwsMarketplace": true,
+       "customService": "Custom Service Name",
+       "regions": [
+           "af-south-1"
+       ],
+       "excludeService": true,
+       "usageTypes": "ALL",
+       "usageTypeOperator": "IS",
+       "cloudFrontRegions": [],
+       "services": [
+           "Amazon Athena",
+           "Amazon CloudFront",
+           "Amazon Detective"
+       ]
+   }
+]
+```
+
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+The response is an array of rules for the MSP.
+
+**Event Structure**
+
+| Field | Description |
+| ----- | ----------- |
+| account_id | The payer account id |
+| uuid | The event id |
+| creation_time | Time and date when this event was created in format YYYY-MM-DD hh:mm:ss |
+| date | Date of the event in format YYYY-MM-DD |
+| description | The description of the event |
+| title | The title of the event |
+| user_key | Identifier of user, who created this event |
+| updating_time | The last time and date when this event was updated in format YYYY-MM-DD hh:mm:ss |
+
+### Create MSP Billing Rules
+
+**Summary:** Create an MSP Billing Rule
+
+**Description:** The call is used to create a new billing rule for an MSP
+
+> Request Example: Create MSP Billing Rule
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v1/msp/billing-rules' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-Token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "frequency": "recurring",
+   "name": "Billing Rule 1",
+   "linkedAccounts": "ALL",
+   "startMonth": "2022-06",
+   "endMonth": "2022-07",
+   "marginType": "calc-cost",
+   "margin": -50,
+   "excludeAwsMarketplace": false,
+   "regions": "ALL",
+   "disableMinimumFee": false,
+   "excludeService": false,
+   "usageTypes": "ALL",
+   "usageTypeOperator": "IS",
+   "cloudFrontRegions": [],
+   "services": ["AWS Premium Support"]
+}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| title | body | Event title | Yes | String |
+| description | body | Event description | Yes | String |
+| date | body | Event date | Yes | date |
+| createdBy | body | Name of user creating the event | Yes | String |
+
+**Responses**
+
+> Response Example - TBD
+
+| Code | Description |
+| ---- | ----------- |
+| 201 | successful Creation |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+### Edit MSP Billing Rules
+
+**Summary:** Update an MSP Billing Rule
+
+**Description:** The call is used to update an existing MSP Billing Rule
+
+> Request Example - Edit an MSP Billing Rule
+
+```shell
+curl --location --request PUT 'https://api.mypileus.io/api/v1/msp/billing-rules/23454' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "frequency": "recurring",
+   "name": "Billing Rule 1",
+   "linkedAccounts": "ALL",
+   "startMonth": "2022-06",
+   "endMonth": "2022-07",
+   "marginType": "calc-cost",
+   "margin": -50,
+   "excludeAwsMarketplace": false,
+   "regions": "ALL",
+   "disableMinimumFee": false,
+   "excludeService": false,
+   "usageTypes": "ALL",
+   "usageTypeOperator": "IS",
+   "cloudFrontRegions": [],
+   "services": ["AWS Premium Support"]
+}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| id | path | The customer ID to update | Yes |  |
+
+**Responses**
+
+The response will contain the updated customer in the regular structure.
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+### Delete MSP Billing Rules
+
+**Summary:** delete an MSP Billing Rule
+
+**Description:** The call is used to delete an MSP Billing Rule
+
+> Request Example: Delete MSP Billing rule
+
+```shell
+curl --location --request DELETE 'https://api.mypileus.io/api/v1/msp/billing-rules/234254' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw ''
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| id | path | The customer Id to remove | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful deletion |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
