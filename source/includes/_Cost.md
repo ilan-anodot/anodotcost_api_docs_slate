@@ -597,6 +597,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/ty
 | **Azure** | Disk | Disk Unattached | 'azure-disk-unattached' |
 | | VM | Virtual Machine Reserved-Instance | 'azure-vm-ri' |
 | | | Idle Virtual Machine | 'azure-vm-idle' |
+| | | Memory Utilization Data | 'azure-vm-rightsizing' |
 | | Database | Datebase Reserved-Instance | 'azure-db-ri' |
 | | Load Balancer | Idle Load Balancer | 'azure-idle-load-balancer' |
 | | Disk | Disk Type Change | 'azure-disk-type-change' |
