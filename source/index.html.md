@@ -2,8 +2,8 @@
 title: Anodot API Reference 
 
 # language_tabs: # must be one of https://git.io/vQNgJ
-#  - json: JSON
-#  - shell: cURL
+# - json: JSON
+# - shell: cURL
   
 toc_footers:
   - <a href='https://www.anodot.com'>Anodot Business Monitoring</a>
