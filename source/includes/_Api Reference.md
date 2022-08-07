@@ -6,7 +6,7 @@
 > * Asia Pacific customers, Use [https://ap.anodot.com](https://ap.anodot.com)<br/>
 > * India customers, Use [https://in.anodot.com](https://in.anodot.com)<br/>
 > * EU customers (Frankfurt), Use [https://eu.anodot.com/](https://eu.anodot.com/)</br>
-> * **New!** US West coast customers, Use [https://app-oregon.anodot.com](https://app-oregon.anodot.com)<br/>
+> * US West coast customers, Use [https://app-oregon.anodot.com](https://app-oregon.anodot.com)<br/>
 > * Personalized URL scheme? Use [https://my-org.anodot.com](https://my-org.anodot.com)
 
 The Anodot API endpoints can be used to:

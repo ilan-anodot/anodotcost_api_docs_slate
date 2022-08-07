@@ -11,6 +11,8 @@ Authentication type: [Access Token Authentication] (#access-tokens).
 
 ### Get channels
 
+#### Request Arguments
+
 > Request Example: GET All channels in the account
 
 ```shell
@@ -38,12 +40,12 @@ https://app.anodot.com/api/v2/channels?type=slack&name=alert \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-#### Request Arguments
-
 Argument | Type | Description
 ---------|------|------------
 type [**Optional**] | string | Limit the response to this channel type.<br/>Use single, lowercase word. Possible values are listed in the [channel list] (#channel-list) below.
 name [**Optional**] | string | Limit the response to anodot channel names containing this string
+
+#### Response Fields
 
 > Response Example:
 
@@ -62,8 +64,6 @@ name [**Optional**] | string | Limit the response to anodot channel names contai
 ] 
 ```
 
-#### Response Fields
-
 The response is a list of channels
 
 Field | Type | Description / Example
@@ -73,6 +73,8 @@ type | String | Channel type. See possible values in [channel list] (#channel-li
 name | String | Channel name.
 
 ### Create channel
+
+#### Request Arguments
 
 > Request Example: Create a webhook channel in the account
 
@@ -107,14 +109,12 @@ https://app.anodot.com/api/v2/channels/slack \
 }'
 ```
 
-
-
-#### Request Arguments
-
 Argument | Type | Description
 ---------|------|------------
 type | string [Enum] | Type of channel to be created (appended to the request URL)<br/>Use single, lowercase word. Possible values are listed in the [channel list] (#channel-list) below.
 parameters  | JSON Object | A JSON object with the required parameters for the creating the relevant channel type. See examples on the right for the relevant paylod for each type. 
+
+#### Response Fields
 
 > Response Example (creating a webhook channel):
 
@@ -160,8 +160,6 @@ parameters  | JSON Object | A JSON object with the required parameters for the c
 }
 ```
 
-#### Response Fields
-
 The response is a list of channels
 
 Field | Type | Description / Example
@@ -187,3 +185,8 @@ jira | Open the alert as ticket in a JIRA project
 opsgenie | Create an OpsGenie alert
 msteams | Post the alert as an MS Teams message on an MS Teams channel
 tamtam | Send the alert as a TamTam message
+slackapp | Use Anodot's Slack App to handle the alerts
+mattermost | Create a mattermost message
+sns | Send alerts as AWS sns messages
+telegram | Send alerts as telegram messages
+

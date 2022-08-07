@@ -66,7 +66,7 @@ Some guidelines for using the protocol:
 * Dimension name is a string, 1-50 characters.
 * Dimension value is a string, 1-150 characters.
 
-#### Request
+**Request Arguments**
 
 Field | Description
 ------|------------
@@ -91,7 +91,7 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?
 
 Use this API to send the watermark timestamp to Anodot (Only relevant for protocol 3.0). A watermark timestamp commits that no data samples with timestamps less than or equal to it will be sent.
 
-#### Parameters
+**Parameters**
 
 Field | Description
 ------|------------
@@ -120,6 +120,16 @@ It is highly recommended to use it. Even though Anodot can process the data samp
 
 
 ### Send Data Samples (2.0)
+
+Use this API to send metrics to Anodot based on a schema you've defined (Protocol 2.0)
+
+The “what=” property describes what is actually being measured, while the rest of the properties describe the various dimensions used to create the measure.
+
+By adding the property name with equal sign (=) to each token, you can use the Anodot service to easily find, aggregate, manipulate and understand any metric.
+
+The order of the property-value pairs in a 2.0 metric does not matter. All you need to do is simply be consistent with the property names, making sure that each metric has a unique name. Metrics are uniquely identified using their generated names; therefore, no two metrics should share all the same the property-value pairs.
+
+#### Request Arguments
 
 > Request Example - Sending metrics (2.0)
 
@@ -150,16 +160,6 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=a
 ]'
 ```
 
-Use this API to send metrics to Anodot based on a schema you've defined (Protocol 2.0)
-
-The “what=” property describes what is actually being measured, while the rest of the properties describe the various dimensions used to create the measure.
-
-By adding the property name with equal sign (=) to each token, you can use the Anodot service to easily find, aggregate, manipulate and understand any metric.
-
-The order of the property-value pairs in a 2.0 metric does not matter. All you need to do is simply be consistent with the property names, making sure that each metric has a unique name. Metrics are uniquely identified using their generated names; therefore, no two metrics should share all the same the property-value pairs.
-
-#### Request
-
 Field | Description
 ------|------------
 properties | list of properties of the metrics in a key-pair value array. This array should always contain a 'what' property. See notes below on best practices using this. 
@@ -181,23 +181,6 @@ gauge (average aggregation), counter (sum aggregation). (default is gauge)
 
 ### Send Data Samples (1.0)
 
-> Request Example - Sending metrics (1.0)
-
-```shell
-curl --location --request POST 'https://app.anodot.com/api/v1/metrics&token={{DC_Key}}' \
---header 'Content-Type: application/json' \
---data-raw '[
-  {
-    "name": "anodot.MacOS.hello_world_count",
-    "timestamp": 1520325400,
-    "value": 100,
-    "tags": {
-      "target_type": "counter"
-    }
-  }
-]'
-```
-
 <aside class="warning">
 Using the Metrics 1.0 Protocol:</br>
 Please keep in mind that this protocol is deprecated. While it is still supported - we do not encourage its use.
@@ -214,7 +197,24 @@ Metric 1.0 will look like this: Token1.Token2.Token3...tokenN.value
 * To assign one or more tags to a metric add the tags to the metric name with a prefix of a hashtag (#).
 * The token order must stay consistent with other metrics of the same type. 
 
-#### Request
+#### Request Arguments
+
+> Request Example - Sending metrics (1.0)
+
+```shell
+curl --location --request POST 'https://app.anodot.com/api/v1/metrics&token={{DC_Key}}' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+  {
+    "name": "anodot.MacOS.hello_world_count",
+    "timestamp": 1520325400,
+    "value": 100,
+    "tags": {
+      "target_type": "counter"
+    }
+  }
+]'
+```
 
 In the request body you need to send an array of time series data points. The data points have the following parameters: 
 

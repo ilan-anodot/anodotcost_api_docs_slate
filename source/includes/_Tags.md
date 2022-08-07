@@ -20,6 +20,8 @@ Authentication type: [Access Token Authentication] (#access-tokens).
 To create a tag on a set of metrics that match a search expression.
 Multiple expressions can be associated to each tag which is treated an OR expression between them.
 
+#### Request Arguments
+
 > Request Structure 
 
 ```shell
@@ -64,7 +66,7 @@ https://app.anodot.com/api/v2/metrics/tags \
   ]
     }'
 ```
-#### Arguments
+
 Argument | Definition
 ---------|-----------
 tag key | tag key name
@@ -151,7 +153,9 @@ https://app.anodot.com/api/v2/metrics/tags \
 
 ### Get Tag by ID
 
-Returns a tag's configuration based on the tag's ID.
+Returns a tag configuration based on the tag ID.
+
+#### Request Arguments
 
 > Sample Request: Get Tag by ID 
 
@@ -162,7 +166,6 @@ https://app.anodot.com/api/v2/metrics/tags/<Id>\
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-#### Arguments
 Argument | Definition
 -------- | ----------
 ID | The tag ID
@@ -278,6 +281,8 @@ ID | The tag ID
 
 Returns a tag's configuration based on a search expression.
 
+#### Request Arguments
+
 > Sample Request: Get Tag by Search Expression 
 
 ```shell
@@ -288,7 +293,6 @@ curl -X GET \
 -H "Authorization: Bearer ${TOKEN}"
 ```
 
-#### Arguments
 Argument | Description
 -------- | ----------
 value-contains-string (optional)  | The string to search within the value
@@ -523,15 +527,11 @@ https://app.anodot.com/api/v2/metrics/tags \
 ]
 ```
 
-
 ### Delete Tags
 
 Delete a tag and remove it from all metrics.
 
-#### Arguments
-Argument | Definition
--------- | ----------
-ID | The tag ID
+#### Request Arguments
 
 > Example Request: Delete all tags
 
@@ -542,10 +542,27 @@ curl \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer ${TOKEN}" \
 ```
+
+Argument | Definition
+-------- | ----------
+ID | The tag ID
+
 #### Response
+
 No response body for this API
 
 ### Assign Metrics to Tags
+
+Assign one or more metrics to one or more tags.
+
+The user will send an array of expressions that define the metrics he wants to assign the tags to.
+
+**Note:** It can take up to 20 minutes until the metric tagging operation will be applied to the relevant metrics.
+
+**Important**
+If a tag already exists then the tag will be removed from the metrics that previously matched the search expression; a tag will be added only to the metrics that match the current search expression.
+
+#### Arguments
 
 > Example Request: Assign Metrics to Tags
 
@@ -585,17 +602,6 @@ curl \
 }'
 ```
 
-Assign one or more metrics to one or more tags.
-
-The user will send an array of expressions that define the metrics he wants to assign the tags to.
-
-**Note:** It can take up to 20 minutes until the metric tagging operation will be applied to the relevant metrics.
-
-**Important**
-If a tag already exists then the tag will be removed from the metrics that previously matched the search expression; a tag will be added only to the metrics that match the current search expression.
-
-
-#### Arguments
 Argument | Definition
 ---------|-----------
 tag key | tag key name
@@ -676,6 +682,14 @@ value |  the metric key value 
 
 ### Add Metrics to Tags
 
+This method works similarly to Assign Metrics to Tags. Instead of removing metrics that were previously assigned to the requested tags, it adds the new metrics to the previous ones.
+
+If a tag does not exist then it will create a new tag and assign the metrics to it.
+
+**Note:** It can take up to 20 minutes until the metric tagging operation will be applied to the relevant metrics.
+
+#### Request Arguments
+
 > Example Request: Add Metrics to Tags
 
 ```shell
@@ -714,13 +728,6 @@ curl \
 }'
 ```
 
-This method works similarly to Assign Metrics to Tags. Instead of removing metrics that were previously assigned to the requested tags, it adds the new metrics to the previous ones.
-
-If a tag does not exist then it will create a new tag and assign the metrics to it.
-
-**Note:** It can take up to 20 minutes until the metric tagging operation will be applied to the relevant metrics.
-
-#### Arguments
 Argument | Definition
 ---------|-----------
 tag key | tag key name

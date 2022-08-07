@@ -301,7 +301,7 @@ A Pro Tip:</br>
 Get example alert configurations by calling the GET alerts API. You can then use the "configuration": {} section as a jumping off point to creating your own alerts.
 </aside>
 
-#### Request Arguments
+**Request Arguments**
 
 Selected Request Arguments:
 
@@ -427,13 +427,14 @@ Use this API to get a single alert configuration
 }
 ```
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
 id | String | Alert id to retrieve.
 
-#### Response Fields
+**Response Fields**
+
 Similar to the results returned by the [List all alert configurations] (#list-all-alert-configurations) call. 
 
 ### Update Alert Configuration
@@ -449,7 +450,7 @@ curl -X PUT \
 
 Use this API to edit an alert
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -457,7 +458,8 @@ id | String | Alert id to edit.
 
 Notice that you will in the *body* of this message the updated definition of the alert. The definition is the same as the one used in the alert creation API. 
 
-#### Response
+**Response**
+
 The updated configuration of the alert (same structure as the Get Alert call)
 
 ### Delete alert
@@ -473,7 +475,7 @@ curl -X DELETE \
 
 Use this API to delete an alert
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -492,7 +494,7 @@ curl -X POST \
 
 Use this API to pause an alert.
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -511,7 +513,7 @@ curl -X POST \
 
 Use this API to resume an alert.
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------

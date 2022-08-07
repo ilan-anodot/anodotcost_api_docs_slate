@@ -14,17 +14,30 @@ Authentication type: [Access Token Authentication] (#access-tokens).
 
 ### Get Feedback
 
-> Request Example: 
+<aside class="notice">
+We've recently introduced feedback also on noData and Static alerts. This means that you can call the Get Feedback API with /static or /nodata to get the feedback for those types. Calling without any parameter will return only the anomaly feedbacks.</aside>
+
+> Request Example: Getting Feedback on anomaly alerts
 
 ```shell
 curl -X GET \
-https://app.anodot.com/api/v2/feedbacks \
+https://app.anodot.com/api/v2/feedbacks?startDate=1647388810&endDate=1647860710' \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--d '{"startTime" : 1578391000, "endTime": 1578392000}'
+
 ```
 
-#### Request Arguments
+> Request Example: Getting Feedback on static alerts
+
+```shell
+curl -X GET \
+https://app.anodot.com/api/v2/feedbacks/static' \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+
+```
+
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -62,7 +75,7 @@ endTime [**Required**] | Epoch | Time the feedback was given.<br/>Default value 
 }
 ```
 
-#### Response Fields
+**Response Fields**
 
 Field | Type | Description / Example
 -|-|-
@@ -78,7 +91,8 @@ alerts[] | Array | An array of alerts related to the feedback instance.
 anomalyGroupID | String | A unique identifier of alert group related to the feedback instance.
 score | Number | Score of the anomaly for which the feedback was given.
 
-##### Alerts Array Fields
+**Alerts Array Fields** 
+
 Field | Type | Description / Example
 -|-|-
 Id | String | Link to the *alert settings* in the Anodot platform.
@@ -110,7 +124,7 @@ https://app.anodot.com/api/v2/feedbacks \
 Feedback can be submitted in the Anodot app from The alert console, the investigation page, the insights widget and from the triggers you recieve to your inbox, slack or other channels.
 Use the POST call to provide your feedback using an API.
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -134,7 +148,7 @@ origin | Enum | Possible value:</br>api</br>
 }
 ```
 
-#### Response Fields
+**Response Fields**
 
 Field | Type | Description / Example
 -|-|-
@@ -175,7 +189,7 @@ To find the feedback id you with to update:
 * Use the feedback id you have received in the response to the original POST call
 * Or, find the relevant feedback entry using the GET feedback call.
 
-#### Request Fields
+**Request Fields**
 
 Two additional fields can be used in the PUT call:
 
@@ -198,7 +212,7 @@ comment | string | Optional free text comment.
 }
 ```
 
-#### Response Fields
+**Response Fields**
 
 The same fields are returned.</br>The modifiedTime field is updated with the PUT time.
 
@@ -219,7 +233,7 @@ curl --location --request POST 'https://app.anodot.com//api/v2/timeline/comments
 
 Use this API to add a comment to the timeline of an existing incident. This is similar to the comment being sent as part of the [Update Feedback](#update-feedback) call, but without a specific feedback. 
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -237,7 +251,7 @@ userId | String | (optional) the user giving the feedback. Find this ID from you
 }
 ```
 
-#### Response Fields
+**Response Fields**
 
 Field | Type | Description / Example
 -|-|-

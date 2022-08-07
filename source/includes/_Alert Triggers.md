@@ -16,7 +16,8 @@ The Alert Triggers API manages and queries these triggers and groups.
 
 
 
-### Get Triggered Alerts 
+### Get Triggered Alerts
+
 > Request Example: Get Triggered Alerts
 
 ```shell
@@ -31,9 +32,12 @@ curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered?alertConfigurationId
 --header 'Authorization: Bearer {{bearer-token}}' 
 ```
 
-#### Request Arguments
+**Request Arguments**
 
-**Note** - All parameters are optional, however calling this API with no parameters will return ALL triggered alerts of the past year which is a lot of data and not recommended. So please use at least the 'startTime' as a parameter. 
+<aside class="success">
+A Performance Tip:</br>
+All parameters are optional, however calling this API with no parameters will return ALL triggered alerts of the past year which is a lot of data and not recommended. So please use at least the 'startTime' as a parameter.
+</aside>  
 
 Field | Type | Description / Example
 -|-|-
@@ -230,21 +234,22 @@ alertConfigurationIds | string | Alert configuration ID, limit the call to fetch
 }
 ```
 
-#### Alert Response Fields
+**Alert Response Fields**
 
 Field | Type | Description / Example
 -|-|-
 total | number | Number of alert groups which meet the criteria.
 alertGroups | Array | Array of [Alert Group](#alert-group) objects. 
 
-### Count Triggered Alerts 
+### Count Triggered Alerts
+
 > Request Example: Count Triggered Alerts
 
 ```shell
 curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered/count?startTime=1616929887&types=anomaly' \
 --header 'Authorization: Bearer {{bearer-token}}' 
 ```
-#### Request Arguments
+**Request Arguments**
 
 Request arguments are the same as the [List all triggered alerts](#get-triggered-alerts) API Call and will enable you to filter the triggered alerts count you will get.
 
@@ -256,7 +261,7 @@ Request arguments are the same as the [List all triggered alerts](#get-triggered
 }
 ```
 
-#### Alert Response Fields
+**Alert Response Fields**
 
 Field | Type | Description / Example
 -|-|-
@@ -278,14 +283,14 @@ curl --location --request POST 'https://app.anodot.com/api/v2/alerts/triggered/{
 
 Acknowledge the Alert Trigger
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
 groupId | string | ID of the triggered alert group **Required**
 userId | application/json | **Required**. This Id specifies which user performed the Acknowledgement.
 
-#### Request Response
+**Response**
 
 None.
 
@@ -305,14 +310,14 @@ curl --location --request POST 'https://app.anodot.com/api/v2/alerts/triggered/{
 
 Remove the Ack from the alert trigger
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
 groupId | string | ID of the triggered alert group **Required**
 userId | application/json | The object that will be removed **Required**. This Id specifies which user is removed from the Acknowledgement.
 
-#### Request Response
+**Response**
 
 None.
 
@@ -333,7 +338,7 @@ curl --location --request PUT 'https://app.anodot.com/api/v2/alerts/triggered/{{
 
 Assign an Alert Trigger
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -342,7 +347,7 @@ assigneeId | unique user identifier | **Required**. This Id specifies to which u
 assignerId | unique user identifier | **Required**. This Id specifies which user performed the Assignment.
 
 
-#### Request Response
+**Response**
 
 None.
 
@@ -363,7 +368,7 @@ curl --location --request DELETE 'https://app.anodot.com/api/v2/alerts/triggered
 
 Remove assignment from an Alert Trigger
 
-#### Request Arguments
+**Request Arguments**
 
 Argument | Type | Description
 ---------|------|------------
@@ -371,8 +376,7 @@ alertID | string | ID of the triggered alert group **Required**
 assigneeId | unique user identifier | **Required**. This Id specifies to which user the alert trigger will be assigned.
 assignerId | unique user identifier | **Required**. This Id specifies which user performed the Assignment.
 
-
-#### Request Response
+**Response**
 
 None.
 

@@ -1,3 +1,3 @@
 # Cost
 
-Anodot cost related APIs appear here
+APIs for the Anodot for Cost Product (f.k.a. Pileus)

@@ -1,7 +1,5 @@
 ## Anodot Webhook Channel
 
-
-
 The Anodot Webhook channel is used by customers to create custom handling of Alert triggers. The trigger is sent to a webhook URL the customer specifies and then you can create your own handling of the payload you get from Anodot. Instructions on setting up the webhook from the Anodot application can be found  - [here](https://support.anodot.com/hc/en-us/articles/208206925-Anodot-Webhook-integration)
 
 The Anodot Webhook format has four variants, based on the Alert type:
@@ -18,13 +16,15 @@ Epoch time is always in seconds (UTC time).</br>
 The alert templates show the structure (with iterators if a number of metrics and alerts descriptions are combined to the same alert message).
 </aside>
 
-#### Main Fields
+### Main Fields
+
 Field | Description
 ------|------------
 subject | Alert subject - same as alert email. Taken from Alert title
 severity | Determined by the alert with the highest severity amongst the alerts included in the webhook. Possible values: info, low, medium, high, critical
 description | Description of the alert who’s title was used in the subject
 investigationUrl	| Link to Anoboard within Anodot for investigation purposes
+triageUrl | Link to the triage screen for this specific alert trigger.
 startTime	| Human-readable start time of 1st alert in the anomaly
 startTimeEpoch	| startTime in Epoch
 timescale	| Alert timescale values: 1min, 5min, 1 hour, 1 day, 1 week
@@ -56,9 +56,6 @@ m - minute</br>
 </aside>
 
 ### Anomaly Alert 
-
-Anomaly alerts are the main type of Anodot alerts. Notice that Anomaly alerts have two versions for the webhook format - standard and extended. The extended version is open to select customers upon request. Please send a mail to [support@anodot.com](mailto:support@anodot.com) if you would like to start using the extended version. 
-On the right you can see the template and a sample of the standard Anomaly alert trigger. 
 
 > Anomaly Alert Template: 
 
@@ -123,6 +120,11 @@ On the right you can see the template and a sample of the standard Anomaly alert
 }
 ```
 
+Anomaly alerts are the main type of Anodot alerts. Notice that Anomaly alerts have two versions for the webhook format - standard and extended. The extended version is open to select customers upon request. Please send a mail to [support@anodot.com](mailto:support@anodot.com) if you would like to start using the extended version. 
+On the right you can see the template and a sample of the standard Anomaly alert trigger. 
+
+#### Anomaly alert response
+
 > Anomaly Alert Response Example (With Multiple Metrics):
 
 ```json
@@ -131,6 +133,7 @@ On the right you can see the template and a sample of the standard Anomaly alert
   "severity": "critical",
  "description": "should generate one alert story with DAL1 contains metrics m1(up) and DAL2 contains metrics m4(down)",   
  "investigationUrl": "https://yourdomain.anodot.com/#!/anomalies?tabs=main;0&activeTab=1&anomalies=;0(a42bab2f70f44ec8a420cc2130cc47bb)&duration=;1(1)&durationScale=;minutes(minutes)&delta=;1(1)&deltaType=;percentage(percentage)&resolution=;short(short)&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;(4fd71678-cd35-4248-ae2b-7578201cde78,33187cca-680c-4a42-a067-1d817ddb28dc)&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
+ "triageUrl": "https://yourdomain.anodot.com/#!/r/alerts-console?ref=slack&anomalyIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85&constRange=m3&investigationModal=1&sort=updatedTime&triggerIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85",
   "startTime": "14 Nov, 2018 9:17AM (UTC)",
   "startTimeEpoch": "1542187020",
   "anomalyId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
@@ -208,17 +211,6 @@ b123-af7046659d4e",
 ```
 
 ### Anomaly Alert - Extended 
-In the extended version, the following fields are added to the webhook payload (not necessarily at the end of the 'standard' payload, so please pay attention to the template and example on the right)
-
-Field | Description
-------|------------
-upperAbsoluteDelta</br>lowerAbsoluteDelta | The upper/lower absolute delta value (the difference in the "from" and "to" values below) 
-from | The initial delta value
-to | The final delta value
-closeReasonPhrase | Whenever an alert is closed, this field will specify the reason that alert is closed (field is per metric).
-impact | Business impact data. An object containing the impact, currency and effect of an anomaly. For a deeper explanation on business impact, please read [here](https://support.anodot.com/hc/en-us/articles/360016317859-Measuring-Business-Impact)
-actions | An array of actions defined by the alert owner. Each element in the array has a name, URL, buttonName and type. For a deeper explanation on actions, please read [here](https://support.anodot.com/hc/en-us/articles/360019505219-Actions). 
-alertGroupStatus | An inidicator on the status of the alert group - it can be either 'open' or 'close'. It will turn to 'close' after *all* metrics in the alert gruop return to their normal baseline.   
 
 > Anomaly Alert Extended Template: 
 
@@ -228,6 +220,7 @@ alertGroupStatus | An inidicator on the status of the alert group - it can be ei
 "severity": "{{severity}}",
 "description": "{{description}}",
 "investigationUrl": "{{appUrl}}/anomalies?tabs=main;0&activeTab=1&anomalies=;0({{alertGroupId}})&duration=;1(1)&durationScale=;minutes(minutes)&delta=;0(0)&deltaType=;percentage(percentage)&resolution=;{{rollup}}({{rollup}})&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;({{alertTriggerIds}})&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
+"triageUrl": "{{appUrl}}/#!/r/alerts-console?ref=slack&anomalyIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85&constRange=m3&investigationModal=1&sort=updatedTime&triggerIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85",
 "startTime": "{{startTime}} ({{timeZone}})",
 "startTimeEpoch": "{{startTimeEpoch}}",
 "anomalyId": "{{alertGroupId}}",
@@ -302,6 +295,20 @@ alertGroupStatus | An inidicator on the status of the alert group - it can be ei
 }
 ```
 
+In the extended version, the following fields are added to the webhook payload (not necessarily at the end of the 'standard' payload, so please pay attention to the template and example on the right)
+
+Field | Description
+------|------------
+upperAbsoluteDelta</br>lowerAbsoluteDelta | The upper/lower absolute delta value (the difference in the "from" and "to" values below) 
+from | The initial delta value
+to | The final delta value
+closeReasonPhrase | Whenever an alert is closed, this field will specify the reason that alert is closed (field is per metric).
+impact | Business impact data. An object containing the impact, currency and effect of an anomaly. For a deeper explanation on business impact, please read [here](https://support.anodot.com/hc/en-us/articles/360016317859-Measuring-Business-Impact)
+actions | An array of actions defined by the alert owner. Each element in the array has a name, URL, buttonName and type. For a deeper explanation on actions, please read [here](https://support.anodot.com/hc/en-us/articles/360019505219-Actions). 
+alertGroupStatus | An inidicator on the status of the alert group - it can be either 'open' or 'close'. It will turn to 'close' after *all* metrics in the alert gruop return to their normal baseline.   
+
+#### Anomaly alert extended response
+
 > Anomaly Alert Extended Response Example:
 
 ```json
@@ -310,6 +317,7 @@ alertGroupStatus | An inidicator on the status of the alert group - it can be ei
   "severity": "high",
   "description": "",
   "investigationUrl": "http://yourdomain.anodot.com/#!/anomalies?tabs=main;0&activeTab=1&anomalies=;0(bb9e7e1e5cb64c468e11cdf95756c272)&duration=;1(1)&durationScale=;minutes(minutes)&delta=;0(0)&deltaType=;percentage(percentage)&resolution=;longlong(longlong)&score=;0(0)&state=;both(both)&direction=;both(both)&bookmark=;()&alertId=;(62cf1755-cc90-4994-b8e4-86e308455622)&sort=;significance(significance)&q=;()&constRange=;1h(c)&startDate=;0(0)&endDate=;0(0)",
+  "triageUrl": "https://yourdomain.anodot.com/#!/r/alerts-console?ref=slack&anomalyIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85&constRange=m3&investigationModal=1&sort=updatedTime&triggerIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85",
   "startTime": "31 Aug, 2020 12:00AM (UTC)",
   "startTimeEpoch": "1598832000",
   "anomalyId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
@@ -380,8 +388,6 @@ alertGroupStatus | An inidicator on the status of the alert group - it can be ei
 ```
 ### Static Alert 
 
-A static alert trigger is fired when a specified metric crosses a designated threshold. For details on Static alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
-
 > Static Alert Template: 
 
 ```json
@@ -392,6 +398,7 @@ A static alert trigger is fired when a specified metric crosses a designated thr
 "startTime": "{{startTime}} (UTC)",
 "startTimeEpoch": "{{startTimeEpoch}}",
 "alertGroupId": "{{alertGroupId}}",
+"triageUrl": "{{triageUrl}}",
 "alertGroupStatus": "{{alertgGroupStatus}}",
 "type": "{{type}}",
 "alerts": [
@@ -442,6 +449,9 @@ A static alert trigger is fired when a specified metric crosses a designated thr
 }
 ```
 
+A static alert trigger is fired when a specified metric crosses a designated threshold. For details on Static alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
+
+#### Static alert response
 
 > Static Alert Response Example (With Multiple Metrics):
 
@@ -453,6 +463,7 @@ A static alert trigger is fired when a specified metric crosses a designated thr
   "startTime": "11/19/2016 22:27:00 (UTC)",
   "startTimeEpoch": "1479594420",
   "alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
+  "triageUrl": "https://app.anodot.com/#!/r/alerts-console?ref=slack&anomalyIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85&constRange=m3&investigationModal=1&sort=updatedTime&triggerIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85",
   "alertGroupStatus": "OPEN",
   "type": "static",
   "alerts": [
@@ -517,8 +528,6 @@ A static alert trigger is fired when a specified metric crosses a designated thr
 
 ### No Data Alert 
 
-A No Data alert trigger is fired when a specified metric ceases to send data points. For details on No Data alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
-
 > No Data Alert Template: 
 
 ```json
@@ -529,6 +538,7 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 "startTime": "{{startTime}} (UTC)",
 "startTimeEpoch": "{{startTimeEpoch}}",
 "alertGroupId": "{{alertGroupId}}",
+"triageUrl": "{{triageUrl}}",
 "alertGroupStatus": "{{alertgGroupStatus}}",
 "type": "{{type}}",
 "alerts": [
@@ -575,9 +585,11 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 "description" :"{{description}}",
 "severity":"{{severity}}"
 }
-]
-}
 ```
+
+A No Data alert trigger is fired when a specified metric ceases to send data points. For details on No Data alerts please see [here](https://support.anodot.com/hc/en-us/articles/360015467439-Creating-Static-and-No-Data-Alerts).
+
+#### No data alert response
 
 > No Data Alert Response Example (With Multiple Metrics):
 
@@ -589,6 +601,7 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 "startTime": "11/21/2016 21:32:12 (UTC)",
 "startTimeEpoch": "1479763932",
 "alertGroupId": "2aefdac1-1a07-4b7b-bf84-09bf5b34f917",
+"triageUrl": "https://app.anodot.com/#!/r/alerts-console?ref=slack&anomalyIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85&constRange=m3&investigationModal=1&sort=updatedTime&triggerIdInv=8dfbdcfc-537f-4e61-9fe5-e04d2a03fc85",
 "alertGroupStatus": "open",
 "type": "No Data",
 "alerts": [
@@ -614,4 +627,3 @@ A No Data alert trigger is fired when a specified metric ceases to send data poi
 ]
 } 
 ```
-
