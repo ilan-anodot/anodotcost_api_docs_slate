@@ -75,7 +75,7 @@ In this case, the user should be created using the 'Topology User' Creation API.
 
 ```shell
 curl -X PUT \
-https://app.anodot.com/api/v2/topology/map/load/start \
+https://app.anodot.com/api/v2/topology/map/load/{rollupId} \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
 -D '{

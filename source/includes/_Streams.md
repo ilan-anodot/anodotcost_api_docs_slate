@@ -237,7 +237,7 @@ curl -X POST \
 "https://app.anodot.com/api/v2/bc/data-sources/divertStreams?fromDataSrc={SourceId}&toDataSrc={DestinationId}" \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}" \
--d '{ ["streamX-Id", "streamY-Id"] }'
+-d '["streamX-Id", "streamY-Id"]'
 ```
 
 Use this request to divert data streams from a one data source to another.</br>
