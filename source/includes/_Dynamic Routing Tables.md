@@ -2,7 +2,7 @@
 
 > End Point **/api/v2/dynamic-routing
 
-Dynamic routing tables can be used in alerts to send alert triggers to specific email addresses according to a dimension value.
+Dynamic routing tables can be used in alerts to send alert triggers to specific channels according to a dimension value.
 
 Use the dynamic routing end point to:
 
@@ -87,16 +87,39 @@ Replace {id} with the requested table id you received from the [GET Routing Tabl
 
 ```json
 [
-    [ "US", "us_ae@myorg.com"],
-    [ "UK", "uk_ae@myorg.com"]
+    [
+        "dimension_or_tag_value",
+        "channel name",
+        "channel type"
+    ],
+    [
+        "anodotd-1",
+        "test-slack-dr-2",
+        "slackapp"
+    ],
+    [
+        "anodotd-db54f7948-smvtp",
+        "test-slack-dr-1",
+        "slackapp"
+    ],
+    [
+        "anodotd-1",
+        "yariv+marketing@anodot.com",
+        "email address"
+    ],
+    [
+        "anodotd-db54f7948-smvtp",
+        "yariv+payments@anodot.com",
+        "email address"
+    ]
 ]
 ```
 
 The routing table content.
 
-Column 1 | Column 2
--|-
-Dimension Value | Email destination(s)
+dimension_or_tag_value | channel name | channel type
+--|--|--
+Dimension (or tag) Value | Channel name | Channel type. Type can be one of the following: email, webhook, slackapp, slack, mattermost, pagerduty, sns, jira, opsgenie, msteams, tamtam. telegram. servicenow, email address
 
 ### POST to upload a new table
 
@@ -117,15 +140,6 @@ curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing' \
 Argument | Type | Description
 ---------|------|------------
 File Field | file reference | Specify the filename starting with @, and using the full path to the file location
-
-<aside class="notice">
-The CSV file format:</br>
-- Do not use column headers. The first row is already a data row used for routing.</br>
-- To route to several emails, separate them with a semi-colon.</br>
-- Example:</br>
-- US,us_ae1@myorg.com;us_ae2@myorg.com</br>
-- UK,uk_ae1@myorg.com;uk_ae2@myorg.com</br>
-</aside>
 
 ### POST to replace an existing table
 
