@@ -8,12 +8,10 @@ The data hierarchy is as follows: Forecast Tasks --> Each task has metrics --> E
 
 * Get list of tasks --> [GET Forecast Tasks](#get-forecast-tasks)
 * for each task - get list of metrics --> [GET Task Metrics](#get-task-metrics)
-* fer each metric - get list of results. --> [GET forecast results per tasks](#get-forecast-results-per-task)
-
-**New!** We recently added a way to get the metrics directly regardless of tasks. For this please use the following:
+* fer each metric - get list of results. --> [GET forecast results per task](#get-forecast-results-per-task)
 
 * Get all the forecast metrics in the account --> [Get forecast metrics](#get-forecast-metrics)
-* Get forecast metric results -->  [GET forecast results](#get-forecast-results)
+* Get forecast metric results -->  [GET forecast results per metric](#get-forecast-results-per-metric) 
 
 
 Authentication type: [Access Token Authentication] (#access-tokens).
@@ -157,6 +155,113 @@ last_updated_ts | timestamp (in epoch) | The time that this record was updated.
 metric_id | String | Name of forecast metric
 points | Array | An array of forecast data points. 
 
+### GET forecast aggregate results per task
+
+#### Request Fields
+
+> Request Example: Get forecast aggregate results for a specific task
+
+```shell
+curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{forecast-taskid}}/ֿaggregate' \
+--header 'Authorization: Bearer {{data-token}}' \
+--data-raw ''
+```
+
+This call gets the aggregate results for a specific task. Meaning that it returns the total forecast results of a specific task - the sum of forecast results of all the metrics in that task. The results are similar to the [GET Forecast Results](#get-forecast-results) call, but they do not include the 'last_forecaset_ts', 'last_updated_ts' and 'metric_id'.
+
+Field | Type | Description / Example
+-|-|-
+forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you can get this from the [GET Forecast Tasks](#get-forecast-tasks) call).
+
+#### Response Fields
+
+> Response Example:
+
+```json
+{
+  {
+    "forecastResults": [
+        {
+            "last_forecast_ts": "1620000000",
+            "last_updated_ts": "1620119209",
+            "metric_id": "92fe84ca-97c7-4b27-b993-c53fbb7be33a.AWSBackup.UnblendedCost",
+            "points": [
+                {
+                    "lowerBand": 0.4523230493,
+                    "timestamp": 1620086400,
+                    "upperBand": 0.9068104625,
+                    "value": 0.5088179708
+                },
+                {
+                    "lowerBand": 0.5381199121,
+                    "timestamp": 1620172800,
+                    "upperBand": 1.0131766796,
+                    "value": 0.6004434824
+                },
+                {
+                    "lowerBand": 1.136085391,
+                    "timestamp": 1620259200,
+                    "upperBand": 1.7545015812,
+                    "value": 1.2390322685
+                },
+                {
+                    "lowerBand": 1.1384156942,
+                    "timestamp": 1620345600,
+                    "upperBand": 1.7573906183,
+                    "value": 1.2415208817
+                }
+            ]
+        },
+        {
+            "last_forecast_ts": "1620000000",
+            "last_updated_ts": "1620119208",
+            "metric_id": "92fe84ca-97c7-4b27-b993-c53fbb7be33a.AWSCloudTrail.UnblendedCost",
+            "points": [
+                {
+                    "lowerBand": 110.9317855835,
+                    "timestamp": 1620086400,
+                    "upperBand": 114.520149231,
+                    "value": 113.305770874
+                },
+                {
+                    "lowerBand": 215.4238891602,
+                    "timestamp": 1620172800,
+                    "upperBand": 220.5315246582,
+                    "value": 218.9199981689
+                },
+                {
+                    "lowerBand": 112.3378067017,
+                    "timestamp": 1620259200,
+                    "upperBand": 115.9466094971,
+                    "value": 114.726890564
+                },
+                {
+                    "lowerBand": 206.5173797607,
+                    "timestamp": 1620345600,
+                    "upperBand": 211.495513916,
+                    "value": 209.9178314209
+                }
+            ]
+        }
+    ]
+}
+```
+
+<aside class="notice">
+The response is an array of forecast results. A forecast result will be a set of predicted data points per metric.
+Each data point (per timestamp) is comprised of a the predicted value and 'confidence band' for the value. The confidence band is represented by range between lowerBand and upperBand.
+</aside>
+
+The response itself looks as following: 
+
+Field | Type | Description / Example
+-|-|-
+last_forecast_ts | timestamp (in epoch) | The last timestamp which the forecast was done from, meaning the date from which the forecast is done forward. For example, for a daily forecast of 7 days, the last_forecast_ts can be the epoch of 5.5.2021, and then the resulting 7 days will be of 6.5.2021, 7.5.2021 etc. 
+last_updated_ts | timestamp (in epoch) | The time that this record was updated.
+metric_id | String | Name of forecast metric
+points | Array | An array of forecast data points. 
+
+
 ### GET forecast metrics 
 
 #### Request Fields
@@ -233,7 +338,7 @@ forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you ca
 The response is list of metric IDs covered by this task.
 
 
-### GET forecast results per task
+### GET forecast results per metric per task
 
 #### Request Fields
 
@@ -294,7 +399,7 @@ metricID | String ($uuid) | Unique identifier of the forecast metric (you can ge
 
 The response is an array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
 
-### GET forecast results
+### GET forecast results per metric
 
 #### Request Fields
 
