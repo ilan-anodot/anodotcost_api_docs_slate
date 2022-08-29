@@ -419,7 +419,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations?fi
 | apikey | header |  | Yes |  |
 | filters | query | Filter recommendations based on type | No |  |
 
-Filtering recommendations can be applied to the above calls using query parameters in the following manner: **filters[type]=recommendationType** where recommendationType is one of the recommendation types that are listed under the "Recommendation Types" section below. You can use the [Get Recommendation Types](get-recommendation-types) call to get the possible types.
+Filtering recommendations can be applied to the above calls using query parameters in the following manner: **filters[type]=recommendationType** where recommendationType is one of the recommendation types supported. You can use the [Get Recommendation Types](get-recommendation-types) call to get the possible types.
 
 
 **Responses**
@@ -562,50 +562,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/ty
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
-**Possible Recommendation Types**
-
-| Provider | Service | Recommendation | type |
-| -------- | ------- | -------------- | ---- |
-| **AWS** | EC2 | EC2 Reserved Instance | 'ri' |
-| | | Operation System | 'operation-system' |
-| | | OIP Unattached | 'ip-unattached' |
-| | | EC2 Generation Upgrade | 'version-upgrade' |
-| | | Idle EC2 instance | 'ec2-idle' |
-| | | EC2 Right Sizing | 'ec2-low-cpu-usage' |
-| | | EC2 Savings Plans | 'ec2-savings-plans' |
-| | | Stopped EC2 instance | 'ec2-stopped-instance' |
-| | | Unnecessary Data Transfer from EC2 instance | 'ec2-udt' |
-| | RDS | RDS Generation Upgrade | 'rds-version-upgrade' |
-| | | RDS Reserved-Instance | 'rds-ri' |
-| | | RDS Type Change | 'rds-type-change' |
-| | | Idle RDS Instance | 'rds-idle' |
-| | DynamoDB | Idle Dynamo DB | 'dynamodb-idle' |
-| | Load Balancer | Idle Load Balancer | 'idle-load-balancer' |
-| | | Stop S3 Versioning | 's3-versioning' |
-| | | Idle S3 | 's3-idle' |
-| | EBS | Unattached EBS | 'ebs-unattached' |
-| | | EBS Type Change | 'ebs-type-change' |
-| | | Outdated EBS Snapshot | 'ebs-outdated-snapshot' |
-| | | EBS Upgrade | 'ebs-upgrade' |
-| | Redshift | Low utilization red shift cluster | 'redshift-util-low' |
-| | Neptune DB | Neptune DB Idle | 'neptune-util-low' |
-| | Elasticsearch | Elasticsearch Idle | 'es-util-low' |
-| | NAT Gateway | NAT Gateway Idle | 'nat-gateway-util-low' |
-| | ElastiCache | ElastiCache Idle | 'elasticache-util-low' |
-| | DocumentDB | DocumentDB Idle | 'documentdb-util-low' |
-| | Kinesis | Kinesis Idle | 'kinesis-util-low' |
-| **Azure** | Disk | Disk Unattached | 'azure-disk-unattached' |
-| | VM | Virtual Machine Reserved-Instance | 'azure-vm-ri' |
-| | | Idle Virtual Machine | 'azure-vm-idle' |
-| | | Memory Utilization Data | 'azure-vm-rightsizing' |
-| | Database | Datebase Reserved-Instance | 'azure-db-ri' |
-| | Load Balancer | Idle Load Balancer | 'azure-idle-load-balancer' |
-| | Disk | Disk Type Change | 'azure-disk-type-change' |
-| | IP | IP Unattached | 'azure-ip-unattached' |
-| | Cosmos DB | Cosmos DB Right Sizing | 'azure-cosmos-db-right-sizing' |
-| **GCP** | VM | Idle Virtual Machine | 'gcp-vm-idle' | 
-| | | Virtual Machine Right Sizing | 'gcp-vm-rightsizing' |
-
+**For a complete list of all recommendation types, please contact support@anodot.com**
 
 
 ### Get history of recommendations
@@ -668,6 +625,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/hi
 | 200 | successful retrieval |
 | 400 | Invalid Parameters value |
 | 500 | Server error |
+
 
 ## Budgets
 ### Get Budget 
