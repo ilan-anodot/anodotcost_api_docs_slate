@@ -72,10 +72,11 @@ Set the Authorization header of your calls with *Bearer* and the retrieved beare
 
 <aside class="notice">
 Checking the token expiration:<br/>
-The token made up of 3 sections, divided by dots.</br> 
-Extract the second section. Decode it from Base64</br>
-The object you get contains an "exp" part, this is a UNIX formatted time indicating the token's expiration time</br>
-Create the logic in your code to support token refresh before you reach the expiration time.</br>
+- The token is made up of 3 sections, divided by dots.</br> 
+- Extract the second section from the token (between the two dots).</br>
+- Decode this string from Base64 and get the object from it.</br>
+- The object you get contains an "exp" part, this is a UNIX formatted time indicating the token's expiration time.</br>
+- Create the logic in your code to support token refresh before you reach the expiration time.</br>
 </aside>
 
 *Step 2 Request Arguments*
