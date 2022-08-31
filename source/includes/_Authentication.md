@@ -65,10 +65,18 @@ To use access token authentication, follow these 3 simple steps:
 
 **Step 1:** Create an access-key in the [Token Management](https://support.anodot.com/hc/en-us/articles/360002631114-Token-Management) page within Anodot.
 
-**Step 2:** Use the access-key's token to request a bearer-token.</br>The retrieved bearer-token is valid for 24 hours.
+**Step 2:** Use the access-key's token to request a bearer-token.</br>The retrieved bearer-token expiration is controlled via the 'User session timeout' configuration in the settings page, under the Authentication tab.
 
 **Step 3:** Use the retrieved bearer-token in your subsequent API calls<br/>
 Set the Authorization header of your calls with *Bearer* and the retrieved bearer-token.
+
+<aside class="notice">
+Checking the token expiration:<br/>
+The token made up of 3 sections, divided by dots.</br> 
+Extract the second section. Decode it from Base64</br>
+The object you get contains an "exp" part, this is a UNIX formatted time indicating the token's expiration time</br>
+Create the logic in your code to support token refresh before you reach the expiration time.</br>
+</aside>
 
 *Step 2 Request Arguments*
 
@@ -83,10 +91,6 @@ Code | Description
 ---- | -----------
 200 | OK - The response includes a token
 401 | NOK - Token Mismatch
-
-<aside class="notice">
-Remember:<br/>Access token expiration is controlled via the 'User session timeout' configuration in the settings page, under the Authentication tab.
-</aside>
 
 ### Get CustomerID
 
