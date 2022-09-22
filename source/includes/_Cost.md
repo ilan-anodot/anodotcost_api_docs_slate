@@ -321,7 +321,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/divisions' \
 > Request Example - Getting cost and usage
 
 ```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupby=service&startDate=2021-12-31&endDate=2022-07-01&periodGranLevel=month' \
+curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupby=service&startDate=2021-12-31&endDate=2022-07-01&periodGranLevel=month&costType=discount' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
 ```
@@ -336,7 +336,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-
 | startDate | query | Start date of the cost and usage data examination | Yes |  |
 | endDate | query | End date of the cost and usage data examination | Yes |  |
 | periodGranLevel | query | Granularity level of the period in the output data | Yes |  |
-| costType | query |  | No |  |
+| costType | query | Type of cost to get the report for. Possible options are: cost, discount, refund, credit | Yes |  |
 | isNetUnblended | query |  | No |  |
 | isAmortized | query |  | No |  |
 | isNetAmortized | query |  | No |  |
