@@ -113,15 +113,15 @@ Description | A description of the event. [*Optional*]
 Category | The name of the pre-defined category that the event belongs to (e.g deployments, marketing_campaigns, holidays) [**required**]. If a relevant category does not exist, create one. To create a new category, see [create category](#create-event-category).
 Source | The pre-defined source of the request (e.g rest_api, Chef, Jenkins) [**required**]. If the source does not exist, add it. To add a new source, see [create source](#create-event-source).
 Properties | Key-value pairs, can be whatever the user wants to add as additional data except the ones that are already part of the body arguments like title, description, category and so on. E.g: severity: high, publisher: nyt, exchange: rubicon. [*Optional*]
-StartDate |The start time of the event. Needs to be in epochtime (seconds)[**required**]
-EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
+startDate |The start time of the event. Needs to be in epochtime (seconds)[**required**]
+endDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
 Type (New) | The user event type. Possible values:</br>DISPLAY - Used for Display Only</br>INFLUENCE - Used for influencing events</br>SUPPRESS - Used to suppress specific metrics from an alert. Can also be used as Display and influencing events </br>OFFICE_HOURS - Used to pause an alert altogether. Can also be used as Display and influencing events</br>This field is mandatory for SUPPRESS and OFFICE_HOURS event types. [*Optional*]
 Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: START, END. [*Optional*]</br>This field is mandatory for SUPPRESS event type. 
 
 <aside class="success">
 Note the enhanced validation:</br>
-If the event type is "OFFICE_HOURS", the event should include both "startTime" and "endTime".</br>
-If the event type is "SUPPRESS", the event should either include both "startTime" and "EndTime"</br>
+If the event type is "OFFICE_HOURS", the event should include both "startDate" and "endDate".</br>
+If the event type is "SUPPRESS", the event should either include both "startDate" and "endDate"</br>
 OR, Have the "Action" field filled with START or END.
 </aside>
 
@@ -191,8 +191,8 @@ Description | A description of the event. [*Optional*]
 Category | The name of the pre-defined category that the event belongs to (e.g deployments, marketing_campaigns, holidays) [**required**]. If a relevant category does not exist, create one. To create a new category, see [create category](#create-event-category).
 Source | The pre-defined source of the request (e.g rest_api, Chef, Jenkins) [**required**]. If the source does not exist, add it. To add a new source, see [create source](#create-event-source).
 Properties | Key-value pairs, can be whatever the user wants to add as additional data except the ones that are already part of the body arguments like title, description, category and so on. E.g: severity: high, publisher: nyt, exchange: rubicon. [*Optional*]
-StartDate | The start time of the event. Needs to be in epochtime (seconds)[**required**]
-EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
+startDate | The start time of the event. Needs to be in epochtime (seconds)[**required**]
+endDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
 Type (New) | The user event type. Possible values:</br>DISPLAY - Used for Display Only</br>INFLUENCE - Used for influencing events</br>SUPPRESS - Used to suppress specific metrics from an alert. Can also be used as Display and influencing events </br>OFFICE_HOURS - Used to pause an alert altogether. Can also be used as Display and influencing events</br>This field is mandatory for SUPPRESS and OFFICE_HOURS event types. [*Optional*]
 Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: START, END.</br>This field is mandatory for SUPPRESS and OFFICE_HOURS events types. [*Optional*]
 
