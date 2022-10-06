@@ -1,10 +1,10 @@
 ## Post Metrics
 
-> End Point prefix is **/api/v1/metrics**
+> End Point prefix is **/api/v1/metrics** or **/api/v2/send-metrics**
 
 Send data samples to Anodot using Metric 2.0/3.0 protocols. 
 Both the version 2.0 and 3.0 protocols work with a **schema** - this means that the data is structured into key-value pairs and enables Anodot to better 'understand' and interact the metrics sent to it. 
-The main difference between 2.0 and 3.0 is that 3.0 enable sending a '**watermark**' notification to Anodot, enabling a better detection and assignment of data points to a time frame.
+The main difference between 2.0 and 3.0 is that 3.0 enable sending a '**watermark**' notification to Anodot, enabling a better detection and assignment of data points to a time frame. 
 
 <aside class="warning">
 Using the Metrics 1.0 Protocol:</br>
@@ -50,6 +50,38 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics?protocol=a
 ]'
 ```
 
+> Request Example - Sending metrics (3.0) with oAuth 2.0 Support
+
+```shell
+curl --location --request POST 'http://app.anodot.com/api/v2/send-metrics?protocol=anodot30' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: {{bearer token}}' \
+--data-raw '[
+  {
+    "schemaId": "111111-22222-3333-4444",
+    "timestamp": “143876178”,
+    "dimensions": {
+      "Geo": "US",
+      "Device": "Mobile",
+      "ProductCategory": "Shoes"
+    },
+    "measurements": {
+      "measure1": “10”,
+      "measure2": “25.5”
+    },
+    "tags": {
+      "ActiveCampaignID": [
+        “1234”
+      ],
+      "AccountManagers": [
+        "JohnDoe",
+        "MaryJane"
+      ]
+    }
+  }
+]'
+```
+
 **High Level Flow**
 
 1. [Creating a Schema](#schema)
@@ -87,6 +119,19 @@ curl --location --request POST 'https://app.anodot.com/api/v1/metrics/watermark?
   "schemaId": "111111-22222-3333-4444",
   "watermark": “1438770000”
 }'
+```
+
+> Request Example - Sending a watermark request with oAuth 2.0 support 
+
+```shell
+curl --location --request POST 'http://app.anodot.com/api/v2/send-metrics/watermark?protocol=anodot30' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: {{Bearer token}}' \
+--data-raw '{
+  "schemaId": "111111-22222-3333-4444",
+  "watermark": “143877000”
+}
+'
 ```
 
 Use this API to send the watermark timestamp to Anodot (Only relevant for protocol 3.0). A watermark timestamp commits that no data samples with timestamps less than or equal to it will be sent.
