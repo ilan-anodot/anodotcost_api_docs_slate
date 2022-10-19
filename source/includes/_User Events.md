@@ -50,6 +50,33 @@ https://app.anodot.com/api/v2/user-events \
 
 > Request Example - Create a suppress event
 
+> This example shows a "start suppress" event. Note the type and action fields
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/user-events \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-D '{
+      "event": {
+        "title":"deployment started on myServer",
+        "description":"my description",
+        "source":"chef",
+        "category":"deployments",
+        "startDate": "1651140000",
+        "endDate":"",
+        "type":"SUPPRESS",
+        "action":"START",
+        "properties":[
+          {
+             "key":"service",
+             "value":"myService"
+          }
+        ]
+      }
+    }'
+```
+
 > This example shows an "end suppress" event. Note the type and action fields
 
 ```shell
@@ -75,9 +102,34 @@ https://app.anodot.com/api/v2/user-events \
         ]
       }
     }'
-
 ```
 
+> This example shows a "start and end suppress" event. Note the type and endDate fields
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/user-events \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-D '{
+      "event": {
+        "title":"deployment started on myServer",
+        "description":"my description",
+        "source":"chef",
+        "category":"deployments",
+        "startDate": "1651140000",
+        "endDate":"1651140507",
+        "type":"SUPPRESS",
+        "action":"",
+        "properties":[
+          {
+             "key":"service",
+             "value":"myService"
+          }
+        ]
+      }
+    }'
+```
 
 > Response Example
 
@@ -101,7 +153,6 @@ https://app.anodot.com/api/v2/user-events \
 }
 ```
 
-
 To add more information to the event use the *properties* field and add additional data with key-value objects.
 
 **Request Arguments**
@@ -123,6 +174,12 @@ Note the enhanced validation:</br>
 If the event type is "OFFICE_HOURS", the event should include both "startDate" and "endDate".</br>
 If the event type is "SUPPRESS", the event should either include both "startDate" and "endDate"</br>
 OR, Have the "Action" field filled with START or END.
+</aside>
+
+<aside class="success">
+Pro tip - Using suppress events</br>
+See the examples on the right for the two ways to send suppress events.</br>
+As a single event with start and end times, or two events to indicate start and end times.
 </aside>
 
 **Response Fields**
