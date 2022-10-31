@@ -42,7 +42,7 @@ curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' 
 
 ### Forming the API Key
 
-After calling the Authentication, you will need to call the [Get Users](#get-users).
+After calling the Authentication, you will need to call the [Get Users](#users).
 From the users API response you will get an array of accounts (See example on the right)
 
 > Sample reponse from the users API
@@ -419,7 +419,8 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations?fi
 | apikey | header |  | Yes |  |
 | filters | query | Filter recommendations based on type | No |  |
 
-Filtering recommendations can be applied to the above calls using query parameters in the following manner: **filters[type]=recommendationType** where recommendationType is one of the recommendation types supported. You can use the [Get Recommendation Types](get-recommendation-types) call to get the possible types.
+Filtering recommendations can be applied to the above calls using query parameters in the following manner: **filters[type]=recommendationType** where recommendationType is one of the recommendation types supported. You can use the *Get recommendation types* call to get the possible types.</br>
+To get the recommendation types list please contact Anodot Support.
 
 
 **Responses**
