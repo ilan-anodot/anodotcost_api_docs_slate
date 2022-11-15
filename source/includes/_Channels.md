@@ -177,7 +177,7 @@ timezone | String | the time zone definition of the channel.
 
 Type | Description
 -----| -----------
-email | Create an email and send to participants in the email distribution list
+email | Create an email distribution list and send alerts to its participants
 webhook | Send the alert as a JSON object to a webhook server
 slack | Post the alert as a slack message on a slack channel
 pagerduty | Create an event in a PagerDuty service
@@ -189,4 +189,5 @@ slackapp | Use Anodot's Slack App to handle the alerts
 mattermost | Create a mattermost message
 sns | Send alerts as AWS sns messages
 telegram | Send alerts as telegram messages
+servicenow | Send alerts to ServiceNow
 
