@@ -14,7 +14,6 @@ You can either use basic authentication (recommended) or send the parameters in 
 
 ```shell
 curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' \
---header 'Authorization: Basic eWFyaXZAYW5vZG90LmNvbTpUd2Vyay0zMA==' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "username": "coyote@acme.com",
