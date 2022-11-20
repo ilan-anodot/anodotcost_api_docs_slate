@@ -29,7 +29,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
       "event": {
         "title":"deployment started on myServer",
         "description":"my description",
@@ -57,7 +57,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
       "event": {
         "title":"deployment started on myServer",
         "description":"my description",
@@ -84,7 +84,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
       "event": {
         "title":"deployment started on myServer",
         "description":"my description",
@@ -111,7 +111,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
       "event": {
         "title":"deployment started on myServer",
         "description":"my description",
@@ -194,7 +194,7 @@ curl -X PUT \
 https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
 "event": {
     "id":"event id"
     "title": "<event title>",
@@ -320,7 +320,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events/execute?fromDate=1468326864 \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
 {
   "filter": {
     "categories": [
@@ -431,7 +431,7 @@ curl -X DELETE \
 https://app.anodot.com/api/v2/user-events/ \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{ 
+-d '{ 
    "expression": [ 
    { 
       "type": "property", 
@@ -455,7 +455,7 @@ curl -X DELETE \
 https://app.anodot.com/api/v2/user-events/ \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{ 
+-d '{ 
     "ids": [
       "event_ID_1",
       "event_ID_2"
@@ -493,7 +493,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events/categories \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
   "category": 
   {
     "name":"myCategory",
@@ -584,7 +584,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events/sources \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
   "source": {
     "name": "<source name>",
     "imageUrl": "<image url>"

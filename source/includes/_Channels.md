@@ -83,7 +83,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/channels/webhook \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
     "channelData":
     {
         "authenticate": false,
@@ -100,7 +100,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/channels/slack \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
     "channelData": {
         "url": "https://acme.slack.com/webhookurl",
         "channel": "#nocnoc"
