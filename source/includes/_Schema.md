@@ -72,7 +72,7 @@ Argument | Type | Description
 version | String | (Optional) Describe the schema version
 name | String | (Required) max 200 chars Schema name, will be later used as the stream name
 Dimensions | Array | (Required) List of dimensions, max 30. Each dimension must be unique. Each dimension name is up to 30 chars. 
-measurements | Array | (Required) List of measurements, max 200
+measurements | Array | (Required) List of measurements, max 200. Each measure name is up to 50 chars.
 For each measurement: | |
 units | String | (Optional) Provide the unit for the measure, this unit will be used in Anodot display 
 aggregation | String | (Required) Aggregation function for the measure. Valid values: average , sum
