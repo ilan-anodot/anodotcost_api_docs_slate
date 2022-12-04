@@ -3,11 +3,11 @@ The Topology APIs enable you to load topology data such as Customers, Geographic
 
 You can find more information about the Network Topology Map in our - [Topology documentation](https://support.anodot.com/hc/en-us/articles/4415016305682-Overview)
 
-The Anodot Topology Data ingestion mechanism is made up of 3 APIs.
+The Anodot Topology Data ingestion mechanism is made up of 3 APIs ordered that should be used in the following order.
 
 * [Topology User](#topology-user) - One time creation of a topology entity
-* [Topology Data Ingestion](#topology-data-ingestion)
-* [Topology Metric Mapping](#topology-metric-mapping)
+* [Topology Data Ingestion](#topology-data-ingestion) - Full topology data loading, Periodical/One time
+* [Topology Metric Mapping](#topology-metric-mapping) - Mapping between the alerted measure and dimension to the topology entity, in order to pin point to the on the object over the map, On time/updates, isn't part of the periodical loading.
 
 
 ### Topology User
