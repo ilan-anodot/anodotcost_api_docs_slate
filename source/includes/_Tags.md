@@ -29,7 +29,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/metrics/tags \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}" \
--D '{
+-d '{
 "tag": {
     "key": "tagName",
   "value": "tagValue"
@@ -572,7 +572,7 @@ curl \
 'https://app.anodot.com/api/v2/metrics/tags/assign-metrics-to-tags' \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer ${TOKEN}" \
--D '{
+-d '{
   "expressions": [
     {
       "expression": [
@@ -698,7 +698,7 @@ curl \
 'https://app.anodot.com/api/v2/metrics/tags/add-metrics-to-tags' \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer ${TOKEN}" \
--D '{
+-d '{
   "expressions": [
     {
       "expression": [

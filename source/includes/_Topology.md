@@ -78,7 +78,7 @@ curl -X PUT \
 https://app.anodot.com/api/v2/topology/map/load/{rollupId} \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
   "bulkSerNumber": 1,
   "numberOfRows": 7,
   "type": "SITE",
@@ -445,7 +445,7 @@ curl -X PUT \
 https://app.anodot.com/api/v2/topology/user/metric-mapping \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D 
+-d 
   "3G_DL_data_Drop_Rate_HSDPA": [
     {
       "delimiter": "_",

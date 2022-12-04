@@ -8,12 +8,10 @@ The data hierarchy is as follows: Forecast Tasks --> Each task has metrics --> E
 
 * Get list of tasks --> [GET Forecast Tasks](#get-forecast-tasks)
 * for each task - get list of metrics --> [GET Task Metrics](#get-task-metrics)
-* fer each metric - get list of results. --> [GET forecast results per tasks](#get-forecast-results-per-task)
-
-**New!** We recently added a way to get the metrics directly regardless of tasks. For this please use the following:
+* fer each metric - get list of results. --> [GET forecast results per task](#get-forecast-results-per-task)
 
 * Get all the forecast metrics in the account --> [Get forecast metrics](#get-forecast-metrics)
-* Get forecast metric results -->  [GET forecast results](#get-forecast-results)
+* Get forecast metric results -->  [GET forecast results per metric](#get-forecast-results-per-metric) 
 
 
 Authentication type: [Access Token Authentication] (#access-tokens).
@@ -157,6 +155,88 @@ last_updated_ts | timestamp (in epoch) | The time that this record was updated.
 metric_id | String | Name of forecast metric
 points | Array | An array of forecast data points. 
 
+### GET forecast aggregate results per task
+
+#### Request Fields
+
+> Request Example: Get forecast aggregate results for a specific task
+
+```shell
+curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{forecast-taskid}}/ֿaggregate' \
+--header 'Authorization: Bearer {{data-token}}' \
+--data-raw ''
+```
+
+This call gets the aggregate results for a specific task. Meaning that it returns the total forecast results of a specific task - the sum of forecast results of all the metrics in that task. The results are similar to the [GET Forecast Results](#get-forecast-results) call, but they do not include the 'last_forecaset_ts', 'last_updated_ts' and 'metric_id'.
+
+Field | Type | Description / Example
+-|-|-
+forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you can get this from the [GET Forecast Tasks](#get-forecast-tasks) call).
+
+#### Response Fields
+
+> Response Example:
+
+```json
+{
+    "forecastResults": {
+        "points": [
+            {
+                "timestamp": 1662508800,
+                "value": 128998144
+            },
+            {
+                "timestamp": 1662595200,
+                "value": 127943768
+            },
+            {
+                "timestamp": 1662681600,
+                "value": 126594512
+            },
+            {
+                "timestamp": 1662768000,
+                "value": 124997512
+            },
+            {
+                "timestamp": 1662854400,
+                "value": 118847440
+            },
+            {
+                "timestamp": 1662940800,
+                "value": 119899736
+            },
+            {
+                "timestamp": 1663027200,
+                "value": 126685600
+            },
+            {
+                "timestamp": 1663113600,
+                "value": 127790880
+            },
+            {
+                "timestamp": 1663200000,
+                "value": 127947528
+            }
+        ]
+    }
+}
+```
+
+<aside class="notice">
+The response is an array of forecast results. A forecast result will be a set of predicted data points per metric.
+Each data point (per timestamp) is comprised of a the predicted value and 'confidence band' for the value. The confidence band is represented by range between lowerBand and upperBand.
+</aside>
+
+The response itself looks as following: 
+
+Field | Type | Description / Example
+-|-|-
+last_forecast_ts | timestamp (in epoch) | The last timestamp which the forecast was done from, meaning the date from which the forecast is done forward. For example, for a daily forecast of 7 days, the last_forecast_ts can be the epoch of 5.5.2021, and then the resulting 7 days will be of 6.5.2021, 7.5.2021 etc. 
+last_updated_ts | timestamp (in epoch) | The time that this record was updated.
+metric_id | String | Name of forecast metric
+points | Array | An array of forecast data points. 
+
+
 ### GET forecast metrics 
 
 #### Request Fields
@@ -233,7 +313,7 @@ forecastTaskId | String ($uuid) | Unique identifier of the forecast task (you ca
 The response is list of metric IDs covered by this task.
 
 
-### GET forecast results per task
+### GET forecast results per metric per task
 
 #### Request Fields
 
@@ -294,9 +374,9 @@ metricID | String ($uuid) | Unique identifier of the forecast metric (you can ge
 
 The response is an array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
 
-### GET forecast results
+### GET forecast results per metric
 
-#### Request Fields
+**Request Fields**
 
 > Request Example: Get forecast results for a specific metric 
 
@@ -313,7 +393,7 @@ Field | Type | Description / Example
 metricID | String ($uuid) | Unique identifier of the forecast metric (you can get this from the [GET Task  Metrics](#get-task-metrics) call or from the [GET Metrics](#get-metrics) call).
 forecastFunction (Optional) | enum | A function which enables aggregation of forecast metrics. Possible values: DAILY_SUM, MONTHLY_SUM, QUARTERLY_SUM, YEARLY_SUM. 
 
-#### Response Fields
+**Response Fields**
 
 > Response Example:
 
@@ -355,9 +435,9 @@ forecastFunction (Optional) | enum | A function which enables aggregation of for
 
 The response is an array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
 
-### GET forecast results history
+### GET forecast results history per metric
 
-#### Request Fields
+**Request Fields**
 
 > Request Example: Get forecast results for a specific metric 
 
@@ -374,7 +454,139 @@ Field | Type | Description / Example
 metricID | String ($uuid) | Unique identifier of the forecast metric (you can get this from the [GET Task  Metrics](#get-task-metrics) call or from the [GET Metrics](#get-metrics) call).
 for_date | timestamp (epoch) | The date for which to get the historical forecast results.
 
-#### Response Fields
+**Response Fields**
+
+> Response Example:
+
+```json
+{
+    "Actual": {
+        "points": [
+            {
+                "timestamp": 1560384000,
+                "value": 107.8399963379
+            },
+            {
+                "timestamp": 1565827200,
+                "value": 0
+            },
+            {
+                "timestamp": 1565913600,
+                "value": 0
+            },
+            {
+                "timestamp": 1566086400,
+                "value": 0
+            },
+            {
+                "timestamp": 1566172800,
+                "value": 98.3499984741
+            },
+            {
+                "timestamp": 1566345600,
+                "value": 0
+            },
+            {
+                "timestamp": 1570752000,
+                "value": 0
+            },
+            {
+                "timestamp": 1571270400,
+                "value": 0
+            },
+            {
+                "timestamp": 1571443200,
+                "value": 0
+            },
+            {
+                "timestamp": 1572220800,
+                "value": 0
+            }
+        ]
+    },
+    "Forecast": {
+        "last_forecast_ts": "1634688000",
+        "last_updated_ts": "1636378064",
+        "metric_id": "3afa10d8-ba60-45aa-aef1-e5b9e5edd01b.0014P00002QZfjeQAD.VOLUME_SUM",
+        "points": [
+            {
+                "lowerBand": 9870080,
+                "timestamp": 1541635200,
+                "upperBand": 9879956,
+                "value": 9875018
+            },
+            {
+                "lowerBand": 9960603,
+                "timestamp": 1541721600,
+                "upperBand": 9970569,
+                "value": 9965586
+            },
+            {
+                "lowerBand": 10056923,
+                "timestamp": 1541808000,
+                "upperBand": 10066985,
+                "value": 10061954
+            },
+            {
+                "lowerBand": 9589967,
+                "timestamp": 1541894400,
+                "upperBand": 9599561,
+                "value": 9594764
+            },
+            {
+                "lowerBand": 11604541,
+                "timestamp": 1541980800,
+                "upperBand": 11616151,
+                "value": 11610346
+            },
+            {
+                "lowerBand": 11557702,
+                "timestamp": 1542067200,
+                "upperBand": 11569266,
+                "value": 11563484
+            },
+            {
+                "lowerBand": 11614124,
+                "timestamp": 1542153600,
+                "upperBand": 11625744,
+                "value": 11619934
+            },
+            {
+                "lowerBand": 13145074,
+                "timestamp": 1542240000,
+                "upperBand": 13158226,
+                "value": 13151650
+            }
+        ]
+    }
+}
+```
+
+The response is built of two arrays: 
+
+* An array of Actual values - the actual values of the metric split into the relevant time stamps. 
+* An array of **forecast results**. A forecast result will be a set of predicted data points per metric. A data point has a value and a lower band and upper band of forecast, all at a given time stamp. See [GET Forecast Results](#get-forecast-results) for the details.
+
+### GET forecast results history per task
+
+**Request Fields**
+
+> Request Example: Get forecast results for a specific metric 
+
+```shell
+curl --location --request GET 'https://app.anodot.com/api/v2/forecast/tasks/{{forecast-taskid}}/history?for_date=1541618139' \
+--header 'Authorization: Bearer {{data-token}}' \
+--data-raw ''
+```
+
+This call gets all the forecast results for a specific metric regardless of the task.
+
+Field | Type | Description / Example
+-|-|-
+taskID | String ($uuid) | Unique identifier of the forecast task (you can get this from the [Get Forecast tasks](#get-forecast-tasks) call.
+for_date | timestamp (epoch) | The date for which to get the historical forecast results.
+
+**Response Fields**
 
 > Response Example:
 

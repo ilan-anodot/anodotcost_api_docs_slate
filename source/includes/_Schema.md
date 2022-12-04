@@ -72,7 +72,7 @@ Argument | Type | Description
 version | String | (Optional) Describe the schema version
 name | String | (Required) max 200 chars Schema name, will be later used as the stream name
 Dimensions | Array | (Required) List of dimensions, max 30. Each dimension must be unique. Each dimension name is up to 30 chars. 
-measurements | Array | (Required) List of measurements, max 200
+measurements | Array | (Required) List of measurements, max 200. Each measure name is up to 50 chars.
 For each measurement: | |
 units | String | (Optional) Provide the unit for the measure, this unit will be used in Anodot display 
 aggregation | String | (Required) Aggregation function for the measure. Valid values: average , sum
@@ -143,7 +143,7 @@ value | Float | The completion value to use, in case keepLastValue is false.
 
 The response contains the schema details and provides a schema id for you to use when posting metrics to this schema.
 
-### Get User Stream Schema
+### Get all Account Stream Schemas
 
 > Request Example: Get all schemas
 
@@ -152,7 +152,7 @@ curl --location --request GET 'https://app.anodot.com/api/v2/stream-schemas/sche
 --header 'Authorization: Bearer {{bearer-token}}'
 ```
 
-After you've created the schema, you can use this call to get the list of all schemas in the account. 
+After you have created the schema, you can use this call to get the list of all schemas in the account. 
 
 #### Response fields
 
@@ -291,5 +291,14 @@ id (string) | Schema Id to delete.
 ```
 
 If successful - the call will return the id of the schema which was deleted.
+
+### Update Stream Schema
+
+The process to update a schema is listed here.
+
+1. Perform a **GET schema** request by ID to get the relevant schema's configuration, including it's ID.
+2. Delete the schema.
+3. In a text editor - Update the schema's configuration according to your requirements.
+4. Perform a **Create schema** request, **remember to include the original schema ID as part of the request**.</br>This will direct Anodot to create the schema using the same ID.
 
 

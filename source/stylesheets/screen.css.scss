@@ -641,7 +641,7 @@ body {
   pre {
     @extend %code-font;
     padding-top: 2em;
-    padding-bottom: 2em;
+    padding-bottom: -1em!important;
     padding: 2em $main-padding;
   }
 

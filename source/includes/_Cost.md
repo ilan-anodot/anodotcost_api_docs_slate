@@ -14,7 +14,6 @@ You can either use basic authentication (recommended) or send the parameters in 
 
 ```shell
 curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' \
---header 'Authorization: Basic eWFyaXZAYW5vZG90LmNvbTpUd2Vyay0zMA==' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "username": "coyote@acme.com",
@@ -42,7 +41,7 @@ curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' 
 
 ### Forming the API Key
 
-After calling the Authentication, you will need to call the [Get Users](#get-users).
+After calling the Authentication, you will need to call the [Get Users](#users).
 From the users API response you will get an array of accounts (See example on the right)
 
 > Sample reponse from the users API
@@ -321,7 +320,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/divisions' \
 > Request Example - Getting cost and usage
 
 ```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupby=service&startDate=2021-12-31&endDate=2022-07-01&periodGranLevel=month' \
+curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupby=service&startDate=2021-12-31&endDate=2022-07-01&periodGranLevel=month&costType=discount' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
 ```
@@ -336,7 +335,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-
 | startDate | query | Start date of the cost and usage data examination | Yes |  |
 | endDate | query | End date of the cost and usage data examination | Yes |  |
 | periodGranLevel | query | Granularity level of the period in the output data | Yes |  |
-| costType | query |  | No |  |
+| costType | query | Type of cost to get the report for. Possible options are: cost, discount, refund, credit | Yes |  |
 | isNetUnblended | query |  | No |  |
 | isAmortized | query |  | No |  |
 | isNetAmortized | query |  | No |  |
@@ -419,7 +418,8 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations?fi
 | apikey | header |  | Yes |  |
 | filters | query | Filter recommendations based on type | No |  |
 
-Filtering recommendations can be applied to the above calls using query parameters in the following manner: **filters[type]=recommendationType** where recommendationType is one of the recommendation types that are listed under the "Recommendation Types" section below. You can use the [Get Recommendation Types](get-recommendation-types) call to get the possible types.
+Filtering recommendations can be applied to the above calls using query parameters in the following manner: **filters[type]=recommendationType** where recommendationType is one of the recommendation types supported. You can use the *Get recommendation types* call to get the possible types.</br>
+To get the recommendation types list please contact Anodot Support.
 
 
 **Responses**
@@ -562,50 +562,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/ty
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
-**Possible Recommendation Types**
-
-| Provider | Service | Recommendation | type |
-| -------- | ------- | -------------- | ---- |
-| **AWS** | EC2 | EC2 Reserved Instance | 'ri' |
-| | | Operation System | 'operation-system' |
-| | | OIP Unattached | 'ip-unattached' |
-| | | EC2 Generation Upgrade | 'version-upgrade' |
-| | | Idle EC2 instance | 'ec2-idle' |
-| | | EC2 Right Sizing | 'ec2-low-cpu-usage' |
-| | | EC2 Savings Plans | 'ec2-savings-plans' |
-| | | Stopped EC2 instance | 'ec2-stopped-instance' |
-| | | Unnecessary Data Transfer from EC2 instance | 'ec2-udt' |
-| | RDS | RDS Generation Upgrade | 'rds-version-upgrade' |
-| | | RDS Reserved-Instance | 'rds-ri' |
-| | | RDS Type Change | 'rds-type-change' |
-| | | Idle RDS Instance | 'rds-idle' |
-| | DynamoDB | Idle Dynamo DB | 'dynamodb-idle' |
-| | Load Balancer | Idle Load Balancer | 'idle-load-balancer' |
-| | | Stop S3 Versioning | 's3-versioning' |
-| | | Idle S3 | 's3-idle' |
-| | EBS | Unattached EBS | 'ebs-unattached' |
-| | | EBS Type Change | 'ebs-type-change' |
-| | | Outdated EBS Snapshot | 'ebs-outdated-snapshot' |
-| | | EBS Upgrade | 'ebs-upgrade' |
-| | Redshift | Low utilization red shift cluster | 'redshift-util-low' |
-| | Neptune DB | Neptune DB Idle | 'neptune-util-low' |
-| | Elasticsearch | Elasticsearch Idle | 'es-util-low' |
-| | NAT Gateway | NAT Gateway Idle | 'nat-gateway-util-low' |
-| | ElastiCache | ElastiCache Idle | 'elasticache-util-low' |
-| | DocumentDB | DocumentDB Idle | 'documentdb-util-low' |
-| | Kinesis | Kinesis Idle | 'kinesis-util-low' |
-| **Azure** | Disk | Disk Unattached | 'azure-disk-unattached' |
-| | VM | Virtual Machine Reserved-Instance | 'azure-vm-ri' |
-| | | Idle Virtual Machine | 'azure-vm-idle' |
-| | | Memory Utilization Data | 'azure-vm-rightsizing' |
-| | Database | Datebase Reserved-Instance | 'azure-db-ri' |
-| | Load Balancer | Idle Load Balancer | 'azure-idle-load-balancer' |
-| | Disk | Disk Type Change | 'azure-disk-type-change' |
-| | IP | IP Unattached | 'azure-ip-unattached' |
-| | Cosmos DB | Cosmos DB Right Sizing | 'azure-cosmos-db-right-sizing' |
-| **GCP** | VM | Idle Virtual Machine | 'gcp-vm-idle' | 
-| | | Virtual Machine Right Sizing | 'gcp-vm-rightsizing' |
-
+**For a complete list of all recommendation types, please contact support@anodot.com**
 
 
 ### Get history of recommendations
@@ -669,6 +626,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/hi
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
+
 ## Budgets
 ### Get Budget 
 
@@ -683,7 +641,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/hi
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/budgets' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token'
+--header 'Authorization: {{bearer-token}}'
 ```
 
 **Parameters**
@@ -909,6 +867,63 @@ curl --location --request DELETE 'https://api.mypileus.io/api/v1/budgets?budgetI
 | budgetId | query | The budget Id to remove | Yes |  |
 
 **Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+## Commitments 
+### Get Utilization 
+
+**Summary:** Retrieves the utilization of an RI (Reserved Instance)
+
+**Description:** The call is used to retrieve the utilization of RIs for a specific date.
+
+Note: Currently this is only supported in Microsoft Azure accounts.
+
+> Request Example: Getting a utilization
+
+
+```shell
+curl --location -g --request GET 'https://api.mypileus.io/api/v1/commitment/utilization/?date=2022-07-29&linkedAccount={{linked-account-id}}' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| date | query | Report date (YYYY-MM-DD) format | Yes | String |
+| linkedAccount | query | Linked account ID only (No linked account name) | No | String |
+
+**Responses**
+The response is a utilization object showing the utilization for each RI. 
+
+> Response Example 
+
+```json
+[
+    {
+        "minUtilizationPercentage": "0.0",
+        "maxUtilizationPercentage": "100.0",
+        "usageDate": "2022-08-01T00:00:00",
+        "accountId": "ABC-123",
+        "usedHours": "560.3",
+        "reservedHours": "650.0",
+        "linkedAccountName": "LINKED_ACC_NAME",
+        "linkedAccountId": "LINKED_ACC_ID",
+        "avgUtilizationPercentage": "86.2",
+        "reservationOrderId": "asxc1234526fssz",
+        "reservationId": "1234-5676-23243-12123",
+        "skuName": "Test_acv2_sa"
+    },
+]
+```
 
 | Code | Description |
 | ---- | ----------- |

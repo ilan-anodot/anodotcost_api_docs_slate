@@ -154,7 +154,7 @@ Make sure to include the ".csv" suffix in your call when you specify the file na
 curl --location --request POST 'https://app.anodot.com/api/v2/dynamic-routing/{table_id}/csv' \
 -H 'Authorization: Bearer ${TOKEN}' \
 -H 'Content-Type: multipart/form-data' \
---form 'File=@/Users/myuser/Downloads/routing_table_sample.csv'
+--form 'file=@/Users/myuser/Downloads/routing_table_sample.csv'
 ```
 
 Argument | Type | Description

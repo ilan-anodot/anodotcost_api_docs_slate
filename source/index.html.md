@@ -39,6 +39,7 @@ includes:
   - Dynamic Routing Tables
   - User Events
   - Tags
+  - Dashboards
   - Topology
   - Tab4
   - Cost

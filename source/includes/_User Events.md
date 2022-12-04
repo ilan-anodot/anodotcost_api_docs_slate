@@ -29,7 +29,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
       "event": {
         "title":"deployment started on myServer",
         "description":"my description",
@@ -50,6 +50,33 @@ https://app.anodot.com/api/v2/user-events \
 
 > Request Example - Create a suppress event
 
+> This example shows a "start suppress" event. Note the type and action fields
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/user-events \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-d '{
+      "event": {
+        "title":"deployment started on myServer",
+        "description":"my description",
+        "source":"chef",
+        "category":"deployments",
+        "startDate": "1651140000",
+        "endDate":"",
+        "type":"SUPPRESS",
+        "action":"START",
+        "properties":[
+          {
+             "key":"service",
+             "value":"myService"
+          }
+        ]
+      }
+    }'
+```
+
 > This example shows an "end suppress" event. Note the type and action fields
 
 ```shell
@@ -57,7 +84,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
       "event": {
         "title":"deployment started on myServer",
         "description":"my description",
@@ -75,9 +102,34 @@ https://app.anodot.com/api/v2/user-events \
         ]
       }
     }'
-
 ```
 
+> This example shows a "start and end suppress" event. Note the type and endDate fields
+
+```shell
+curl -X POST \
+https://app.anodot.com/api/v2/user-events \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+-d '{
+      "event": {
+        "title":"deployment started on myServer",
+        "description":"my description",
+        "source":"chef",
+        "category":"deployments",
+        "startDate": "1651140000",
+        "endDate":"1651140507",
+        "type":"SUPPRESS",
+        "action":"",
+        "properties":[
+          {
+             "key":"service",
+             "value":"myService"
+          }
+        ]
+      }
+    }'
+```
 
 > Response Example
 
@@ -101,7 +153,6 @@ https://app.anodot.com/api/v2/user-events \
 }
 ```
 
-
 To add more information to the event use the *properties* field and add additional data with key-value objects.
 
 **Request Arguments**
@@ -113,16 +164,22 @@ Description | A description of the event. [*Optional*]
 Category | The name of the pre-defined category that the event belongs to (e.g deployments, marketing_campaigns, holidays) [**required**]. If a relevant category does not exist, create one. To create a new category, see [create category](#create-event-category).
 Source | The pre-defined source of the request (e.g rest_api, Chef, Jenkins) [**required**]. If the source does not exist, add it. To add a new source, see [create source](#create-event-source).
 Properties | Key-value pairs, can be whatever the user wants to add as additional data except the ones that are already part of the body arguments like title, description, category and so on. E.g: severity: high, publisher: nyt, exchange: rubicon. [*Optional*]
-StartDate |The start time of the event. Needs to be in epochtime (seconds)[**required**]
-EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
+startDate |The start time of the event. Needs to be in epochtime (seconds)[**required**]
+endDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
 Type (New) | The user event type. Possible values:</br>DISPLAY - Used for Display Only</br>INFLUENCE - Used for influencing events</br>SUPPRESS - Used to suppress specific metrics from an alert. Can also be used as Display and influencing events </br>OFFICE_HOURS - Used to pause an alert altogether. Can also be used as Display and influencing events</br>This field is mandatory for SUPPRESS and OFFICE_HOURS event types. [*Optional*]
 Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: START, END. [*Optional*]</br>This field is mandatory for SUPPRESS event type. 
 
 <aside class="success">
 Note the enhanced validation:</br>
-If the event type is "OFFICE_HOURS", the event should include both "startTime" and "endTime".</br>
-If the event type is "SUPPRESS", the event should either include both "startTime" and "EndTime"</br>
+If the event type is "OFFICE_HOURS", the event should include both "startDate" and "endDate".</br>
+If the event type is "SUPPRESS", the event should either include both "startDate" and "endDate"</br>
 OR, Have the "Action" field filled with START or END.
+</aside>
+
+<aside class="success">
+Pro tip - Using suppress events</br>
+See the examples on the right for the two ways to send suppress events.</br>
+As a single event with start and end times, or two events to indicate start and end times.
 </aside>
 
 **Response Fields**
@@ -137,7 +194,7 @@ curl -X PUT \
 https://app.anodot.com/api/v2/user-events \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
 "event": {
     "id":"event id"
     "title": "<event title>",
@@ -191,8 +248,8 @@ Description | A description of the event. [*Optional*]
 Category | The name of the pre-defined category that the event belongs to (e.g deployments, marketing_campaigns, holidays) [**required**]. If a relevant category does not exist, create one. To create a new category, see [create category](#create-event-category).
 Source | The pre-defined source of the request (e.g rest_api, Chef, Jenkins) [**required**]. If the source does not exist, add it. To add a new source, see [create source](#create-event-source).
 Properties | Key-value pairs, can be whatever the user wants to add as additional data except the ones that are already part of the body arguments like title, description, category and so on. E.g: severity: high, publisher: nyt, exchange: rubicon. [*Optional*]
-StartDate | The start time of the event. Needs to be in epochtime (seconds)[**required**]
-EndDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
+startDate | The start time of the event. Needs to be in epochtime (seconds)[**required**]
+endDate | The end time of the event. Needs to be in epochtime (seconds) [*Optional*]
 Type (New) | The user event type. Possible values:</br>DISPLAY - Used for Display Only</br>INFLUENCE - Used for influencing events</br>SUPPRESS - Used to suppress specific metrics from an alert. Can also be used as Display and influencing events </br>OFFICE_HOURS - Used to pause an alert altogether. Can also be used as Display and influencing events</br>This field is mandatory for SUPPRESS and OFFICE_HOURS event types. [*Optional*]
 Action (New) | Stating if the user event is the starting or ending time of the event.</br>Possible values: START, END.</br>This field is mandatory for SUPPRESS and OFFICE_HOURS events types. [*Optional*]
 
@@ -263,7 +320,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events/execute?fromDate=1468326864 \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
 {
   "filter": {
     "categories": [
@@ -374,7 +431,7 @@ curl -X DELETE \
 https://app.anodot.com/api/v2/user-events/ \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{ 
+-d '{ 
    "expression": [ 
    { 
       "type": "property", 
@@ -398,7 +455,7 @@ curl -X DELETE \
 https://app.anodot.com/api/v2/user-events/ \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{ 
+-d '{ 
     "ids": [
       "event_ID_1",
       "event_ID_2"
@@ -436,7 +493,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events/categories \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
   "category": 
   {
     "name":"myCategory",
@@ -527,7 +584,7 @@ curl -X POST \
 https://app.anodot.com/api/v2/user-events/sources \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
--D '{
+-d '{
   "source": {
     "name": "<source name>",
     "imageUrl": "<image url>"
