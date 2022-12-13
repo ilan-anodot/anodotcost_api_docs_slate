@@ -1042,6 +1042,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/usage/business-ma
 --data-raw '
     {
         "name": "API",
+        "rank": 38,
         "rules": [
             {
                 "filters": [
@@ -1090,6 +1091,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/usage/business-ma
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
 | name | body | mapping name | Yes | string |
+| rank | body | ranked order of this rule | Yes | Number |
 | rules | body | Filters which define the mapping | Yes | Array of filter fields. See structure below |
 | split | body | Determine whether the cost should be split | No | Boolean |
 | splitOptions | body | Split type | No | One of "EQUAL", "RATIO" |
