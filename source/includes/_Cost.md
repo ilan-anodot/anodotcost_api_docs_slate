@@ -283,7 +283,7 @@ The response is comprised of an array of cost centers, according to the followin
 ### Get Divisions 
 
 <aside class="warning">
-The Get Divisions API has been depcreated. Please use the Get Cost Centers API instead.
+The Get Divisions API has been deprecated. Please use the Get Cost Centers API instead.
 </aside>
 
 **Summary:** retrieve divisions
