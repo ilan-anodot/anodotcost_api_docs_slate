@@ -17,7 +17,13 @@ Anodot continues to support legacy formats such as Graphite and Graphite collect
 You can use Anodot's sample Python script to send metrics in Metrics 2.0 or 3.0 protocols.</br>
 Refer to [Anodot on GitHub](https://github.com/anodot/anodot-python) for more details.
 
-### Send Data Samples (3.0)
+**High Level Flow**
+
+1. [Creating a Schema](#schema)
+2. [Sending samples matching the schema](#send-data-samples)
+3. [Sending watermarks timestamp to direct Anodot to process data samples up to the timestamp](#send-stream-watermark)
+
+### Send Data Samples 
 
 > Request Example - Sending metrics (3.0)
 
@@ -82,12 +88,6 @@ curl --location --request POST 'http://app.anodot.com/api/v2/send-metrics?protoc
 ]'
 ```
 
-**High Level Flow**
-
-1. [Creating a Schema](#schema)
-2. [Sending samples matching the schema](#send-data-samples)
-3. [Sending watermarks timestamp to direct Anodot to process data samples up to the timestamp](#send-stream-watermark)
-
 Use this API to send metrics to Anodot based on a schema you've defined (Protocol 3.0)
 Please note that the maximal number of entries is 10K per request.
 
@@ -108,7 +108,7 @@ dimensions | an array of key-value pairs of the metric dimensions.
 measurements | an array of a measurements - decimal double precision number, without a thousands seperator. 
 tags | (Optional) List of tags attached to the measure. Key value pairs. Notice that tags are metadata of the metric and do not affect its uniqueness.
 
-### Send Stream Watermark (3.0)
+### Send Stream Watermark
 
 > Request Example - Sending a watermark request
 
