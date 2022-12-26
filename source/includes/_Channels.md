@@ -190,4 +190,5 @@ mattermost | Create a mattermost message
 sns | Send alerts as AWS sns messages
 telegram | Send alerts as telegram messages
 servicenow | Send alerts to ServiceNow
+salesforce | Create a salesforce case from an alert
 
