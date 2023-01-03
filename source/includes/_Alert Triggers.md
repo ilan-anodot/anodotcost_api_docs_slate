@@ -7,7 +7,7 @@ Alert Triggers can be sent in groups based on correlations, proximity in time an
 The Alert Triggers API manages and queries these triggers and groups. 
 
 * [List all triggered alerts](#get-triggered-alerts)
-* [Cound all triggered alerts](#count-triggered-alerts)
+* [Count all triggered alerts](#count-triggered-alerts)
 * [Acknowledge an Alert](#add-an-acknowledgement-to-an-alert-trigger)
 * [Remove Acknowledgment from an alert](#remove-an-acknowledgement-from-an-alert-trigger)
 * [Assign an Alert](#assign-an-alert-trigger)
