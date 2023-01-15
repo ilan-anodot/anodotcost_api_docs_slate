@@ -15,7 +15,7 @@ Authentication type: [Access Token Authentication] (#access-tokens).
 ### Get Feedback
 
 <aside class="notice">
-We've recently introduced feedback also on noData and Static alerts. This means that you can call the Get Feedback API with /static or /nodata to get the feedback for those types. Calling without any parameter will return only the anomaly feedbacks.</aside>
+We've recently introduced feedback also on noData and Static alerts. This means that you can call the Get Feedback API with /static or /noData to get the feedback for those types. Calling without any parameter will return only the anomaly feedbacks.</aside>
 
 > Request Example: Getting Feedback on anomaly alerts
 
@@ -32,6 +32,16 @@ https://app.anodot.com/api/v2/feedbacks?startDate=1647388810&endDate=1647860710'
 ```shell
 curl -X GET \
 https://app.anodot.com/api/v2/feedbacks/static' \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer ${TOKEN}"
+
+```
+
+> Request Example: Getting Feedback on No-Data alerts
+
+```shell
+curl -X GET \
+https://app.anodot.com/api/v2/feedbacks/noData' \
 -H 'Content-Type: application/json' \
 -H "Authorization: Bearer ${TOKEN}"
 
