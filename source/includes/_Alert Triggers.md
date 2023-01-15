@@ -6,6 +6,7 @@ The Alert Trigger object is sent when an anomaly / static / no-data alert matche
 Alert Triggers can be sent in groups based on correlations, proximity in time and recipients.
 The Alert Triggers API manages and queries these triggers and groups. 
 
+* [List all triggered alerts - Deprecated](#get-triggered-alerts-deprecated)
 * [List all triggered alerts](#get-triggered-alerts)
 * [Count all triggered alerts](#count-triggered-alerts)
 * [Acknowledge an Alert](#add-an-acknowledgement-to-an-alert-trigger)
@@ -16,14 +17,19 @@ The Alert Triggers API manages and queries these triggers and groups.
 
 
 
-### Get Triggered Alerts
+### Get Triggered Alerts (Deprecated)
 
-> Request Example: Get Triggered Alerts
+> Request Example: Get Triggered Alerts (Deprecated)
 
 ```shell
 curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered?startTime=1616929887&order=asc&sort=updatedTime&labels=aws%20monitoring&types=anomaly&channels=645aa58b-16d5-4945-a95a-9fc83af55ae6&severities=HIGH&status=OPEN' \
 --header 'Authorization: Bearer {{bearer-token}}' 
 ```
+
+<aside class="warning">
+Deprecation of the Get Triggered Alerts</br>
+We have created a new version of the Get Triggered Alerts API which is leaner and does not contain the concrete data points of each anomaly for each metric. The new version is more useful for getting statistic on triggered alerts. We will keep supporting the previous version (documented below) for the customers who have been using it already. If you are using the deprecated version and would like to switch to the new one - please contact support@anodot.com or your dedicated customer success manager. 
+</aside>
 
 > Request Example: Get Triggered Alerts by alert configuration ID
 
@@ -240,6 +246,157 @@ Field | Type | Description / Example
 -|-|-
 total | number | Number of alert groups which meet the criteria.
 alertGroups | Array | Array of [Alert Group](#alert-group) objects. 
+
+### Get Triggered Alerts
+
+> Request Example: Get Triggered Alerts 
+
+```shell
+curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered?startTime=1616929887&order=asc&sort=updatedTime&labels=aws%20monitoring&types=anomaly&channels=645aa58b-16d5-4945-a95a-9fc83af55ae6&severities=HIGH&status=OPEN' \
+--header 'Authorization: Bearer {{bearer-token}}' 
+```
+
+
+> Request Example: Get Triggered Alerts by alert configuration ID
+
+```shell
+curl -X GET 'https://app.anodot.com/api/v2/alerts/triggered?alertConfigurationIds={{alertConfigurationID}}' \
+--header 'Authorization: Bearer {{bearer-token}}' 
+```
+
+**Request Arguments**
+
+Field | Type | Description / Example
+-|-|-
+startTime | integer | Retrieve alerts which started after this time (epoch time) 
+order | enum | Can be either {asc, desc}
+sort | enum | Can be either {startTime, updateTime, duration, score, metrics}
+labels | string | Labels according to which the alerts are filtered.
+types | enum | Can be one (or more) of the following: {anomaly, static, noData}
+channels | string | Comma seperated list of channel IDs to which these alerts have been sent. 
+severities | enum | Can be one (or more) of the following: {INFO,LOW,MEDIUM,HIGH,CRITICAL}
+status | enum | Can be either "OPEN" or "CLOSE"
+size | integer | You can specify the max number of triggers to return. The default is 20
+alertConfigurationIds | string | Alert configuration ID, limit the call to fetch triggers for a specific alert configuration
+
+> Response Example:
+
+```json
+{
+    "total": 17,
+    "alerts": [
+        {
+            "id": "1024925",
+            "timeScale": "1d",
+            "type": "NO_DATA",
+            "status": "OPEN",
+            "groupId": "1024925",
+            "alertConfigurationId": "f598eaae-06dd-4525-8898-1d6494dc7dc2",
+            "title": "[RISK] Drop in alerts triggered for Acme",
+            "description": "",
+            "severity": "high",
+            "startTime": 1672727153,
+            "updateTime": 1673504826,
+            "endTime": 1673504826,
+            "triggerTime": 1672899990,
+            "duration": 777673,
+            "channels": [
+                {
+                    "id": "2e92c09a-4718-4a3c-9ff0-f96c84094f9e",
+                    "type": "slackapp",
+                    "name": "productops"
+                }
+            ],
+            "subscribers": [
+                "5e5e5fcb9cebc5000d1e8655"
+            ],
+            "totalMetrics": 2,
+            "impactEligible": false,
+            "labels": [
+                {
+                    "name": "product"
+                },
+                {
+                    "name": "usage"
+                },
+                {
+                    "name": "Product Usage"
+                }
+            ]
+        },
+        {
+            "id": "1047984",
+            "timeScale": "1d",
+            "type": "ANOMALY",
+            "status": "OPEN",
+            "groupId": "ae4f1c7f161442a4b5d39177c043750e",
+            "alertConfigurationId": "7154c4c8-ffde-45da-979c-b33c64c9aa9b",
+            "title": "Spike in feedbacks by Tropical Thunder Corp. - Notify Uriah_Mitz and Eyal_Forshner",
+            "description": "",
+            "severity": "high",
+            "startTime": 1673308800,
+            "updateTime": 1673481600,
+            "endTime": 1673481600,
+            "triggerTime": 1673395200,
+            "duration": 172800,
+            "channels": [
+                {
+                    "id": "318def7e-a45f-41d4-9919-7a3ad9936ca7",
+                    "type": "slackapp",
+                    "name": "dataops-alerts"
+                }
+            ],
+            "subscribers": [
+                "6163fd8f632f6d000f3a08d1",
+                "5e5e5fcb9cebc5000d1e8655"
+            ],
+            "totalMetrics": 3,
+            "impactEligible": true,
+            "labels": [
+                {
+                    "name": "dataOps"
+                },
+                {
+                    "name": "Risky Alerts"
+                }
+            ]
+        }
+    ]
+}
+```
+
+**Alert Response Fields**
+
+Field | Type | Description / Example
+-|-|-
+total | number | Number of alert triggers which meet the criteria.
+alerts | array | Array or alert triggers meeting the search criteria
+id | id | alert trigger id
+timescale | enum | Timescale of the alert. Possible values - 1m, 5m, 1d, 1w
+type | enum | type of the alert. Possible values - Anomlay, Static, no_data
+status | enum | status of the trigger. Possible values - OPEN, UPDATE, CLOSE
+groupId | id | If the trigger is part of several triggers correlation together (i.e. Alert Group) this id will identify the relevant group.
+alertConfigurationId | id | ID of the alert definition which caused this trigger.
+title | string | Title of the trigger (Notice that this title is dynamic based on the metrics) 
+description | string | Description of the alert
+severity | enum | Alert severity
+startTime | epoch | Time when the anomaly started
+updateTime | epoch | Time when the anomaly updated
+endTime | epoch | Time when the anomaly ended and the alert was closed.
+triggerTime | epoch | Time when the alert was triggered. Notice that you can deduce TTD (time to detect) by substracting startTime from triggerTime
+duration | integer | duration of the anomly (in seconds)
+channels | array | An array of channels to which this trigger was sent. 
+subscribers | array | An array of user IDs which are subscribed to this alert.
+totalMetrics | integer | Number of metrics in this trigger.
+impactEligible | bool | Whether this alert supports Business Impact. You can read more about business impact [here](https://support.anodot.com/hc/en-us/articles/360016317859-Measuring-Business-Impact)
+labels | array | Array of lables which were assigned to the alert.
+
+
+
+
+
+
+
 
 ### Count Triggered Alerts
 
