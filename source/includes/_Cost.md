@@ -315,22 +315,32 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/cost-center
 | code | body | Cost center code | no | String |
 | linkedAccountIds | body | All the linked accounts which should be attached to the cost center | Yes | Array |
 
+> Response Example
+
+```json
+{
+    "id": 11,
+    "name": "SEs",
+    "code": "code blue",
+    "accountId": "932213950603",
+    "linkedAccounts": [
+        {
+            "linkedAccountId": "959406495870",
+            "linkedAccountName": "SE Playground"
+        }
+    ]
+}
+```
 
 **Responses**
 
 The response is comprised of an array of cost centers, according to the following table:
 
-**TBD**
+| Name | Type | Description |
+| id | id | ID of the newly created cost center |
+| cost center object | object | All the parameters which were passed to the create call | 
 
-| Code | Description |
-| ---- | ----------- |
-| 200 | Cost center creation success |
-| 404 | Error in parameters |
-| 500 | Server error |
 
-> Response Example
-
-**TBD**
 
 
 ### Update Cost Center
@@ -356,16 +366,14 @@ curl --location --request PUT 'https://api.mypileus.io/api/v1/users/cost-centers
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| costCenterID | header | ID of the cost center to update | Yes | String |
+| costCenterID | path | ID of the cost center to update | Yes | String |
 | name | body | Cost center name | yes | String |
 | code | body | Cost center code | no | String |
 | linkedAccountIds | body | All the linked accounts which should be attached to the cost center | Yes | Array |
 
 **Responses**
 
-The response is comprised of an array of cost centers, according to the following table:
-
-**TBD**
+The cost center object with the updated parameters. 
 
 | Code | Description |
 | ---- | ----------- |
@@ -373,9 +381,6 @@ The response is comprised of an array of cost centers, according to the followin
 | 404 | Error in parameters |
 | 500 | Server error |
 
-> Response Example
-
-**TBD**
 
 ### Delete Cost Center
 
@@ -396,7 +401,7 @@ curl --location --request DELETE 'api.mypileus.io/api/v1/users/cost-centers/{{co
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| costCenterID | header | Cost center ID | yes | String |
+| costCenterID | path | Cost center ID | yes | String |
 
 **Responses**
 
