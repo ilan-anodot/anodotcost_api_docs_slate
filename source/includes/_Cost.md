@@ -211,6 +211,8 @@ The response is comprised of an array of users, according to the following table
 
 **Summary:** retrieve the list of assets defined in the account
 
+Notice that you can use this API to get 'regular' cost assets as well as Kubernetes assets. The possible combinations of the columns / cost types vary between the two use cases. 
+
 > Request example: Getting assets 
 
 ```shell
@@ -219,25 +221,34 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/usage/assets?start
 --header 'Authorization: {{bearer-token}}'
 ```
 
+> Request example: Getting K8S assets 
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v2/usage/assets?startDate=2022-12-15&endDate=2023-01-15&isK8S=1&granLevel=day&columns=region&costType=compute&costType=dataTransfer&costType=storage&isUnblended=true' \
+--header '{{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+
 **Parameters**
 
 | Name | Located in | Description | Required | Type |
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| startDate | path | ?? | ?? | date in YYYY-MM-DD format |
-| endDate | path | ?? | ?? | date in YYYY-MM-DD format |
-| isK8S | path | ?? | ?? | ?? |
-| granLevel | path | ?? | ?? | enum. Possible values: |
-| columns | path |
-| costType | path |
-| isUblended | path |
+| startDate | query | Start date for getting the data | Yes | date in YYYY-MM-DD format |
+| endDate | query | Start date for getting the data | Yes | date in YYYY-MM-DD format |
+| isK8S | query | A flag indicating whether to get 'regular' assets or Kubernets ones. | Yes | Bool. 1 = K8S assets, 0 = Regular Assets |
+| granLevel | query | Granularity level of the period in the output data.  | Yes | enum. Possible values: month, week, day |
+| columns | query | The different columns for the required assets | Yes |  
+| costType | query | The different cost types for the required assets. Possible options are: cost, discount, refund, credit. If you are getting K8S assets, the possible options are: compute, dataTransfer, storage | Yes | list of values, e.g. costType=cost&costType=discount
+| isUblended | path | Should the returned data be unblended or not | Yes | Bool (true / false)
 
 
 
 **Responses**
 
-> Response Example
+> Response Example - Cost Assets
 
 ```json
 [
@@ -289,6 +300,7 @@ The response is comprised of an array of assets, according to the following tabl
 | 200 | User retrieval success |
 | 404 | User not found |
 | 500 | Server error |
+
 
 ## Cost Centers 
 
