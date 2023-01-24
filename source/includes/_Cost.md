@@ -121,6 +121,7 @@ The following APIs currently support pagination:
 
 * [Cost and Usage](#get-cost-amp-usage)
 * [Kubernetes Cost and Usage](#get-kubernetes-cost)
+* [Assets](#get-cost-assets)
 
 <aside class="warning">
 Important - In order to use pagination, you need to use /v2 on the API calls instead of /v1.
@@ -203,6 +204,91 @@ The response is comprised of an array of users, according to the following table
     "childs": "TBD",
 }
 ```
+
+## Assets 
+
+### Get Cost Assets  
+
+**Summary:** retrieve the list of assets defined in the account
+
+> Request example: Getting assets 
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/usage/assets?startDate=2023-01-01&endDate=2023-01-15&isK8S=0&granLevel=day&columns=service&costType=cost&isUnblended=true' \
+--header '{{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| startDate | path | ?? | ?? | date in YYYY-MM-DD format |
+| endDate | path | ?? | ?? | date in YYYY-MM-DD format |
+| isK8S | path | ?? | ?? | ?? |
+| granLevel | path | ?? | ?? | enum. Possible values: |
+| columns | path |
+| costType | path |
+| isUblended | path |
+
+
+
+**Responses**
+
+> Response Example
+
+```json
+[
+    {
+        "usagedate": "2023-01-01",
+        "payeraccount": "932213950603",
+        "service": "Tax",
+        "totalcost": 10644.48,
+        "totalUsageQuantity": 51
+    },
+    {
+        "usagedate": "2023-01-01",
+        "payeraccount": "932213950603",
+        "service": "Redshift-RI",
+        "totalcost": 8291.4336,
+        "totalUsageQuantity": 2976
+    },
+    {
+        "usagedate": "2023-01-01",
+        "payeraccount": "932213950603",
+        "service": "AWS Support [Business]",
+        "totalcost": 3539.337317,
+        "totalUsageQuantity": 46276.2473789223
+    },
+    {
+        "usagedate": "2023-01-15",
+        "payeraccount": "932213950603",
+        "service": "AWS Amplify",
+        "totalcost": 0,
+        "totalUsageQuantity": 3.2870904935
+    }
+]
+```
+
+The response is comprised of an array of assets, according to the following table:
+
+| Name | Type | Description | 
+| ---- | ---- | ----------- | 
+| usageDate | date | ID of the cost center |
+| payeraccount | String | Cost Center Name | 
+| service | String | Cost Center Code (optional) |
+| totalcost | Number | ID of the Anodot Cost Account | 
+| totalUsageQuantity | Number | All the accounts linked to this cost center |
+
+** Error Code**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | User retrieval success |
+| 404 | User not found |
+| 500 | Server error |
 
 ## Cost Centers 
 

@@ -278,6 +278,7 @@ severities | enum | Can be one (or more) of the following: {INFO,LOW,MEDIUM,HIGH
 status | enum | Can be either "OPEN" or "CLOSE"
 size | integer | You can specify the max number of triggers to return. The default is 20
 alertConfigurationIds | string | Alert configuration ID, limit the call to fetch triggers for a specific alert configuration
+isLeanResponse | bool | This is an optional parameter (default = true). If set to 'false' then the API will send not just the metadata on the triggers but also the metrics array based on this format  - [metrics](#metrics-array).
 
 > Response Example:
 
