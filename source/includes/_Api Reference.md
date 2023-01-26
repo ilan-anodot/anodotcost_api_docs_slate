@@ -15,7 +15,17 @@ The Anodot API endpoints can be used to:
 * Post Events and Tags to Anodot.
 * Get information on metrics, alerts, feedback, anomalies and other entities
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/10969159-293c8cc8-9926-4189-8f7b-accfe91bf88c?action=collection%2Ffork&collection-url=entityId%3D10969159-293c8cc8-9926-4189-8f7b-accfe91bf88c%26entityType%3Dcollection#?env%5BAnodot%5D=W3sia2V5IjoibWV0cmljX3ZhbHVlIiwidmFsdWUiOiIxIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJlcG9jaCIsInZhbHVlIjoiMTYwNjMwNTc0OCIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoiY2FtcGFpZ25JRCIsInZhbHVlIjoiMSIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoibWV0cmljX2NvdW50ZXIiLCJ2YWx1ZSI6IiIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoiYWNjZXNzLXRva2VuIiwidmFsdWUiOiJBY2Nlc3MgVG9rZW4gdXNlZCBmb3IgdGhlIEF1dGhlbnRpY2F0ZSBDYWxsXG4iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6ImFwaS10b2tlbiIsInZhbHVlIjoiVG9rZW4gR2VuZXJhdGVkIGJ5IEF1dGhlbnRpY2F0aW9uIEFQSVxuIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJkYXRhLXRva2VuIiwidmFsdWUiOiJHZXQgeW91ciB0b2tlbiEgIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJhcHAtdXJsIiwidmFsdWUiOiJBbm9kb3QgQXBwbGljYXRpb24gVVJMIiwiZW5hYmxlZCI6dHJ1ZX1d)
+You are more than encouraged to use the Anodot API Postman Collections. 
+
+**Anodot Revenue API**
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/10969159-293c8cc8-9926-4189-8f7b-accfe91bf88c?action=collection%2Ffork&collection-url=entityId%3D10969159-293c8cc8-9926-4189-8f7b-accfe91bf88c%26entityType%3Dcollection%26workspaceId%3D2c9b638c-72a1-4cc1-954c-9c0e260d2ec2)
+
+
+**Anodot Cost API**
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/10969159-1fdd0097-886c-4bfc-978d-de4372a36ea6?action=collection%2Ffork&collection-url=entityId%3D10969159-1fdd0097-886c-4bfc-978d-de4372a36ea6%26entityType%3Dcollection%26workspaceId%3D2c9b638c-72a1-4cc1-954c-9c0e260d2ec2)
+
 
 <aside class="notice">
 We keep updating this site with new endpoints and APIs.<br/>
