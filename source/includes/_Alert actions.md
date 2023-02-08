@@ -241,3 +241,92 @@ id | String | Alert action id to delete.
 **Response Fields**
 
 Assuming the operation was sucessfull you will recieve in the body of the reponse a confirmation how many alerts were deleted (supposed to be 1)
+
+
+### Get Alert Action Usage
+
+The alert action usage APIs are used to understand how many each type of action was performed by a user in a given time frame. 
+
+> Request Example: Get Alert action usage
+
+```shell
+curl -X GET \
+'https://app.anodot.com/api/v2/alert-actions/usage?startDate=1672531200&endDate=1675814400' \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer {{bearer-token}}"
+```
+
+Use this API to get the usage data for alert actions defined in the account.
+
+**Request Arguments**
+
+Argument | Type | Description
+---------|------|------------
+startDate | epoch | Start date from when to get usage data
+endDate | epoch | (Optional) End date until when to get usage data
+
+> Response Example:
+
+```json
+[
+    {
+        "id": "6398a17e03588b7ca560cac3",
+        "usage": 4
+    },
+    {
+        "id": "6320913808846c166de61cd2",
+        "usage": 0
+    }
+]
+```
+
+**Response Fields**
+
+This call will return an array of alert usage data, each one with the following structure:
+
+Field | Type | Description / Example
+-|-|-
+id | String | Alert action id. 
+usage | Number | How many times was this alert action performed in the given time frame.
+
+
+
+### Get Alert Action Usage by ID
+
+> Request Example: Get alert action usage by ID
+
+```shell
+curl -X GET \
+"https://app.anodot.com/api/v2/alert-actions/usage/{{action-id}}/?startDate=1672531200&endDate=1675382400" \
+-H 'Content-Type: application/json' \
+-H "Authorization: Bearer {{bearer-token}}"
+```
+
+Use this API to get a usage data for a specific alert action
+
+**Request Arguments**
+
+Argument | Type | Description
+---------|------|------------
+id | String | Alert action id for which you would like to get the data
+startDate | epoch | Start date from when to get usage data
+endDate | epoch | (Optional) End date until when to get usage data
+
+
+> Response Example:
+
+```json
+[
+    {
+        "id": "6398a17e03588b7ca560cac3",
+        "usage": 5
+    }
+]
+```
+
+**Response Fields**
+
+Field | Type | Description / Example
+-|-|-
+id | String | Alert action id. 
+usage | Number | How many times was this alert action performed in the given time frame.
