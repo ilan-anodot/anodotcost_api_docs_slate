@@ -862,252 +862,6 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/hi
 | 500 | Server error |
 
 
-## Budgets
-### Get Budget 
-
-**Summary:** Retrieves budgets for given user
-
-**Description:** The call is used to retrieve budgets created by api-key defined user
-
-
-> Request Example: Getting a budget
-
-
-```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/budgets' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
-```
-
-**Parameters**
-
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Authorization | header |  | Yes |  |
-| apikey | header |  | Yes |  |
-
-**Responses**
-The response is an array of budgets defined in the account. 
-
-> Response Example 
-
-```json
-[
-    {
-        "budgetId": "f30de497a71f45b7a5dd5e0953bc43e6",
-        "budget_amounts": [],
-        "end_date": "2023-06-01 00:00:00",
-        "creation_time": "2022-07-03 11:48:33",
-        "user_key": "ff55ffaf-42d7-402d-95c8-bdd6488392f3",
-        "budget_amount_type": "fixed",
-        "budget_type": "recurring",
-        "flexible": 1,
-        "alerts": [
-            {
-                "budget_percent_to_alert_from": 80,
-                "alert_granularity": [
-                    "daily"
-                ],
-                "recipients": [
-                    "yariv@anodot.com"
-                ],
-                "when_to_alert": [
-                    "forecasted"
-                ]
-            }
-        ],
-        "filters": {
-            "include": {
-                "linkedaccname": [
-                    "Anodot Customer Success"
-                ]
-            },
-            "exclude": {}
-        },
-        "account_id": "340481513670",
-        "start_date": "2022-06-01 00:00:00",
-        "division_id": "0",
-        "budget_amount": 50000,
-        "is_active": 1,
-        "account_key": "649",
-        "budget_name": "Customer Success",
-        "is_valid": "1"
-    }
-]
-```
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | successful retrieval |
-| 400 | Invalid Parameters value |
-| 500 | Server error |
-
-### Edit Budget 
-
-**Summary:** update budget for given user
-
-**Description:** The call is used to update budget created by api-key defined user
-
-> Request Example: Update a budget 
-
-```shell
-curl --location --request PUT 'https://api.mypileus.io/api/v1/budgets?budgetId={{budgetId}}' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "budgetName": "string",
-  "budgetAmount": 0,
-  "budgetAmounts": [
-    {
-      "date": "string",
-      "amount": 0
-    }
-  ],
-  "budgetAlerts": [
-    {
-      "alertPercent": 0,
-      "alertEmail": "string",
-      "whenToAlert": [
-        "actualUsage"
-      ],
-      "alertGranularity": [
-        "daily"
-      ]
-    }
-  ],
-  "includeFilters": {
-    "filter_name": [
-      "linkedaccid"
-    ]
-  },
-  "excludeFilters": {
-    "filter_name": [
-      "linkedaccid"
-    ]
-  },
-  "budgetType": "expiring",
-  "budgetAmountType": "fixed",
-  "startDate": "string",
-  "endDate": "string",
-  "isFlexible": true,
-  "budgetId": "string"
-}'
-```
-
-**Parameters**
-
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Authorization | header |  | Yes |  |
-| apikey | header |  | Yes |  |
-
-**Responses**
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | successful retrieval |
-| 400 | Invalid Parameters value |
-| 500 | Server error |
-
-### Create Budget
-
-**Summary:** create budget for given user
-
-**Description:** The call is used to create budgets created by api-key defined user
-
-```shell
-curl --location --request POST 'https://api.mypileus.io/api/v1/budgets' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "budgetName": "string",
-  "budgetAmount": 0,
-  "budgetAmounts": [
-    {
-      "date": "string",
-      "amount": 0
-    }
-  ],
-  "budgetAlerts": [
-    {
-      "alertPercent": 0,
-      "alertEmail": "string",
-      "whenToAlert": [
-        "actualUsage"
-      ],
-      "alertGranularity": [
-        "daily"
-      ]
-    }
-  ],
-  "includeFilters": {
-    "filter_name": [
-      "linkedaccid"
-    ]
-  },
-  "excludeFilters": {
-    "filter_name": [
-      "linkedaccid"
-    ]
-  },
-  "budgetType": "expiring",
-  "budgetAmountType": "fixed",
-  "startDate": "string",
-  "endDate": "string",
-  "isFlexible": true,
-  "budgetId": "string"
-}'
-```
-
-
-**Parameters**
-
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Authorization | header |  | Yes |  |
-| apikey | header |  | Yes |  |
-
-**Responses**
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | successful retrieval |
-| 400 | Invalid Parameters value |
-| 500 | Server error |
-
-### Delete Budget
-
-**Summary:** Delette budget for given user
-
-**Description:** The call is used to delete budget created by api-key defined user
-
-> Request Example: Delete a budget
-
-```shell
-curl --location --request DELETE 'https://api.mypileus.io/api/v1/budgets?budgetId={{budget-id}}' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}' \
---header 'Content-Type: application/json' \
---data-raw ''
-```
-
-**Parameters**
-
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Authorization | header |  | Yes |  |
-| apikey | header |  | Yes |  |
-| budgetId | query | The budget Id to remove | Yes |  |
-
-**Responses**
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | successful retrieval |
-| 400 | Invalid Parameters value |
-| 500 | Server error |
 
 ## Commitments 
 ### Get Utilization 
@@ -1691,6 +1445,227 @@ The response is the business mapping object created.
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
+## Enrichment tags
+
+Mapping the organizational structure in filters, recommendations and CUE is made available by uploading the file via API.
+Your enrichment tags are stored as a single csv file.
+To update the CSV file using the API, you need to:
+
+1. GET the current configuration
+2. Update the entries in your spreadsheet or text editor
+3. POST the updated file to replace the existing configuration in your account
+
+### GET Enrichment tags
+
+> Request example: GET enrichement tags file
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/users/files/enrichment-tags/download' \
+--header 'apikey: {{account-api-key}}' \
+--header 'authorization: {{bearer-token}}' \
+--header 'Content-Type: text/plain' \
+```
+
+Use this request to download the current file to your local drive.
+The only parameter for this request is the account api key.
+
+> Response example:
+
+```json
+{
+    "metadata": {
+        "id": "489538b6-xxx",
+        "fileType": "text/csv",
+        "accountKey": "xx",
+        "userKey": "82f99b85-e85a-436e-a8eb-d4ed989b9456",
+        "accountId": "987654321098",
+        "fileName": "replacement-filenamewwww2.csv",
+        "uploadDate": "2023-02-09 12:21:35"
+    },
+    "data": [
+        {
+            "department": "Marketing",
+            "company": "Company A",
+            "region": "EU",
+            "division": "Sales",
+            "linked_account_id": "1111111111"
+        },
+        {
+            "department": "R&D",
+            "company": "Company A",
+            "region": "US",
+            "division": "Technology",
+            "linked_account_id": "222222222"
+        },
+        {
+            "department": "Budget",
+            "company": "Company A",
+            "region": "EU",
+            "division": "Finance",
+            "linked_account_id": "33333333333"
+        }
+    ]
+}
+```
+
+### POST Enrichment tags
+
+> Request Example: POST enrichment tags file
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v1/users/files/enrichment-tags/upload' \
+--header 'apikey: {{account-api-key}}' \
+--header 'authorization: {{bearer-token}}' \
+--data_raw '{
+    {
+    "metaData": {
+        "type": "text/csv",
+        "name": "tags.csv"
+    },
+    "content": "\"linked_account_id\",\"company\",\"division\",\"department\",\"region\"\n\"222222222\",\"Company A\",\"Technology\",\"R&D\",\"US\"\n\"1111111111\",\"Company A\",\"Sales\",\"Marketing\",\"EU\"\n\"33333333333\",\"Company A\",\"Finance\",\"Budget\",\"EU\""
+    }
+}'
+```
+
+Provide the CSV content as a string.
+
+> Response Example:
+
+```json
+{
+    "id" : "1234",
+    "uploadDate" : "2022-02-02 10:10"
+}
+```
+## Kubernetes
+### Get Kubernetes cost 
+
+**Summary:** Retrieves kubernetes cost and usage from your cloud accounts invoice
+
+**Description:** The call is used to retrieve kubernetes data grouped and filtered by different values
+
+> Request Example: Get Kubernetes Cost
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage?groupBy=cluster&startDate=2022-05-01&endDate=2022-08-01&periodGranLevel=month&costUsageType=compute' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-token}}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| groupBy | query | The group by value that will be used for the results. Possible values: Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | Yes |  |
+| startDate | query | Start date of the cost and usage data examination | Yes |  |
+| endDate | query | End date of the cost and usage data examination | Yes |  |
+| periodGranLevel | query | Granularity level of the period in the output data. Available values : month, week, day | Yes |  |
+| costUsageType | query | Available valuye: Available values : compute, dataTransfer, storage | Yes |  |
+| usageType | query | Available values : CPU, Memory | No |  |
+| metricType | query | Available values : actual, requirements | No |  |
+| isNetUnblended | query | Available values : true, false | No |  |
+| isAmortized | query | Available values : true, false | No |  |
+| isNetAmortized | query | Available values : true, false | No |  |
+| wheres | query | conditions of type if x equals y when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
+| filters | query | conditions of type if x in (y,z,w) when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
+| excludeFilters | query | conditions of type if x not in (y,z,w) when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
+
+**Responses**
+
+> Response example: Getting Kubernetes Cost
+
+```json
+{
+    "data": [
+        {
+            "groupBy": "us-east-1:932213950603:cw-test-2",
+            "usageDate": "2022-05",
+            "accountId": "932213950603",
+            "clusterName": "us-east-1:932213950603:cw-test-2",
+            "totalCost": 61.9,
+            "totalUsage": 253883145259.66
+        },
+        {
+            "groupBy": "us-east-1:932213950603:my-cluster-name",
+            "usageDate": "2022-05",
+            "accountId": "932213950603",
+            "clusterName": "us-east-1:932213950603:my-cluster-name",
+            "totalCost": 7.74,
+            "totalUsage": 31338272009.87
+        }
+    ],
+    "nextPage": null
+}
+```
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+### Get Kubernetes cost per pod
+
+**Summary:** Retrieves kubernetes cost and usage from your cloud accounts invoice
+
+**Description:** The call is used to retrieve kubernetes Pod cost and usage data grouped
+
+> Request Example: Getting Kubernetes cost per pod / cluster 
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage/pod?startDate=2022-05-01&endDate=2022-08-01&periodGranLevel=month&clusterName=us-east-1:932213950603:cw-test-2' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| startDate | query | Start date of the cost and usage data examination | Yes |  |
+| endDate | query | End date of the cost and usage data examination | No |  |
+| clusterName | query | The cluster name that the pod running on. cluster name formatting should be in following format- [CLUSTER_REGION]:[CLUSTER_ACCOUNT_ID]:[CLUSTER_NAME] for example us-east-1:123456789012:prod-cluster | No |  |
+| nodeName | query |  | No |  |
+| podName | query | pod name formatting should be in following format- [POD_NAMESPACE]:[POD_NAME] for example kube-system:aws-node-k5jgh | Yes |  |
+
+> Response Example: 
+
+```json
+{
+    "data": [
+        {
+            "groupBy": "us-east-1:932213950603:cw-test-2",
+            "usageDate": "2022-05",
+            "accountId": "932213950603",
+            "clusterName": "us-east-1:932213950603:cw-test-2",
+            "totalCost": 61.9,
+            "totalUsage": 253883145259.66
+        },
+        {
+            "groupBy": "us-east-1:932213950603:my-cluster-name",
+            "usageDate": "2022-05",
+            "accountId": "932213950603",
+            "clusterName": "us-east-1:932213950603:my-cluster-name",
+            "totalCost": 7.74,
+            "totalUsage": 31338272009.87
+        }
+    ]
+}
+```
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
 ## Anomaly Detection
 ### Get Anomaly Detection Rules
 
@@ -2018,89 +1993,138 @@ You will get entries from 1 to 31 (days of the month) with:
     * If the day has already passed - the actual value
     * If the day is in the future - the forecasted value for it
 
-## Kubernetes
-### Get Kubernetes cost 
+## Budgets
+### Get Budget 
 
-**Summary:** Retrieves kubernetes cost and usage from your cloud accounts invoice
+**Summary:** Retrieves budgets for given user
 
-**Description:** The call is used to retrieve kubernetes data grouped and filtered by different values
+**Description:** The call is used to retrieve budgets created by api-key defined user
 
-> Request Example: Get Kubernetes Cost
 
-```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage?groupBy=cluster&startDate=2022-05-01&endDate=2022-08-01&periodGranLevel=month&costUsageType=compute' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{Bearer-token}}'
-```
+> Request Example: Getting a budget
 
-**Parameters**
-
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Authorization | header |  | Yes |  |
-| apikey | header |  | Yes |  |
-| groupBy | query | The group by value that will be used for the results. Possible values: Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | Yes |  |
-| startDate | query | Start date of the cost and usage data examination | Yes |  |
-| endDate | query | End date of the cost and usage data examination | Yes |  |
-| periodGranLevel | query | Granularity level of the period in the output data. Available values : month, week, day | Yes |  |
-| costUsageType | query | Available valuye: Available values : compute, dataTransfer, storage | Yes |  |
-| usageType | query | Available values : CPU, Memory | No |  |
-| metricType | query | Available values : actual, requirements | No |  |
-| isNetUnblended | query | Available values : true, false | No |  |
-| isAmortized | query | Available values : true, false | No |  |
-| isNetAmortized | query | Available values : true, false | No |  |
-| wheres | query | conditions of type if x equals y when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
-| filters | query | conditions of type if x in (y,z,w) when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
-| excludeFilters | query | conditions of type if x not in (y,z,w) when retrieving data. Available values : cluster, region, linkedaccname, linkedaccid, namespace, node, instancetype, labels, customtags | No |  |
-
-**Responses**
-
-> Response example: Getting Kubernetes Cost
-
-```json
-{
-    "data": [
-        {
-            "groupBy": "us-east-1:932213950603:cw-test-2",
-            "usageDate": "2022-05",
-            "accountId": "932213950603",
-            "clusterName": "us-east-1:932213950603:cw-test-2",
-            "totalCost": 61.9,
-            "totalUsage": 253883145259.66
-        },
-        {
-            "groupBy": "us-east-1:932213950603:my-cluster-name",
-            "usageDate": "2022-05",
-            "accountId": "932213950603",
-            "clusterName": "us-east-1:932213950603:my-cluster-name",
-            "totalCost": 7.74,
-            "totalUsage": 31338272009.87
-        }
-    ],
-    "nextPage": null
-}
-```
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | successful retrieval |
-| 400 | Invalid Parameters value |
-| 500 | Server error |
-
-### Get Kubernetes cost per pod
-
-**Summary:** Retrieves kubernetes cost and usage from your cloud accounts invoice
-
-**Description:** The call is used to retrieve kubernetes Pod cost and usage data grouped
-
-> Request Example: Getting Kubernetes cost per pod / cluster 
 
 ```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage/pod?startDate=2022-05-01&endDate=2022-08-01&periodGranLevel=month&clusterName=us-east-1:932213950603:cw-test-2' \
+curl --location --request GET 'https://api.mypileus.io/api/v1/budgets' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
 ```
 
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+
+**Responses**
+The response is an array of budgets defined in the account. 
+
+> Response Example 
+
+```json
+[
+    {
+        "budgetId": "f30de497a71f45b7a5dd5e0953bc43e6",
+        "budget_amounts": [],
+        "end_date": "2023-06-01 00:00:00",
+        "creation_time": "2022-07-03 11:48:33",
+        "user_key": "ff55ffaf-42d7-402d-95c8-bdd6488392f3",
+        "budget_amount_type": "fixed",
+        "budget_type": "recurring",
+        "flexible": 1,
+        "alerts": [
+            {
+                "budget_percent_to_alert_from": 80,
+                "alert_granularity": [
+                    "daily"
+                ],
+                "recipients": [
+                    "yariv@anodot.com"
+                ],
+                "when_to_alert": [
+                    "forecasted"
+                ]
+            }
+        ],
+        "filters": {
+            "include": {
+                "linkedaccname": [
+                    "Anodot Customer Success"
+                ]
+            },
+            "exclude": {}
+        },
+        "account_id": "340481513670",
+        "start_date": "2022-06-01 00:00:00",
+        "division_id": "0",
+        "budget_amount": 50000,
+        "is_active": 1,
+        "account_key": "649",
+        "budget_name": "Customer Success",
+        "is_valid": "1"
+    }
+]
+```
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+### Edit Budget 
+
+**Summary:** update budget for given user
+
+**Description:** The call is used to update budget created by api-key defined user
+
+> Request Example: Update a budget 
+
+```shell
+curl --location --request PUT 'https://api.mypileus.io/api/v1/budgets?budgetId={{budgetId}}' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "budgetName": "string",
+  "budgetAmount": 0,
+  "budgetAmounts": [
+    {
+      "date": "string",
+      "amount": 0
+    }
+  ],
+  "budgetAlerts": [
+    {
+      "alertPercent": 0,
+      "alertEmail": "string",
+      "whenToAlert": [
+        "actualUsage"
+      ],
+      "alertGranularity": [
+        "daily"
+      ]
+    }
+  ],
+  "includeFilters": {
+    "filter_name": [
+      "linkedaccid"
+    ]
+  },
+  "excludeFilters": {
+    "filter_name": [
+      "linkedaccid"
+    ]
+  },
+  "budgetType": "expiring",
+  "budgetAmountType": "fixed",
+  "startDate": "string",
+  "endDate": "string",
+  "isFlexible": true,
+  "budgetId": "string"
+}'
+```
 
 **Parameters**
 
@@ -2108,36 +2132,6 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-an
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| startDate | query | Start date of the cost and usage data examination | Yes |  |
-| endDate | query | End date of the cost and usage data examination | No |  |
-| clusterName | query | The cluster name that the pod running on. cluster name formatting should be in following format- [CLUSTER_REGION]:[CLUSTER_ACCOUNT_ID]:[CLUSTER_NAME] for example us-east-1:123456789012:prod-cluster | No |  |
-| nodeName | query |  | No |  |
-| podName | query | pod name formatting should be in following format- [POD_NAMESPACE]:[POD_NAME] for example kube-system:aws-node-k5jgh | Yes |  |
-
-> Response Example: 
-
-```json
-{
-    "data": [
-        {
-            "groupBy": "us-east-1:932213950603:cw-test-2",
-            "usageDate": "2022-05",
-            "accountId": "932213950603",
-            "clusterName": "us-east-1:932213950603:cw-test-2",
-            "totalCost": 61.9,
-            "totalUsage": 253883145259.66
-        },
-        {
-            "groupBy": "us-east-1:932213950603:my-cluster-name",
-            "usageDate": "2022-05",
-            "accountId": "932213950603",
-            "clusterName": "us-east-1:932213950603:my-cluster-name",
-            "totalCost": 7.74,
-            "totalUsage": 31338272009.87
-        }
-    ]
-}
-```
 
 **Responses**
 
@@ -2146,6 +2140,106 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-an
 | 200 | successful retrieval |
 | 400 | Invalid Parameters value |
 | 500 | Server error |
+
+### Create Budget
+
+**Summary:** create budget for given user
+
+**Description:** The call is used to create budgets created by api-key defined user
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v1/budgets' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "budgetName": "string",
+  "budgetAmount": 0,
+  "budgetAmounts": [
+    {
+      "date": "string",
+      "amount": 0
+    }
+  ],
+  "budgetAlerts": [
+    {
+      "alertPercent": 0,
+      "alertEmail": "string",
+      "whenToAlert": [
+        "actualUsage"
+      ],
+      "alertGranularity": [
+        "daily"
+      ]
+    }
+  ],
+  "includeFilters": {
+    "filter_name": [
+      "linkedaccid"
+    ]
+  },
+  "excludeFilters": {
+    "filter_name": [
+      "linkedaccid"
+    ]
+  },
+  "budgetType": "expiring",
+  "budgetAmountType": "fixed",
+  "startDate": "string",
+  "endDate": "string",
+  "isFlexible": true,
+  "budgetId": "string"
+}'
+```
+
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
+### Delete Budget
+
+**Summary:** Delette budget for given user
+
+**Description:** The call is used to delete budget created by api-key defined user
+
+> Request Example: Delete a budget
+
+```shell
+curl --location --request DELETE 'https://api.mypileus.io/api/v1/budgets?budgetId={{budget-id}}' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw ''
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| budgetId | query | The budget Id to remove | Yes |  |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | successful retrieval |
+| 400 | Invalid Parameters value |
+| 500 | Server error |
+
 
 ## Cost Events
 ### Get Cost Events 
