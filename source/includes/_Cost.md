@@ -2,11 +2,19 @@
 > End Point **https://api.mypileus.io/api/v1**
 
 ## Cost Authentication
-In order to start working with the Cost API, you need to perform two authentication steps. 
 
-### Getting the Bearer Token
+In order to start working with the Cost API, you first need to perform three steps.
 
-The following call will enable you to get an authentication token for the subsequent API calls. Please notice that the token recieved is valid for 24 hours.
+1. Get the Authentication token
+2. Call the USERS API to get the account and division IDs
+3. Form the **{{account-api-key}}** by combining the token from step 1 with the account and division from step 2.
+
+See details below
+
+### Getting the Token
+
+The following call will enable you to get an authentication token for the subsequent API calls.
+The token is valid for 24 hours.
 
 You can either use basic authentication (recommended) or send the parameters in the body.
 
@@ -21,6 +29,15 @@ curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' 
 }'
 ```
 
+> Response example - token
+
+```json
+{
+    "Authorization": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",  
+    "apikey": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX:-1" 
+}
+```
+
 > Response example - invalid credentials.
 
 ```json
@@ -29,17 +46,7 @@ curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' 
 }
 ```
 
-
-> Response example - token
-
-```json
-{
-   "Authorization": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",  
- 	"apikey": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX:-1" 
-}
-```
-
-### Forming the API Key
+### Getting the account and division
 
 After calling the Authentication, you will need to call the [Get Users](#users).
 From the users API response you will get an array of accounts (See example on the right)
@@ -77,17 +84,15 @@ From the users API response you will get an array of accounts (See example on th
 ]
 ```
 
+### Forming the API Key
+
 Choose the **accountkey** which is relevant for the subsequent API calls and the **divisionID**. 
 
 Then - replace the '-1' at the end of the API key you got with accountKey:divisionId
 
-Example: if the API key you initially got is this:
+Example: API key from step 1:  *c6249e30e-cf36-4957-a41a-d08fbafa5093:-1*
 
-*c6249e30e-cf36-4957-a41a-d08fbafa5093:-1*
-
-It will now be:
-
-*c6249e30e-cf36-4957-a41a-d08fbafa5093:{{acountKey}}:{{divisionId}}*
+Will be changed to: *c6249e30e-cf36-4957-a41a-d08fbafa5093:{{acountKey}}:{{divisionId}}*
 
 In the following calls, we refer to this new string as **{{account-api-key}}**
 
@@ -293,7 +298,7 @@ The response is comprised of an array of assets, according to the following tabl
 | totalcost | Number | ID of the Anodot Cost Account | 
 | totalUsageQuantity | Number | All the accounts linked to this cost center |
 
-** Error Code**
+**Error Code**
 
 | Code | Description |
 | ---- | ----------- |
@@ -306,7 +311,7 @@ The response is comprised of an array of assets, according to the following tabl
 
 ### Get List of Cost Centers 
 
-**Summary:** retrieve list of cost centers
+**Summary:** retrieve a list of cost centers
 
 > Request example: Getting list of cost centers
 
@@ -555,7 +560,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/divisions' \
 > Request Example - Getting cost and usage
 
 ```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupby=service&startDate=2021-12-31&endDate=2022-07-01&periodGranLevel=month&costType=discount' \
+curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupBy=service&startDate=2021-12-31&endDate=2022-07-01&periodGranLevel=month&costType=discount' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
 ```
@@ -577,6 +582,34 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-
 | wheres | query | conditions of type if x equals y when retrieving data | No |  |
 | filters | query | conditions of type if x in (y,z,w) when retrieving data | No |  |
 | excludeFilters | query | conditions of type if x not in (y,z,w) when retrieving data | No |  |
+
+
+### groupBy and filtering options
+
+The table provides a few examples on the way to use the filters and groupBy parameters
+
+Analysis | Filter | groupBy |
+------------------|--------|---------|
+Service |filters%5Bservice%5D |service|
+Region  |filters%5Bregion%5D |region|
+Linked Account|filters%5Blinkedaccid%5D|linkedaccid|
+Tags|filters%5Bcustomtags%5D=Tag_Key3A%20Tag_Value&|customtags%3ATag_Key|
+Cost Center|filters%5Bdivision%5D|division|
+Sub Views|filters%5Bsubviewscustomtags%5D|viewscustomtags%3AViewName|
+Virtual Tags|filters%5Bvirtualcustomtags%5D|virtualcustomtags%3AVirtualTagName|
+Quantity Type|filters%5Bquantitytype%5D||
+Operation|filters%5Boperation%5D|operation|
+Purchase Option|filters%5Bpurchaseoption%5D|purchaseoption|
+Family Type|filters%5Bfamilytype%5D|familytype|
+Instance Type|filters%5Binstancetype%5D|instancetype|
+Sub Service|filters%5Bsubservice%5D||
+Charge Type|filters%5Bchargetype%5D||
+Filter Group|filters%5Bcategories%5D|category|
+Business Mapping|filters%5Bbusinessmapping%5D|businessmapping|
+Usage Type|filters%5Busagetype%5D|usagetype|
+Availability Zone|filters%5Bzonetag%5D|zonetag|
+Resource|filters%5Bresourceid%5D|resourceid|
+
 
 > Response Example 
 
@@ -1537,6 +1570,7 @@ Provide the CSV content as a string.
     "uploadDate" : "2022-02-02 10:10"
 }
 ```
+
 ## Kubernetes
 ### Get Kubernetes cost 
 
