@@ -1,3 +1,3 @@
-# Cost
+# Resellers
 
-APIs for the Anodot for Cost Product (f.k.a. Pileus)
+APIs for resellers

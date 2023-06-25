@@ -1,9 +1,6 @@
-# Integrations
+# Advanced services
 
-Incoming and outgoing integrations
-
-* Posting metrics
-* Stream creation
-* Alert channel creation
-* Posting events
-* Topology resources
+* Anomaly detection
+* Forecasting your cost
+* Managing budgets
+* Viewing cost events

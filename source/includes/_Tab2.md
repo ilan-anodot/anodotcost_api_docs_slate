@@ -1,4 +1,4 @@
 
-# Alerts
+# Cost & Usage
 
-This section lists Alert configuration and Alert trigger APIs
+This section lists CUE, Recommendations, commitments, Kubernetes and more

@@ -1,118 +1,94 @@
-## Authentication
+## Cost Authentication
 
-### Basic Authentication
+In order to start working with the Cost API, you first need to perform three steps.
 
-> Using the basic token in a REST call:
+1. Get the Authentication token
+2. Call the USERS API to get the account and division IDs
+3. Form the **{{account-api-key}}** by combining the token from step 1 with the account and division from step 2.
 
-```shell
-POST 'https://{{app-url}}/api/v1/metrics?token={{DC_Key}}&protocol=anodot20'
-```
+See details below
 
-Basic authentication is used for:
+### Getting the Token
 
-* Sending metrics to Anodot.
-* Calling Anodot legacy APIs. 
+The following call will enable you to get an authentication token for the subsequent API calls.
+The token is valid for 24 hours.
 
-Anodot basic authentication uses a **Data Collection Key**.
-Copy the **Data Collection Key** from the [Token Management](https://support.anodot.com/hc/en-us/articles/360002631114-Token-Management) page and use it in your REST calls.
+You can either use basic authentication (recommended) or send the parameters in the body.
 
-<aside class="warning">
-We recommend using Access Token based Authentication for all purposes other than posting metrics.
-See details below.
-</aside>
-
-### Access Tokens
-
-> Endpoint: **/access-token** :
-
-> Step 2 - Request example:
+> Request example: Getting an authentication token
 
 ```shell
-POST 'https://{{app-url}}/api/v2/access-token/?responseformat=JSON' \
+curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-	"refreshToken" : "{{access-key}}"
-}
-'
+    "username": "coyote@acme.com",
+    "password": "thisismypassword"
+}'
 ```
 
-> Step 2 response - contains the access-token
-> Option 1 is in plain-text:
-
-```shell
-"{{bearer-token-string}}"
-```
-
-> Option 2 is in JSON format:
+> Response example - token
 
 ```json
 {
-    "token" : "{{bearer-token-string}}"
+    "Authorization": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",  
+    "apikey": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX:-1" 
 }
 ```
 
-> Step 3 - Using the token you get in subsequent calls:
-
-```shell
-curl -X GET \
-https://{{app-url}}.anodot.com/api/v2/feedbacks \
--H 'Content-Type: application/json' \
--H "Authorization: Bearer {{bearer-token}}"
--d '{"startTime" : 1578391000, "endTime": 1578392000}'
-```
-
-To use access token authentication, follow these 3 simple steps:
-
-**Step 1:** Create an access-key in the [Token Management](https://support.anodot.com/hc/en-us/articles/360002631114-Token-Management) page within Anodot.
-
-**Step 2:** Use the access-key's token to request a bearer-token.</br>The retrieved bearer-token expiration is controlled via the 'User session timeout' configuration in the settings page, under the Authentication tab.
-
-**Step 3:** Use the retrieved bearer-token in your subsequent API calls<br/>
-Set the Authorization header of your calls with *Bearer* and the retrieved bearer-token.
-
-<aside class="notice">
-Checking the token expiration:<br/>
-- The token is made up of 3 sections, divided by dots.</br> 
-- Extract the second section from the token (between the two dots).</br>
-- Decode this string from Base64 and get the object from it.</br>
-- The object you get contains an "exp" part, this is a UNIX formatted time indicating the token's expiration time.</br>
-- Create the logic in your code to support token refresh before you reach the expiration time.</br>
-</aside>
-
-*Step 2 Request Arguments*
-
-Argument | Description
----------|------|------------
-refreshToken | Copied from Anodot app, see step 1
-responseformat [**Optional**] | Can be set to JSON (case sensitive!) if you would like to get the response in a json format.
-
-*Response Codes:*
-
-Code | Description
----- | -----------
-200 | OK - The response includes a token
-401 | NOK - Token Mismatch
-
-### Get CustomerID
-
-Each customer has a unique customerID which can be useful for some scenarios. 
-
-> End Point prefix: **/api/v2/customers/id**
-
-> Request example:
-
-```shell
-curl --location --request GET 'https://app.anodot.com/api/v2/customers/id' \
---header 'Authorization: Bearer {{Bearer-Token}}' \
---data-raw ''
-'
-```
-**Request Arguments**
-
-None.
-
-> The Response contains the customerID. 
+> Response example - invalid credentials.
 
 ```json
-"6062047f0f6585000e1a7107"
+{
+    "Error": "Failed Retrieving Authentication Token"
+}
 ```
+
+### Getting the account and division
+
+After calling the Authentication, you will need to call the [Get Users](#users).
+From the users API response you will get an array of accounts (See example on the right)
+
+> Sample reponse from the users API
+
+```json
+[
+  {
+    "accounts": [
+        {
+            "accountKey":"{{accountkey}}",
+            "accountId": "1234567",
+            "accountTypeId": 1,
+            "accountName": "anodot",
+            "cloudTypeId": 0,
+            "userKey": "{{user-key}}",
+            "firstProcessTime": "2020-09-22T12:00:00.000Z",
+            "lastProcessTime": "2022-06-30T12:00:00.000Z",
+            "divisionId": "{{divisionId}}",
+            "divisionsIds": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+  }
+]
+```
+
+### Forming the API Key
+
+Choose the **accountkey** which is relevant for the subsequent API calls and the **divisionID**. 
+
+Then - replace the '-1' at the end of the API key you got with accountKey:divisionId
+
+Example: API key from step 1:  *c6249e30e-cf36-4957-a41a-d08fbafa5093:-1*
+
+Will be changed to: *c6249e30e-cf36-4957-a41a-d08fbafa5093:{{acountKey}}:{{divisionId}}*
+
+In the following calls, we refer to this new string as **{{account-api-key}}**
