@@ -12,25 +12,6 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/users' \
 --header 'Authorization: {{bearer-token}}'
 ```
 
-**Parameters**
-
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Authorization | header |  | Yes |  |
-| apikey | header |  | Yes |  |
-
-**Responses**
-
-The response is comprised of an array of users, according to the following table:
-
-**TBD**
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | User retrieval success |
-| 404 | User not found |
-| 500 | Server error |
-
 > Response Example
 
 ```json
@@ -71,3 +52,44 @@ The response is comprised of an array of users, according to the following table
     "childs": "TBD",
 }
 ```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+
+**Responses**
+
+The response is comprised of an array of users, according to the following table:
+
+**Response Codes**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | User retrieval success |
+| 404 | User not found |
+| 500 | Server error |
+
+### Get external ID
+
+> Request example: Get external ID
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/users/on-boarding/external-id/:cloudAccountId' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+**Summary:** Retrieve external ID
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| cloudAccoundID | Query params | The account we want the external ID for | Yes | String |
+
+
