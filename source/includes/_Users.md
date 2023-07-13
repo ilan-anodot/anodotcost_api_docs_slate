@@ -72,6 +72,10 @@ The response is comprised of an array of users, according to the following table
 | 404 | User not found |
 | 500 | Server error |
 
+## Onboarding
+
+This section lists calls that are related to automated onboarding.
+
 ### Get external ID
 
 > Request example: Get external ID
