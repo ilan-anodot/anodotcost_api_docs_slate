@@ -169,11 +169,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/ty
 **For a complete list of all recommendation types, please contact support@anodot.com**
 
 
-### Get history of recommendations
-
-**Summary:** Retrieves history of recommendations
-
-**Description:** The call is used to retrieve history recommendations
+### Get history of recommendations - DEPRECATED
 
 > Request Example: Getting recommendations history
 
@@ -182,6 +178,10 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/hi
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
 ```
+
+**Summary:** Retrieves the history of recommendations
+
+**Description:** The call is used to retrieve historical recommendations</br>
 
 **Parameters**
 
@@ -200,6 +200,46 @@ Filters are the same as the live [Get Recommendations](#get-recommendations) cal
 | 200 | successful retrieval |
 | 400 | Invalid Parameters value |
 | 500 | Server error |
+
+### Get history of recommendations - New
+
+> Request Example: Getting recommendations history by date range
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v1/recommendations/history' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "startDate": "2023-07-28 00:00:00",
+    "endDate": "2023-08-27 23:59:59"
+}'
+```
+
+**Summary:** Retrieves the history of recommendations
+
+**Description:** The call is used to retrieve historical recommendations</br>
+The call supports pagination and it is recommended to use it with a date range.
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| limit | Body | Overall number of records to retrieve | Optional | Number |
+| pageSize | Body | Number of records to return in each response | Optional | Number |
+| startDate | Body | Start date of the queried period | Optional | 'YYYY-MM-DD hh:mm:ss' |
+| endDate | Body | End date of the queried period | Optional | 'YYYY-MM-DD hh:mm:ss' |
+| lastEvaluatedKey | Body | The primary key of the last retrieved recommendation | Optional | {account_id, uuid} |
+
+
+**Response fields**
+
+| Name | Description |
+| -- | -- |
+| data | The recommendation data records |
+| lastPageKey | The primary key of the last retrieved recommendation {account_id, uuid} |
+
+
 
 ### Get recommendation history types
 
