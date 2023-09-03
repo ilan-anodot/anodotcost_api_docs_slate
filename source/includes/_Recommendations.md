@@ -22,9 +22,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations?fi
 | apikey | header |  | Yes |  |
 | filters | query | Filter recommendations based on type | No |  |
 
-Filtering recommendations can be applied to the above calls using query parameters in the following manner: **filters[type]=recommendationType** where recommendationType is one of the recommendation types supported. You can use the *Get recommendation types* call to get the possible types.</br>
-To get the recommendation types list please contact Anodot Support.
-
+Filtering recommendations can be applied to the above calls using query parameters in the following manner:**filters[type]=recommendationType** where recommendationType is one of the recommendation types supported. You can use the *Get recommendation types* call to get the possible types.</br>
 
 **Responses**
 
@@ -166,9 +164,6 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/ty
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
-**For a complete list of all recommendation types, please contact support@anodot.com**
-
-
 ### Get history of recommendations - DEPRECATED
 
 > Request Example: Getting recommendations history
@@ -206,7 +201,7 @@ Filters are the same as the live [Get Recommendations](#get-recommendations) cal
 > Request Example: Getting recommendations history by date range
 
 ```shell
-curl --location --request POST 'https://api.mypileus.io/api/v1/recommendations/history' \
+curl --location --request POST 'https://api.mypileus.io/api/v1/recommendations/history?filters[type]=ec2-idle' \
 --header 'Authorization: {{bearer-token}}' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Content-Type: application/json' \
@@ -225,11 +220,18 @@ The call supports pagination and it is recommended to use it with a date range.
 
 | Name | Located in | Description | Required | Type |
 | ---- | ---------- | ----------- | -------- | ---- |
+| filters | query | Filter recommendations based on recommendation type | No | String from list of values |
 | limit | Body | Overall number of records to retrieve | Optional | Number |
 | pageSize | Body | Number of records to return in each response | Optional | Number |
 | startDate | Body | Start date of the queried period | Optional | 'YYYY-MM-DD hh:mm:ss' |
 | endDate | Body | End date of the queried period | Optional | 'YYYY-MM-DD hh:mm:ss' |
 | lastEvaluatedKey | Body | The primary key of the last retrieved recommendation | Optional | {account_id, uuid} |
+
+<aside class="success">
+To filter by recommendation type use <b>filters[type]=recommendationType</b></br>
+recommendationType is one of the recommendation types returned by the <b>Get recommendation types</b> call.</br>
+The type are also listed in the recommendation documenation.
+</aside>
 
 
 **Response fields**
