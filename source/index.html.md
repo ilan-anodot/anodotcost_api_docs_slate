@@ -36,6 +36,7 @@ includes:
   - Tab4
   - MSP Customers
   - MSP Billing Rules
+  - MSP Credits
   
 search: true
 ---
