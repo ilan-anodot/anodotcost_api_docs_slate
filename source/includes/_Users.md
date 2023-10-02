@@ -97,3 +97,29 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/users/on-boarding/
 | cloudAccoundID | Query params | The account we want the external ID for | Yes | String |
 
 
+## SSO
+
+Anodot Cost enables Single Sign On using different providers.
+To configure SSO, please refer to the [product documentation](https://cloudcost.anodot.com/hc/en-us) 
+
+### Get SSO Client ID
+
+> Request Example: Get client ID from email
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/users/sso?username={{email}}'
+```
+
+**Summary:** Retrieve the client ID from the user's email
+
+**Parameters**
+
+| Name | Located In | Description | Required |
+| ---- | -----------| ----------- | ---------|
+| email | Query | The user email we want the client ID for | Yes |
+
+**Response**
+
+This request returns the client ID for an SSO domain based user
+The request returns NULL when an SSO domain is not defined
+

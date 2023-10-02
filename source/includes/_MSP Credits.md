@@ -1,9 +1,9 @@
-## Reseller Credits
+## MSP Credits
 ### Get Credits
 
 **Summary:** Retrieves credits
 
-**Description:** The call is used to retrieve credits by a reseller
+**Description:** The call is used to retrieve credits by an MSP
 
 > Request Example: Getting credits
 

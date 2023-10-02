@@ -1,4 +1,5 @@
 ## Recommendations
+
 ### Get Recommendations
 
 **Summary:** Retrieves current live recommendations
@@ -87,7 +88,7 @@ Filtering recommendations can be applied to the above calls using query paramete
 ]
 ```
 
-While each recommendation has different attributes that relat to the recommendation, they all share the following common fields:
+While each recommendation has different attributes that relate to the recommendation, they all share the following common fields:
 
 | Name | Description | 
 | ---- | ----------- | 
@@ -164,7 +165,11 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/ty
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
-### Get history of recommendations - DEPRECATED
+### DEPRECATED - Get history of recommendations
+
+<aside class="warning">
+This request is deprecated and will be replaced in the future
+</aside>
 
 > Request Example: Getting recommendations history
 
@@ -196,7 +201,7 @@ Filters are the same as the live [Get Recommendations](#get-recommendations) cal
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
-### Get history of recommendations - New
+### NEW - Get history of recommendations
 
 > Request Example: Getting recommendations history by date range
 
@@ -220,18 +225,33 @@ The call supports pagination and it is recommended to use it with a date range.
 
 | Name | Located in | Description | Required | Type |
 | ---- | ---------- | ----------- | -------- | ---- |
-| filters | query | Filter recommendations based on recommendation type | No | String from list of values |
-| limit | Body | Overall number of records to retrieve | Optional | Number |
-| pageSize | Body | Number of records to return in each response | Optional | Number |
-| startDate | Body | Start date of the queried period | Optional | 'YYYY-MM-DD hh:mm:ss' |
-| endDate | Body | End date of the queried period | Optional | 'YYYY-MM-DD hh:mm:ss' |
-| lastEvaluatedKey | Body | The primary key of the last retrieved recommendation | Optional | {account_id, uuid} |
+| filters | query | Filter recommendations, see table below | No | Strings from list of values |
+| limit | Body | Overall number of records to retrieve | No | Number |
+| pageSize | Body | Number of records to return in each response | No | Number |
+| startDate | Body | Start date of the queried period | No | 'YYYY-MM-DD hh:mm:ss' |
+| endDate | Body | End date of the queried period | No | 'YYYY-MM-DD hh:mm:ss' |
+| lastEvaluatedKey | Body | The primary key of the last retrieved recommendation | No | {account_id, uuid} |
 
 <aside class="success">
 To filter by recommendation type use <b>filters[type]=recommendationType</b></br>
 recommendationType is one of the recommendation types returned by the <b>Get recommendation types</b> call.</br>
 The type are also listed in the recommendation documenation.
 </aside>
+
+**Filters**
+
+| String | Description | Example | 
+|-|-|-|
+| region | The region related to the recommendation | us-east-1 |
+| resource_id | The resource id related to the recommendation | export-schemas-poc |
+| account_id | The payer account id | 114780013227 |
+| linked_account_id	| The linked account id that the recommendation is relevant to | 114780013227 |
+| type | Recommendation type | s3-idle |
+| service | The service name related to the recommendation | Amazon Simple Storage Service |
+| action | The general type of action related to the recommendation | Modify/Terminate/Upgrade/Delete/Buy |
+| uuid | The recommendation id | 0034f235-fce2-418b-b4d4-215e2c0d6d89 |
+| recommendation_status_id | The recommendation status | Completed - 1, Excluded - 4, Completed by system - 6 |
+
 
 
 **Response fields**

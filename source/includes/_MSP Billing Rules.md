@@ -65,18 +65,12 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/msp/billing-rules'
 
 The response is an array of rules for the MSP.
 
-**Event Structure**
+**Response Fields**
 
 | Field | Description |
 | ----- | ----------- |
 | account_id | The payer account id |
 | uuid | The event id |
-| creation_time | Time and date when this event was created in format YYYY-MM-DD hh:mm:ss |
-| date | Date of the event in format YYYY-MM-DD |
-| description | The description of the event |
-| title | The title of the event |
-| user_key | Identifier of user, who created this event |
-| updating_time | The last time and date when this event was updated in format YYYY-MM-DD hh:mm:ss |
 
 ### Create MSP Billing Rules
 
@@ -116,14 +110,11 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/msp/billing-rules
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| title | body | Event title | Yes | String |
-| description | body | Event description | Yes | String |
-| date | body | Event date | Yes | date |
-| createdBy | body | Name of user creating the event | Yes | String |
 
 **Responses**
 
-> Response Example - TBD
+> Response Example
+
 
 | Code | Description |
 | ---- | ----------- |
@@ -173,7 +164,6 @@ curl --location --request PUT 'https://api.mypileus.io/api/v1/msp/billing-rules/
 
 **Responses**
 
-The response will contain the updated customer in the regular structure.
 
 | Code | Description |
 | ---- | ----------- |
@@ -183,7 +173,7 @@ The response will contain the updated customer in the regular structure.
 
 ### Delete MSP Billing Rules
 
-**Summary:** delete an MSP Billing Rule
+**Summary:** Delete an MSP Billing Rule
 
 **Description:** The call is used to delete an MSP Billing Rule
 

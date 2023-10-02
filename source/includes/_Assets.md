@@ -2,7 +2,7 @@
 
 ### Get Cost Assets  
 
-**Summary:** retrieve the list of assets defined in the account
+**Summary:** Retrieve the list of assets defined in the account
 
 Notice that you can use this API to get 'regular' cost assets as well as Kubernetes assets. The possible combinations of the columns / cost types vary between the two use cases. 
 

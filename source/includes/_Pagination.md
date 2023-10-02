@@ -29,9 +29,10 @@ The following APIs currently support pagination:
 * [Cost and Usage](#get-cost-amp-usage)
 * [Kubernetes Cost and Usage](#get-kubernetes-cost)
 * [Assets](#get-cost-assets)
+* [Recommendations](#new-get-history-of-recommendations)
 
-<aside class="warning">
-Important - In order to use pagination, you need to use /v2 on the API calls instead of /v1.
+<aside class="notice">
+When using pagination, note the version and the pagination mechanism used by the relevant API.
 </aside>
 
 To use pagination the user needs to add an additional parameter called **token** to the query parameter. You do not need to attach **token** for the first call. 
