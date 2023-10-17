@@ -16,6 +16,7 @@ includes:
   - Tab1
   - Api Reference
   - Authentication
+  - Rate Limits
   - Pagination
   - Users
   - Assets

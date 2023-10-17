@@ -226,10 +226,10 @@ The call supports pagination and it is recommended to use it with a date range.
 | Name | Located in | Description | Required | Type |
 | ---- | ---------- | ----------- | -------- | ---- |
 | filters | query | Filter recommendations, see table below | No | Strings from list of values |
-| limit | Body | Overall number of records to retrieve | No | Number |
-| pageSize | Body | Number of records to return in each response | No | Number |
-| startDate | Body | Start date of the queried period | No | 'YYYY-MM-DD hh:mm:ss' |
-| endDate | Body | End date of the queried period | No | 'YYYY-MM-DD hh:mm:ss' |
+| limit | Body | Overall number of records to retrieve. Use "all" to get all responses in one response. | No | Number |
+| pageSize | Body | Number of records to return in each response. Default and Maximum is 80 entries. | No | Number |
+| startDate | Body | Start date of the queried period. No default value. | No | 'YYYY-MM-DD hh:mm:ss' |
+| endDate | Body | End date of the queried period. No default value. | No | 'YYYY-MM-DD hh:mm:ss' |
 | lastEvaluatedKey | Body | The primary key of the last retrieved recommendation | No | {account_id, uuid} |
 
 <aside class="success">
