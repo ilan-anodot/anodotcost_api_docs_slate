@@ -1,17 +1,19 @@
 ## Commitments 
 ### Get Utilization 
 
-**Summary:** Retrieves the utilization of an RI (Reserved Instance)
+**Summary:** Retrieves the utilization of an RI (Reserved Instance) or an SP (Savings Plan)
 
-**Description:** The call is used to retrieve the utilization of RIs for a specific date.
+**Description:** The call is used to retrieve the utilization of RIs/SPs for a specific date.
 
-Note: Currently this is only supported in Microsoft Azure accounts.
+<aside class="notice">
+This request is applicable in AWS and Microsoft Azure accounts
+</aside>
 
 > Request Example: Getting a utilization
 
 
 ```shell
-curl --location -g --request GET 'https://api.mypileus.io/api/v1/commitment/utilization/?date=2022-07-29&linkedAccount={{linked-account-id}}' \
+curl --location -g --request GET 'https://api.mypileus.io/api/v1/commitment/utilization/?date=2022-07-29&linkedAccount={{linked-account-id}}?commitmentService=ec2&commitmentType=ri' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
 ```
@@ -23,7 +25,11 @@ curl --location -g --request GET 'https://api.mypileus.io/api/v1/commitment/util
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
 | date | query | Report date (YYYY-MM-DD) format | Yes | String |
-| linkedAccount | query | Linked account ID only (No linked account name) | No | String |
+| commitmentType | query | Reserved Instance or Savings Plan. Values: ri, sp | Yes | String |
+| commitmentService | query | The service which the commitment is applied on | Yes | String |
+| linkedAccount | query | Linked account ID only (Do not use the linked account name) | No | String |
+
+
 
 **Responses**
 The response is a utilization object showing the utilization for each RI. 

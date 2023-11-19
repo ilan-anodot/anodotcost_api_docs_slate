@@ -72,6 +72,41 @@ The response is comprised of an array of users, according to the following table
 | 404 | User not found |
 | 500 | Server error |
 
+### Get Users and Roles
+
+**Summary:** retrieve users and their respective roles
+
+> Request example: 
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v1/users/with-roles' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+> Response Example
+
+```json
+{
+    "accountKey": 11111,
+    "creationDate": "2019-08-31T21:00:00.000Z",
+    "email": "user@test1.com",
+    "userKey": "11111111-23ab-479e-a4ee-b2ceccddef79",
+    "role": {
+        "roleType": "customerRole",
+        "accounts": [
+            {
+                "linkedAccountIds": [
+                    "1234567890"
+                    ],
+                "accountId": "123456",
+                "label": "123456"
+            }
+        ]
+    }
+}
+```
+
 ## Onboarding
 
 This section lists calls that are related to automated onboarding.
