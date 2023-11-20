@@ -24,12 +24,17 @@ curl --location -g --request GET 'https://api.mypileus.io/api/v1/commitment/util
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| date | query | Report date (YYYY-MM-DD) format | Yes | String |
+| date | query | Report date (YYYY-MM-01) format | Yes | String |
 | commitmentType | query | Reserved Instance or Savings Plan. Values: ri, sp | Yes | String |
-| commitmentService | query | The service which the commitment is applied on | Yes | String |
+| commitmentService | query | The service which the commitment is applied on. See the list of values in the note below. | Yes (only for AWS) | String |
 | linkedAccount | query | Linked account ID only (Do not use the linked account name) | No | String |
 
-
+<aside class="notice">
+<b>CommitmentService</b> options:</br>
+AWS RI: ec2, rds, elasticache, redshift, os (OpenSearch) </br>
+AWS SP: EC2InstanceSavingsPlans, ComputeSavingsPlans</br>
+Azure: The parameter is not required
+</aside>
 
 **Responses**
 The response is a utilization object showing the utilization for each RI. 
