@@ -160,7 +160,7 @@ curl --location --request PUT 'https://api.mypileus.io/api/v1/msp/billing-rules/
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| id | path | The customer ID to update | Yes |  |
+| id | path | The billing rule ID to update | Yes |  |
 
 **Responses**
 
@@ -193,7 +193,7 @@ curl --location --request DELETE 'https://api.mypileus.io/api/v1/msp/billing-rul
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
-| id | path | The customer Id to remove | Yes |  |
+| id | path | The billing rule Id to remove | Yes |  |
 
 **Responses**
 
