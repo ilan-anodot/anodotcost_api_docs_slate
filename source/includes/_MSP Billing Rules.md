@@ -126,7 +126,8 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/msp/billing-rules
 
 **Summary:** Update an MSP Billing Rule
 
-**Description:** The call is used to update an existing MSP Billing Rule
+**Description:** The call is used to update an existing MSP Billing Rule using its ID</br>
+The billing rule ID is retrieved by the GET billing rules request.
 
 > Request Example - Edit an MSP Billing Rule
 
@@ -175,7 +176,8 @@ curl --location --request PUT 'https://api.mypileus.io/api/v1/msp/billing-rules/
 
 **Summary:** Delete an MSP Billing Rule
 
-**Description:** The call is used to delete an MSP Billing Rule
+**Description:** The call is used to delete an MSP Billing Rule using its ID</br>
+The billing rule ID is retrieved by the GET billing rules request.
 
 > Request Example: Delete MSP Billing rule
 
