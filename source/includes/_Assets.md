@@ -9,7 +9,7 @@ Notice that you can use this API to get 'regular' cost assets as well as Kuberne
 > Request example: Getting assets 
 
 ```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/usage/assets?startDate=2023-01-01&endDate=2023-01-15&isK8S=0&granLevel=day&columns=service&costType=cost&isUnblended=true' \
+curl --location --request GET 'https://api.mypileus.io/api/v2/usage/assets?startDate=2023-01-01&endDate=2023-01-15&isK8S=0&granLevel=day&columns=service&costType=cost&isUnblended=true' \
 --header '{{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}'
 ```
@@ -35,9 +35,8 @@ curl --location --request GET 'https://api.mypileus.io/api/v2/usage/assets?start
 | granLevel | query | Granularity level of the period in the output data.  | Yes | enum. Possible values: month, week, day |
 | columns | query | The different columns for the required assets | Yes |  
 | costType | query | The different cost types for the required assets. Possible options are: cost, discount, refund, credit. If you are getting K8S assets, the possible options are: compute, dataTransfer, storage | Yes | list of values, e.g. costType=cost&costType=discount
-| isUblended | path | Should the returned data be unblended or not | Yes | Bool (true / false)
-
-
+| isUblended | query | Should the returned data be unblended or not | Yes | Bool (true / false)
+| token | query | Pagination indicator. The next token to return in this call. This will be returned from the previous call to this API. | Optional | string
 
 **Responses**
 
@@ -85,6 +84,12 @@ The response is comprised of an array of assets, according to the following tabl
 | service | String | Cost Center Code (optional) |
 | totalcost | Number | ID of the Anodot Cost Account | 
 | totalUsageQuantity | Number | All the accounts linked to this cost center |
+
+**Pagination information:**</br>
+If there is additional information to show, the *nextToken* field will be included in the response.</br>
+The value should be used in the *token* parameter of the next call.
+
+
 
 **Error Code**
 
