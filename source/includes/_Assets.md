@@ -85,7 +85,8 @@ The response is comprised of an array of assets, according to the following tabl
 | totalcost | Number | ID of the Anodot Cost Account | 
 | totalUsageQuantity | Number | All the accounts linked to this cost center |
 
-**Pagination information:**</br>
+**Pagination information:**
+</br>
 If there is additional information to show, the *nextToken* field will be included in the response.</br>
 The value should be used in the *token* parameter of the next call.
 
