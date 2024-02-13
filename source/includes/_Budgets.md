@@ -1,13 +1,7 @@
 ## Budgets
 ### Get Budget 
 
-**Summary:** Retrieves budgets for given user
-
-**Description:** The call is used to retrieve budgets created by api-key defined user
-
-
 > Request Example: Getting a budget (v1 Or v2)
-
 
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/budgets' \
@@ -21,6 +15,9 @@ curl --location --request GET 'https://api.mypileus.io/api/v2/budgets' \
 --header 'Authorization: {{bearer-token}}'
 ```
 
+**Summary:** Retrieves budgets for the given user
+
+**Description:** The call is used to retrieve budgets created by api-key defined user
 
 **Parameters**
 
@@ -30,9 +27,11 @@ curl --location --request GET 'https://api.mypileus.io/api/v2/budgets' \
 | apikey | header |  | Yes |  |
 
 **Responses**
-The response is an array of budgets defined in the account. 
 
-> Response Example 
+The response is an array of budgets defined in the account.</br>
+V2 responses include additional fields that are available in the budget object.
+
+> Response Example v1
 
 ```json
 [
@@ -79,6 +78,203 @@ The response is an array of budgets defined in the account.
 ]
 ```
 
+> Response Example v2
+
+```json
+[{
+  "endDate": "2025-01-29 00:00:00",
+  "userKey": "82f99b85-e85a-436e-a8eb-d4ed98000000",
+  "totalForecastedCost": "157404.18",
+  "forcastedPrice": {
+    "2024-02-21": "4641.44",
+    "2024-02-20": "4641.26",
+    "2024-02-23": "4641.74",
+    "2024-02-22": "4641.6",
+    "2024-02-14": "4639.87",
+    "2024-02-25": "4641.97",
+    "2024-02-13": "4639.58",
+    "2024-02-24": "4641.86",
+    "2024-02-16": "4640.4",
+    "2024-02-27": "4642.14",
+    "2024-02-15": "4640.14",
+    "2024-02-26": "4642.07",
+    "2024-02-18": "4640.87",
+    "2024-02-29": "4642.26",
+    "2024-02-17": "4640.64",
+    "2024-02-28": "4642.21",
+    "2024-02-19": "4641.07"
+  },
+  "rawFilters": {
+    "excludefilters": [
+      {
+        "field": "chargetype",
+        "values": "('Tax')",
+        "forExclude": true
+      }
+    ],
+    "includefilters": []
+  },
+  "budgetAmountType": "fixed",
+  "budgetType": "recurring",
+  "flexible": 1,
+  "isAmortized": false,
+  "lastCostDate": "2024-02-12",
+  "forecastType": "ad-hoc",
+  "filters": {
+    "include": {},
+    "exclude": {
+      "chargetype": [
+        "Tax"
+      ]
+    }
+  },
+  "accountId": "932213950603",
+  "monthlyTotalCost": "78503.06",
+  "dailyCalculatedAutomatically": true,
+  "isPpApplied": false,
+  "monthlyTotalForecastedCost": "157404.18",
+  "startDate": "2024-01-29 00:00:00",
+  "costType": "unblended",
+  "divisionId": "0",
+  "description": "frgrtgh",
+  "warnThresholdDate": "None",
+  "actualMonthlyCost": "78503.06",
+  "creationTime": "2024-01-29 10:55:19",
+  "budgetAmounts": [
+   
+  ],
+  "period": 0,
+  "costData": {
+    "2024-02-03": "6059.29",
+    "2024-02-02": "6692.01",
+    "2024-02-05": "5361.55",
+    "2024-02-04": "6123.41",
+    "2024-02-07": "4722.88",
+    "2024-02-06": "7081.14",
+    "2024-02-09": "4945.8",
+    "2024-02-08": "5503.73",
+    "2024-02-10": "5638.67",
+    "2024-02-01": "20540.51",
+    "2024-02-12": "1077.2",
+    "2024-02-11": "4756.87"
+  },
+  "forecastedWarnThresholdDate": null,
+  "previousMonthCost": 0,
+  "alerts": [
+    {
+      "budgetPercentToAlertFrom": 64,
+      "alertGranularity": [
+        "monthly"
+      ],
+      "whenToAlert": [
+        "forecasted"
+      ],
+      "recipients": [
+        "test@anodot.com"
+      ]
+    }
+  ],
+  "dailyBudgetAmount": "191570.86",
+  "isNetCost": false,
+  "monthlyBudgetAmount": "5555555.0",
+  "updateTime": "2024-02-12",
+  "overusePrice": {},
+  "explicitCostType": true,
+  "monthlyStartDate": "2024-02-01 00:00:00",
+  "dailyForecastedCost": "5269.32",
+  "previousBudgets": [
+    "Here we will include a list of the previous Budgets per month in the structure of the current budget"
+  ],
+  "forecasting": {
+    "2024": {
+      "2": {
+        "forcastedDailyCost": 5246.805963069843,
+        "startOveruseDate": 0,
+        "forecastTotalCost": 157404.17889209528,
+        "forecastedWarnThresholdDate": null,
+        "forcastedPrice": {
+          "2024-02-21": "4641.44",
+          "2024-02-20": "4641.26",
+          "2024-02-23": "4641.74",
+          "2024-02-22": "4641.6",
+          "2024-02-14": "4639.87",
+          "2024-02-25": "4641.97",
+          "2024-02-13": "4639.58",
+          "2024-02-24": "4641.86",
+          "2024-02-16": "4640.4",
+          "2024-02-27": "4642.14",
+          "2024-02-15": "4640.14",
+          "2024-02-26": "4642.07",
+          "2024-02-18": "4640.87",
+          "2024-02-29": "4642.26",
+          "2024-02-17": "4640.64",
+          "2024-02-28": "4642.21",
+          "2024-02-19": "4641.07"
+        },
+        "overusePrice": { },
+        "forecastedActualMonthlyCost": "157404.17889209528"
+      },
+    }
+  },
+  "totalCost": 78503,
+  "uuid": "4d1ad4b171224e48820b33375a000000",
+  "startOveruseDate": "0",
+  "budgetAmount": 5555555,
+  "isActive": 1,
+  "accountKey": "21",
+  "budgetName": "Unblended",
+  "isValid": "1",
+  "remainingBudget": "5477051.94",
+  "updateTimestamp": "2024-02-12 16:49:28.033663",
+  "preparedAccumCostsData": [
+    {
+      "date": "2024-02-01",
+      "cost": 20540.51,
+      "isWarnValue": false,
+      "actualData": "20540.51",
+      "accumilateNum": 20540.51
+    },
+    {
+      "date": "2024-02-02",
+      "cost": 27232.519999999997,
+      "isWarnValue": false,
+      "actualData": "6692.01",
+      "accumilateNum": 27232.519999999997
+    },…
+  ],
+  "totalForcasted": "157404.18",
+  "preparedMonthForecastingData": [
+    {
+      "date": "2024-2-01",
+      "forecastTotalCost": 157404.17889209528,
+      "monthNum": 0
+    },…
+  ],
+  "budgetAlerts": [
+    {
+      "budgetPercentToAlertFrom": 64,
+      "alertGranularity": [
+        "monthly"
+      ],
+      "whenToAlert": [
+        "forecasted"
+      ],
+      "recipients": [
+        "test@anodot.com"
+      ]
+    }
+  ],
+  "budgetId": "4d1ad4b171224e48820b33375a000000",
+  "isFlexible": 1,
+  "excludeFilters": {
+    "chargetype": [
+      "Tax"
+    ]
+  },
+  "includeFilters": {}
+}]
+```
+
 | Code | Description |
 | ---- | ----------- |
 | 200 | successful retrieval |
@@ -87,9 +283,9 @@ The response is an array of budgets defined in the account.
 
 ### Create Budget
 
-**Summary:** create a budget for a given user
+**Summary:** Create a budget
 
-**Description:** The call is used to create budgets created by api-key defined user
+**Description:** The call is used to create budgets
 
 > Example: Create budget v1
 
@@ -288,9 +484,11 @@ Option 2 (budgetType = “expiring” and budgetAmountType=”planned”)  will 
 
 ### Edit Budget 
 
-**Summary:** update budget for a given user
+**Summary:** Update a budget
 
-**Description:** The call is used to update budget created by the api-key defined user
+**Description:** The call is used to update a budget
+
+
 
 > Request Example: Update a budget v1
 
@@ -431,6 +629,15 @@ curl --location --request PUT 'https://api.mypileus.io/api/v2/budgets?budgetId={
 }'
 ```
 
+<aside class="notice">
+The edit budget request enables editing the following sections of the budget:</br>
+1. Name</br>
+2. Description</br>
+3. Alerts - Adding, editing and removing alerts for the budget</br>
+</br>
+Note that only active budgets can be updated
+</aside>
+
 **Parameters**
 
 | Name | Located in | Description | Required | Type |
@@ -449,9 +656,9 @@ curl --location --request PUT 'https://api.mypileus.io/api/v2/budgets?budgetId={
 
 ### Delete Budget
 
-**Summary:** Delete budget for a given user
+**Summary:** Delete a budget by Id
 
-**Description:** The call is used to delete budget created by api-key defined user
+**Description:** The call is used to delete a budget
 
 > Request Example: Delete a budget v1
 
