@@ -666,6 +666,7 @@ Note that only active budgets can be updated
 curl --location --request DELETE 'https://api.mypileus.io/api/v1/budgets?budgetId={{budget-id}}' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw ''
 ```
@@ -676,6 +677,7 @@ curl --location --request DELETE 'https://api.mypileus.io/api/v1/budgets?budgetI
 curl --location --request DELETE 'https://api.mypileus.io/api/v2/budgets?budgetId={{budget-id}}' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw ''
 ```

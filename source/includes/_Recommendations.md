@@ -11,7 +11,8 @@
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations?filters[type]=ec2-idle' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 
@@ -126,7 +127,8 @@ Example:
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/types' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Parameters**
@@ -176,7 +178,8 @@ This request is deprecated and will be replaced in the future
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/history?filters[type]=ec2-idle' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Summary:** Retrieves the history of recommendations
@@ -209,6 +212,7 @@ Filters are the same as the live [Get Recommendations](#get-recommendations) cal
 curl --location --request POST 'https://api.mypileus.io/api/v1/recommendations/history?filters[type]=ec2-idle' \
 --header 'Authorization: {{bearer-token}}' \
 --header 'apikey: {{account-api-key}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data '{
     "startDate": "2023-07-28 00:00:00",
@@ -275,7 +279,8 @@ The type are also listed in the recommendation documenation.
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/history/types' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Parameters**

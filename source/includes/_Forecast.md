@@ -184,7 +184,8 @@ The call is being replaced by the v2 call described below.</br>
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/dashboards/cost-forecast-data-v2' \
 --header 'apikey: {{account-api-key}}' \
---header 'authorization: {{Bearer-token}}'
+--header 'authorization: {{Bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Summary:** Retrieves cost forecast data from your main dashboard.

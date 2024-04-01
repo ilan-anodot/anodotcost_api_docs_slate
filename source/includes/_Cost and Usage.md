@@ -10,7 +10,8 @@
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/invoices/cost-and-usage?groupBy=service&startDate=2021-12-31&endDate=2022-07-01&periodGranLevel=month&costType=discount' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Parameters**

@@ -11,7 +11,8 @@
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/users/events?startDate=2022-01-01&endDate=2022-08-01' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Parameters**
@@ -78,6 +79,7 @@ The response is an array of events within the given time frame.
 curl --location --request POST 'https://api.mypileus.io/api/v1/users/events' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "title": "The Big API Palooza II",
@@ -135,6 +137,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/events' \
 curl --location --request PUT 'https://api.mypileus.io/api/v1/users/events/fd50e8f0-823a-456e-9df8-7e14f8df3fb7' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{Bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "title": "The Big API Palooza III",
@@ -174,6 +177,7 @@ The response will contain the updated event in the regular structure.
 curl --location --request DELETE 'https://api.mypileus.io/api/v1/users/events/fd50e8f0-823a-456e-9df8-7e14f8df3fb7' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{Bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw ''
 ```

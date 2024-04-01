@@ -11,7 +11,8 @@
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/usage/business-mapping/mappings' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Parameters:**
@@ -104,7 +105,8 @@ The response is an array of business mapping rules according to the following st
 ```shell
 curl --location --request POST 'https://api.mypileus.io/api/v1/usage/business-mapping/mappings' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}'  \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw '
     {
@@ -249,7 +251,8 @@ The response is the business mapping object created.
 ```shell
 curl --location --request PUT 'https://api.mypileus.io/api/v1/usage/business-mapping/mappings/{{businss-mapping-id}}' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw '
     {
@@ -391,7 +394,8 @@ The response is the business mapping object created.
 ```shell
 curl --location --request DELETE 'https://api.mypileus.io/api/v1/usage/business-mapping/mappings/{{businss-mapping-id}}' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw ''
 ```
@@ -421,7 +425,8 @@ The response is the business mapping object created.
 ```shell
 curl --location --request PUT 'https://api.mypileus.io/api/v1/usage/business-mapping/mappings/rank' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: application/json' \
 --data-raw '--data-raw '[
     { 

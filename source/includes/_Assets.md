@@ -11,7 +11,8 @@ Notice that you can use this API to get 'regular' cost assets as well as Kuberne
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v2/usage/assets?startDate=2023-01-01&endDate=2023-01-15&isK8S=0&granLevel=day&columns=service&costType=cost&isUnblended=true' \
 --header '{{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 > Request example: Getting K8S assets 
@@ -19,7 +20,8 @@ curl --location --request GET 'https://api.mypileus.io/api/v2/usage/assets?start
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v2/usage/assets?startDate=2022-12-15&endDate=2023-01-15&isK8S=1&granLevel=day&columns=region&costType=compute&costType=dataTransfer&costType=storage&isUnblended=true' \
 --header '{{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 

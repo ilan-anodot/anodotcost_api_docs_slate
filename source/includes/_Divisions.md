@@ -12,7 +12,8 @@ The Get Divisions API has been deprecated. Please use the Get Cost Centers API i
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/divisions' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{Bearer-token}}'
+--header 'Authorization: {{Bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Parameters**

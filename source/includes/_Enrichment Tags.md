@@ -16,6 +16,7 @@ To update the CSV file using the API, you need to:
 curl --location --request GET 'https://api.mypileus.io/api/v1/users/files/enrichment-tags/download' \
 --header 'apikey: {{account-api-key}}' \
 --header 'authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --header 'Content-Type: text/plain' \
 ```
 
@@ -69,6 +70,7 @@ The only parameter for this request is the account api key.
 curl --location --request POST 'https://api.mypileus.io/api/v1/users/files/enrichment-tags/upload' \
 --header 'apikey: {{account-api-key}}' \
 --header 'authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --data_raw '{
     {
     "metaData": {

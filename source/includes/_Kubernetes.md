@@ -11,7 +11,8 @@
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage?groupBy=cluster&startDate=2022-05-01&endDate=2022-08-01&periodGranLevel=month&costUsageType=compute' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{Bearer-token}}'
+--header 'Authorization: {{Bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Parameters**
@@ -79,7 +80,8 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-an
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/kubernetes/cost-and-usage/pod?startDate=2022-05-01&endDate=2022-08-01&periodGranLevel=month&clusterName=us-east-1:932213950603:cw-test-2' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 

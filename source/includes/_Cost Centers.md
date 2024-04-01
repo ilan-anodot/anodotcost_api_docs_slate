@@ -9,7 +9,8 @@
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/users/cost-centers' \
 --header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'
 ```
 
 **Parameters**
@@ -92,6 +93,7 @@ The response is comprised of an array of cost centers, according to the followin
 curl --location --request POST 'https://api.mypileus.io/api/v1/users/cost-centers' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --data-raw '{
     "name": "SEs",
     "linkedAccountsIds": ["552822412346"],
@@ -147,6 +149,7 @@ The response is comprised of an array of cost centers, according to the followin
 curl --location --request PUT 'https://api.mypileus.io/api/v1/users/cost-centers/{{costCenterId}}' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --data-raw '{
     "name": "SEs",
     "linkedAccountsIds": ["552822412346"],
@@ -186,6 +189,7 @@ The cost center object with the updated parameters.
 curl --location --request DELETE 'api.mypileus.io/api/v1/users/cost-centers/{{costCenterId}}' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}' \
 --data-raw ''
 ```
 
