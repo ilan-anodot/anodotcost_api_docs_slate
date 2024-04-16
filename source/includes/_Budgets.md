@@ -1,4 +1,33 @@
 ## Budgets
+
+### Multi Cloud budgets
+
+You can define multi-cloud budgets in Anodot Cost Intelligence
+
+**Available filters** in multi-cloud budgets
+
+1. Cloud Provider
+2. Payer Account
+3. Cost Center / Customer (For MSPs)
+4. Linked Account / Subscription /Project
+5. Service
+6. Operation
+7. Region
+8. Family Type
+9. Cost Type
+10. Business Mapping
+11. Enrichment Tags
+
+**Cost basis** options for multi-cloud budgets
+
+1. Amortized
+2. Unblended
+
+<aside class="notice">
+Alerts cannot be created for multi-cloud budgets
+</aside>
+
+
 ### Get Budget 
 
 > Request Example: Getting a budget (v1 Or v2)
