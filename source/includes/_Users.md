@@ -139,11 +139,17 @@ To configure SSO, please refer to the [product documentation](https://cloudcost.
 
 ### Get SSO Client ID
 
-> Request Example: Get client ID from email
+> Request Example: Get client ID from email (note we're using a POST request for this)
+
 
 ```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/users/sso?username={{email}}'
+curl --location --request POST 'https://api.mypileus.io/api/v1/users/sso' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": {{email}}
+}'
 ```
+
 
 **Summary:** Retrieve the client ID from the user's email
 
@@ -151,7 +157,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/users/sso?username
 
 | Name | Located In | Description | Required |
 | ---- | -----------| ----------- | ---------|
-| email | Query | The user email we want the client ID for | Yes |
+| username | Body | The user email we want the client ID for | Yes |
 
 **Response**
 
