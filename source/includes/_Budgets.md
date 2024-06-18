@@ -24,7 +24,7 @@ You can define multi-cloud budgets in Anodot Cost Intelligence
 2. Unblended
 
 <aside class="notice">
-Alerts cannot be created for multi-cloud budgets
+<b>Release update !</b> Alerts can now be created on regular as well multi-cloud budgets.
 </aside>
 
 
