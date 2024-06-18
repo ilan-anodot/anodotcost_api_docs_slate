@@ -19,10 +19,10 @@ includes:
   - Rate Limits
   - Pagination
   - Users
-  - Assets
   - Cost Centers
   - Divisions
   - Tab2
+  - Assets
   - Cost and Usage
   - Recommendations
   - Commitments

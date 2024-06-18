@@ -472,7 +472,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v2/budgets' \
 | budgetAmountType | ENUM | Valid values: “fixed”,”planned” |
 | budgetAmount |  Number | The total budget |
 | budgetAmounts | Object Array |  An array of amount and month pairs. Example: {"amount": 1234 ,"date": "2024-2"},{"amount": 5000 ,"date": "2024-3"} | 
-| isFlexible | Depcrecated | Do not use this parameter |  
+| isFlexible | String | Valid Values: "true", "false" |  
 | isRelativeAlerts | Deprecated | Do not use this parameter |
 | period | ENUM | Valid values: 0-"Monthly", 1-"Quarterly", 2-"Yearly" |
 | startDate | date in string format | Example: “2024-02-11T09:25:29.800Z” |
@@ -659,12 +659,8 @@ curl --location --request PUT 'https://api.mypileus.io/api/v2/budgets?budgetId={
 ```
 
 <aside class="notice">
-The edit budget request enables editing the following sections of the budget:</br>
-1. Name</br>
-2. Description</br>
-3. Alerts - Adding, editing and removing alerts for the budget</br>
-</br>
-Note that only active budgets can be updated
+The edit budget request enables editing all budget fields</br>
+Note that only active budgets can be updated.
 </aside>
 
 **Parameters**
