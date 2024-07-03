@@ -132,6 +132,71 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/users/on-boarding/
 | cloudAccoundID | Query params | The account we want the external ID for | Yes | String |
 
 
+### Onboard AWS Account
+
+> Request example: Onboard AWS account by an enterprise
+
+```shell
+curl --location '{DOMAIN}/api/v2/onboarding/aws/{ACCOUNT_ID}' \
+--header 'apikey: {API_KEY}' \
+--header 'authorization: {AUTH_TOKEN}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "accountName": "{ACCOUNT_NAME}",
+    "bucketName":"custom-bucket10", 
+    "bucketRegion": "us-east-1"
+}'
+```
+
+> Request example: Onboard an AWS account for an MSP
+
+```shell
+curl --location '{DOMAIN}/api/v2/onboarding/aws/{ACCOUNT_ID}' \
+--header 'apikey: {API_KEY}' \
+--header 'authorization: {AUTH_TOKEN}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "accountName": "{ACCOUNT_NAME}",
+    "bucketName":"custom-bucket10", 
+    "bucketRegion": "us-east-1", 
+    "resellerCustomer": "test", 
+    "resellerCustomerDomain": "test.com", 
+    "autoAssignLinkedAccounts": 1, 
+    "accountType": "dedicated", 
+    "isCustomerSelfManaged": 1, 
+    "excludedLinkedAccountMatch": "SP*SP*"
+}'
+```
+
+Use this  to onboard an AWS account in Anodot Cost.</br>
+As an enterprise customer, provide the account id and name.</br>
+The MSP request contains slightly more information.<br>
+
+
+**Parameters**
+
+| Name | Located In | Description | Required |
+| ---- | -----------| ----------- | ---------|
+| account_id | Query | The payer account ID to onboard to Anodot | Yes |
+| bucketName | body | The bucket name to be created. Default is "cur-{account_ID}", provide your own name if you do not want to create it with the default name | optional |
+| bucketRegion | body | Region for bucket creation. Default is "us-east-1" | optional |
+
+**Parameters for MSPs**
+
+| Name | Located In | Description | Required |
+| ---- | -----------| ----------- | ---------|
+| accountType | body | Values: "dedicated" (default) or "shared" | optional |
+| resellerCustomer | body |  Display name for the reseller customer. In case accountType = dedicated | optional |
+| isCustomerSelfManaged | body | Relevant for accountType = dedicated, Values: 1 - Self managed, 0 - not self managed | optional |
+| resellerCustomerDomain | body | Domain for reseller customer. Will be used for SSO. The domain should match existing domains for the customer, or be a new domain in Anodot's records | optional |
+| autoAssignLinkedAccounts | body |  Relevant for accountType = dedicated. Values: 1 - auto assign, 0 - do not auto assign | optional |
+| excludedLinkedAccountMatch | body |  Exclude all linked accounts that matches the string, example "SP*", relevant in case autoAssignLinkedAccounts is "1" | optional | 
+
+**Response**
+
+This API request will create a script you need to run in AWS.
+Instructions to run this script [appear here](https://cloudcost.anodot.com/hc/en-us/articles/10273724354076-AWS-Automatic-and-Manual-Onboarding#h_01J1WG131M7GSAKXWM0S7ER079)
+
 ## SSO
 
 Anodot Cost enables Single Sign On using different providers.
