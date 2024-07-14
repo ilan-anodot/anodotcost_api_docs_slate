@@ -1,6 +1,201 @@
 ## Recommendations
 
-### Get Recommendations
+We have announced Recommendations 2.0 in Anodot Cost's UI and API.</br>
+The **Get Recommendations** request covers active and historical recommendations alike.
+
+### Get Recommendations 2.0
+
+> Request Example: Get recommendations 2.0 - get potential savings
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v2/recommendations/list' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'\
+--data '{
+    "filters": {
+    "open_recs_creation_date": {"from": "2024-01-01", "to": "2024-07-01"},
+    "closed_and_done_recs_dates": {
+    "last_update_date": {"from": "2024-01-01", "to": "2024-07-01"}
+    },
+    "status_filter": "potential_savings"
+    },
+    "sort": [ {
+      "by": "savings",
+      "order": "desc"
+    }
+    ],
+    "page_size": 500,
+    "pagination_token": null
+}
+```
+
+**Summary:** Retrieves recommendations according to status and other filters
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| filters | body | see table below with all filters | Yes | json |
+| sort | body | sorting order of the response | Yes | json array |
+| page_size | body | max number of records to return in each page | Yes | number |
+| pagination_token | body | The token should be copied from previous response to continue based on the pagination | Yes | string |
+
+#### Status filters
+
+> Filters example
+
+```json
+{
+    "status_filter": "potential_savings",
+    "user_status": {
+        "DONE": true/false/null,
+        "EXCLUDED": true/false/null 
+        },
+    "is_starred": true/false/null, 
+    "open_recs_creation_date": {"from": "2024-01-13", "to": "2024-01-23"},
+    "closed_and_done_recs_dates": {
+        "last_update_date": { "from": "2024-01-13", "to": "2024-06-23" },
+        "operator": AND/OR,
+        "creation_date": { "from": "2024-01-13", "to": "2024-01-23" }
+        },
+    "annual_savings_greater_than": 1000,
+    "cat_id": [1,2],
+    "type_id": {
+        "negate": true/false, //optional, default false 
+        "eq": [ "rds-class-change", ...]
+        },
+    "service": {
+        "negate": true/false, //optional, default false 
+        "eq": [...]
+        },
+    "region": { // like type_id
+        },
+    "linked_account_id": {
+    // like type_id
+        },
+    "instance_type": {
+    // like type_id
+        },
+    "resource_id": {
+    // like type_id
+        },
+    "virtual_tag": {
+        "uuid": ...,
+        "eq": [ "val1", ...]
+        },
+    "custom_tags": {
+        "negate": true/false, //optional, default false
+        "condition":
+            [{
+            "tag": "...",
+            "eq": [ "val1", ...]
+            }]
+        },
+    "enrichment_tags": {
+    // like custom_tags
+        } 
+}
+```
+
+| Name | Description |
+|------|-------------|
+| status_filter | define what status of recommendations should be displayed. The possible values and meanings for this filter are:</br>* potential_savings - open AND undone AND not excluded</br>* actual_savings - (closed OR done) AND not excluded</br>* potential_and_actual_savings – all recommendations that were not excluded by the user</br>* excluded - excluded</br>* user_actions- done OR excluded</br>* custom - User defined conditions as set in the *is_open* and *user_status* fields, with logical AND between them. The *is_open* and *user_status* fields are ignored unless the *status_filter* is custom. |
+| is_open  | true to return only open recommendations. false to return only closed. null or omit to return all |
+| user_status | The 2 user statuses (done, excluded) as keys, and true/false/null as values.</br>* true - return only recommendations that have this status.</br>* false - return only recommendations that don’t have this status.</br>* Null or missing - do not filter by this status.</br> |
+
+#### Date Filters
+
+> Date filters example
+
+```json
+{
+    "closed_and_done_recs_dates": {
+        "last_update_date": {"from": ..., "to": ...},
+        "operator": AND/OR,
+        "creation_date": {"from": ..., "to": ...},
+        }
+}
+```
+
+There is a date filter for opened recommendations, and another date filter for closed and done recommendations. For open-done recommendations, both filters apply.
+
+| Name | Applicable for | Description | 
+|------|----------|-------------|
+| open_recs_creation_date | Open | The filter for open recommendations allows filtering based on creation date:</br>{"from": "2024-01-13", "to": "2024-01-23"}</br>You may include the from or to fields or both |
+| closed_and_done_recs_dates | Closed and Done | The filter for closed and done recommendations allows filtering based on update date, and optionally based on creation date. last_update_date is mandatory when using this filter.|
+
+* last_update_date must include the from or to fields or both.
+* operator and creation_date are optional and are added together. Either include both or omit both.
+* creation_date must include the from or to fields or both.
+* In all of these dates, the format is yyyy-MM-dd .
+* The response will include recommendations within the dates {from to} - inclusive.
+
+#### Tag Filters
+
+> Tag Filters example
+
+```json
+"custom_tags": {
+  "negate": false,
+  "condition" : [
+    {
+        "tag": "env",
+        "eq": [ "dev1", "dev2" ],
+        "like": [ "test" ]
+        "operator": "AND"
+    },
+    ...
+  ]
+}
+```
+
+> Virtual tags example
+
+```json
+"virtual_tag": {
+  "uuid": "...",
+  "eq": [ "...", "...", ... ],
+  "like": [ "...", "...", ... ]
+}
+```
+
+* custom_tags - static tags that relate to a specific resource, these tags are part of the recommendation raw data.
+* virtual_tag - each virtual tag represents a collection of custom tags. 
+* enrichment_tags - keys and values defined by you.
+
+#### List Filters
+
+These filters contain two fields:
+* negate – true/false Default false. Determines include/exclude the values
+* eq – An array of values
+
+* type_id – The recommendation type  
+* service
+* region
+* linked_account_id
+* instance_type
+* resource_id
+
+#### Numeric Filters
+
+* annual_savings_greater_than – Define the numeric value to be used as a filter, to get higher impacting recommendations
+* cat_id – Filter by recommendation category, include one or more values in an array. See the values in the table below.
+
+| cat_id | Description |
+|--------|-------------|
+| 1 | Right Sizing |
+| 3 | Commitments |
+| 4 | Terminate |
+| 5 | Unattached |
+| 7 | Generation Upgrade |
+| 999999 | Other |
+  
+
+
+### Deprecated - Get Recommendations
 
 **Summary:** Retrieves current live recommendations
 

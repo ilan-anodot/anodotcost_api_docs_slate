@@ -10,11 +10,6 @@ See details below
 
 ### Getting the Token
 
-The following call will enable you to get an authentication token for the subsequent API calls.
-The token is valid for 24 hours.
-
-You can either use basic authentication (recommended) or send the parameters in the body.
-
 > Request example: Getting an authentication token
 
 ```shell
@@ -25,6 +20,11 @@ curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' 
     "password": "thisismypassword"
 }'
 ```
+
+The following call will enable you to get an authentication token for the subsequent API calls.
+The token is valid for 24 hours.
+
+You can either use basic authentication (recommended) or send the parameters in the body.
 
 > Response example - token
 
@@ -44,9 +44,6 @@ curl --location --request POST 'https://tokenizer.mypileus.io/prod/credentials' 
 ```
 
 ### Getting the account and division
-
-After calling the Authentication, you will need to call the [Get Users](#users).
-From the users API response you will get an array of accounts (See example on the right)
 
 > Sample reponse from the users API
 
@@ -80,6 +77,9 @@ From the users API response you will get an array of accounts (See example on th
   }
 ]
 ```
+
+After calling the Authentication, you will need to call the [Get Users](#users).
+From the users API response you will get an array of accounts (See example on the right)
 
 ### Forming the API Key
 
