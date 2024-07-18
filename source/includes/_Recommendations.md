@@ -311,11 +311,11 @@ These filters contain two fields:
 | recommendedAction | The recommended action. |
 | customTags | custom tags |
 | enrichmentTags | enrichment tags |
-| starred | Is the recommendation starred in Anodot Cost App. Values: true / false |
-| comments | Recommendation comments in Anodot Cost App. |
+| starred | Is the recommendation starred in the Anodot Cost App. Values: true / false |
+| comments | Recommendation comments in the Anodot Cost App. |
 | labels | Recommendation labels added in the Anodot Cost App. |
 | open | Is the recommendation open. Values: true / false|
-| viewed | Was the recommendation viewed by a user in Anodot Cost App. Values: true / false  |
+| viewed | Was the recommendation viewed by a user in the Anodot Cost App. Values: true / false  |
 | userStatus | * status: done/excluded/null</br>* reason: exclusion reason/null</br>* until: exclusion until date/null</br>* period: null (deprecated) |
 | recData | Recommendation detailed information.</br>Details may differ according to the recommendation type and resource type.</br>The recommendation data will provide</br>* Data regarding current use</br>* Data regarding suggested use</br>* Recommendation alternatives if they exist |
 

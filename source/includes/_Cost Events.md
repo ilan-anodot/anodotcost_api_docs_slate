@@ -40,7 +40,9 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/users/events?start
         "userKey": "userKey",
         "accountId": "accountID",
         "description": "Its time to get the API going!",
-        "title": "The Big API Palooza"
+        "title": "The Big API Palooza",
+        "estimation": "100"
+
     }
 ]
 ```
@@ -66,6 +68,7 @@ The response is an array of events within the given time frame.
 | title | The title of the event |
 | user_key | Identifier of user, who created this event |
 | updating_time | The last time and date when this event was updated in format YYYY-MM-DD hh:mm:ss |
+| estimation | The $ value of the event, if specified |
 
 ### Create Cost Event 
 
@@ -85,7 +88,8 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/events' \
   "title": "The Big API Palooza II",
   "description": "Its time to get the API going!",
   "date": "2022-07-07",
-  "createdBy": "Anodot User"
+  "createdBy": "Anodot User",
+  "estimation" : "100"
 }'
 ```
 
@@ -99,6 +103,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/events' \
 | description | body | Event description | Yes | String |
 | date | body | Event date | Yes | date |
 | createdBy | body | Name of user creating the event | Yes | String |
+| estimation | body | $ value of the event | Optional | String |
 
 **Responses**
 
@@ -115,7 +120,8 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/events' \
     "created_by": "Anodot User",
     "title": "The Big API Palooza II",
     "description": "Its time to get the API going!",
-    "date": "2022-07-07"
+    "date": "2022-07-07",
+    "estimation": "100"
 }
 ```
 
