@@ -192,8 +192,438 @@ These filters contain two fields:
 | 5 | Unattached |
 | 7 | Generation Upgrade |
 | 999999 | Other |
-  
 
+#### Response Fields
+
+> Response example - Recommendation
+
+```json
+{
+    "page": [
+        {
+            "recId": 43678022,
+            "createdAt": "2024-06-15",
+            "createdAtDateTime": "2024-06-15T00:00:00Z",
+            "calculatedAtDateTime": "2024-07-15T06:02:29Z",
+            "lastProcessingDate": "2024-07-14",
+            "annualSavings": {
+                "unblended": 3922.56,
+                "amortized": 0,
+                "netUnblended": 0,
+                "netAmortized": 0
+            },
+            "monthlySavings": {
+                "unblended": 326.88,
+                "amortized": 0,
+                "netUnblended": 0,
+                "netAmortized": 0
+            },
+            "annualCurrentCost": {
+                "unblended": 6151.68,
+                "amortized": 0,
+                "netUnblended": 0,
+                "netAmortized": 0
+            },
+            "monthlyCurrentCost": {
+                "unblended": 512.64,
+                "amortized": 0,
+                "netUnblended": 0,
+                "netAmortized": 0
+            },
+            "age": 30,
+            "cloudProvider": "AWS",
+            "typeId": "rds-class-change",
+            "typeName": "RDS Rightsizing",
+            "linkedAccountId": "932213950603",
+            "linkedAccountName": "Anodot Cost",
+            "resourceId": "prod-recommendations-db",
+            "instanceType": "db.m5.xlarge",
+            "region": "us-east-1",
+            "service": "RDS",
+            "category": "Right Sizing",
+            "recommendedAction": "modify",
+            "customTags": {},
+            "enrichmentTags": {
+                "division": "Technology",
+                "meta2": "Isarel",
+                "meta1": "Rishon",
+                "company": "Company A",
+                "region": "US",
+                "department": "R&D"
+            },
+            "starred": false,
+            "comments": [
+                {
+                    "commentId": 5,
+                    "createdBy": "ae853bda-2f0b-479d-85cc-226e61381cdc",
+                    "createdAt": 1712122849,
+                    "comment": "test2"
+                }
+            ],
+            "open": true,
+            "viewed": false,
+            "userStatus": {
+                "status": "done",
+                "reason": null,
+                "until": null,
+                "period": null
+            },
+            "recData": { }
+        }
+    ],
+    "isLastPage": false,
+    "paginationToken": {
+        "recId": 43678022,
+        "annualSavings": {
+            "unblended": 3922.56,
+            "amortized": null,
+            "netUnblended": null,
+            "netAmortized": null
+        }
+    },
+    "total": 423,
+    "tableTotal": null
+}
+```
+
+| Name | Description | 
+| ---- | ----------- | 
+| recId | Recommendation Id |
+| createdAt | Recommendation creation date|
+| createdAtDateTime | Recommendation creation date and time|
+| calculatedAtDateTime | Recommendation calculation date and time |
+| lastProcessingDate | The last date information for this recommendation was received |
+| annualSavings | Calculated annual savings |
+| monthlySavings | Monthly savings|
+| annualCurrentCost | Annual current cost |
+| monthlyCurrentCost | Monthly current cost |
+| age | Recommendation age since creation |
+| cloudProvider | AWS, Azure, GCP |
+| typdId | Recommendation type Id in Anodot Cost |
+| typeName | Recommendation type Name in Anodot Cost |
+| linkedAccountId | Linked Account Id |
+| linkedAccountName | Linked Account Name |
+| resourceId | Resource included in the recommendation |
+| instanceType | Resource type / family type |
+| region | Resource related region |
+| service | Resource related service |
+| category | Anodot cost recommendation categories (see table above) |
+| recommendedAction | The recommended action. |
+| customTags | custom tags |
+| enrichmentTags | enrichment tags |
+| starred | Is the recommendation starred in Anodot Cost App. Values: true / false |
+| comments | Recommendation comments in Anodot Cost App. |
+| labels | Recommendation labels added in the Anodot Cost App. |
+| open | Is the recommendation open. Values: true / false|
+| viewed | Was the recommendation viewed by a user in Anodot Cost App. Values: true / false  |
+| userStatus | * status: done/excluded/null</br>* reason: exclusion reason/null</br>* until: exclusion until date/null</br>* period: null (deprecated) |
+| recData | Recommendation detailed information.</br>Details may differ according to the recommendation type and resource type.</br>The recommendation data will provide</br>* Data regarding current use</br>* Data regarding suggested use</br>* Recommendation alternatives if they exist |
+
+> Response Example - recData section
+
+```json
+{
+"recData": {
+                "storage_type": "gp3",
+                "recommended_cpu": 2,
+                "recommended_instance_family": "General purpose",
+                "iops_p95_data": {
+                    "2024-06-30": 137.76,
+                    .
+                    .
+                    "2024-07-07": 154.54
+                },
+                "mem_avg_data": {
+                    "2024-06-30": 36.56,
+                    .
+                    .
+                    "2024-07-07": 36.66
+                },
+                "cpu_max": 99.93,
+                "mem_p95_data": {
+                    "2024-06-30": 36.39,
+                    .
+                    .
+                    "2024-07-07": 36.46
+                },
+                "zone_tag": "us-east-1",
+                "ri_coverage": false,
+                "recommended_memory": 8,
+                "recommended_annual_cost": 2229.12,
+                "cpu_p99_data": {
+                    "2024-06-30": 13.88,
+                    .
+                    .
+                    "2024-07-07": 9.74
+                },
+                "mem_max_data": {
+                    "2024-06-30": 36.34,
+                    .
+                    .
+                    "2024-07-07": 36.41
+                },
+                "iops_avg_data": {
+                    "2024-06-30": 29.88,
+                    .
+                    .
+                    "2024-07-07": 34.75
+                },
+                "db_connections_p95_data": {
+                    "2024-06-30": 96.4,
+                    .
+                    .
+                    "2024-07-07": 92.75
+                },
+                "db_connections_avg_data": {
+                    "2024-06-30": 85.92,
+                    .
+                    .
+                    "2024-07-07": 83.11
+                },
+                "cpu": 4,
+                "rejected_reason_id": 0,
+                "current_annual_cost": 6151.68,
+                "mem_p95": 37.09,
+                "cpu_p95": 14.49,
+                "allocated_storage": 100,
+                "resource_arn": "arn:aws:rds:us-east-1:932213950603:db:prod-recommendations-db",
+                "alternatives": [
+                    {
+                        "memory": "8.0",
+                        "monthly_cost": "185.76",
+                        "potential_savings": "63.76",
+                        "same_instance_type_family": false,
+                        "instance_storage": "EBS Only",
+                        "cpu": "2",
+                        "hourly_cost": "0.258",
+                        "physical_processor": "AWS Graviton2",
+                        "command": "aws rds modify-db-instance --region us-east-1 --db-instance-identifier prod-recommendations-db --db-instance-class db.t4g.large --apply-immediately",
+                        "cpu_max_estimated": {
+                            "2024-06-30": 188.15,
+                            .
+                            .
+                            "2024-07-07": 55.37
+                        },
+                        "mem_max_utilization_estimated": {
+                            "2024-06-30": 72.68,
+                            .
+                            .
+                            "2024-07-07": 72.83
+                        },
+                        "instance_type_family": "T4G",
+                        "ri_coverage": true,
+                        "annual_cost": "2229.12",
+                        "is_multi_az": true,
+                        "instance_family": "General purpose",
+                        "instance_type": "db.t4g.large",
+                        "saving_amount": "3923.0"
+                    },
+                    {
+                        "memory": "8.0",
+                        "monthly_cost": "208.8",
+                        "potential_savings": "59.27",
+                        "same_instance_type_family": false,
+                        "instance_storage": "EBS Only",
+                        "cpu": "2",
+                        "hourly_cost": "0.29",
+                        "physical_processor": "Intel Skylake E5 2686 v5 (2.5 GHz)",
+                        "command": "aws rds modify-db-instance --region us-east-1 --db-instance-identifier prod-recommendations-db --db-instance-class db.t3.large --apply-immediately",
+                        "cpu_max_estimated": {
+                            "2024-06-30": 188.15,
+                            .
+                            .
+                            "2024-07-07": 55.37
+                        },
+                        "mem_max_utilization_estimated": {
+                            "2024-06-30": 72.68,
+                            .
+                            .
+                            "2024-07-07": 72.83
+                        },
+                        "instance_type_family": "T3",
+                        "ri_coverage": true,
+                        "annual_cost": "2505.6",
+                        "is_multi_az": true,
+                        "instance_family": "General purpose",
+                        "instance_type": "db.t3.large",
+                        "saving_amount": "3646.0"
+                    },
+                    {
+                        "memory": "8.0",
+                        "monthly_cost": "228.96",
+                        "potential_savings": "55.34",
+                        "same_instance_type_family": false,
+                        "instance_storage": "EBS Only",
+                        "cpu": "2",
+                        "hourly_cost": "0.318",
+                        "physical_processor": "AWS Graviton2",
+                        "command": "aws rds modify-db-instance --region us-east-1 --db-instance-identifier prod-recommendations-db --db-instance-class db.m6g.large --apply-immediately",
+                        "cpu_max_estimated": {
+                            "2024-06-30": 188.15,
+                            .
+                            .
+                            "2024-07-07": 55.37
+                        },
+                        "mem_max_utilization_estimated": {
+                            "2024-06-30": 72.68,
+                            .
+                            .
+                            "2024-07-07": 72.83
+                        },
+                        "instance_type_family": "M6G",
+                        "ri_coverage": true,
+                        "annual_cost": "2747.52",
+                        "is_multi_az": true,
+                        "instance_family": "General purpose",
+                        "instance_type": "db.m6g.large",
+                        "saving_amount": "3404.0"
+                    },
+                    {
+                        "memory": "8.0",
+                        "monthly_cost": "242.64",
+                        "potential_savings": "52.67",
+                        "same_instance_type_family": false,
+                        "instance_storage": "EBS Only",
+                        "cpu": "2",
+                        "hourly_cost": "0.337",
+                        "physical_processor": "AWS Graviton3",
+                        "command": "aws rds modify-db-instance --region us-east-1 --db-instance-identifier prod-recommendations-db --db-instance-class db.m7g.large --apply-immediately",
+                        "cpu_max_estimated": {
+                            "2024-06-30": 188.15,
+                            .
+                            .
+                            "2024-07-07": 55.37
+                        },
+                        "mem_max_utilization_estimated": {
+                            "2024-06-30": 72.68,
+                            .
+                            .
+                            "2024-07-07": 72.83
+                        },
+                        "instance_type_family": "M7G",
+                        "ri_coverage": true,
+                        "annual_cost": "2911.68",
+                        "is_multi_az": true,
+                        "instance_family": "General purpose",
+                        "instance_type": "db.m7g.large",
+                        "saving_amount": "3240.0"
+                    },
+                    {
+                        "memory": "8.0",
+                        "monthly_cost": "256.32",
+                        "potential_savings": "50.0",
+                        "same_instance_type_family": true,
+                        "instance_storage": "EBS Only",
+                        "cpu": "2",
+                        "hourly_cost": "0.356",
+                        "physical_processor": "Intel Xeon Platinum 8175",
+                        "command": "aws rds modify-db-instance --region us-east-1 --db-instance-identifier prod-recommendations-db --db-instance-class db.m5.large --apply-immediately",
+                        "cpu_max_estimated": {
+                            "2024-06-30": 188.15,
+                            .
+                            .
+                            "2024-07-07": 55.37
+                        },
+                        "mem_max_utilization_estimated": {
+                            "2024-06-30": 72.68,
+                            .
+                            .
+                            "2024-07-07": 72.83
+                        },
+                        "instance_type_family": "M5",
+                        "ri_coverage": true,
+                        "annual_cost": "3075.84",
+                        "is_multi_az": true,
+                        "instance_family": "General purpose",
+                        "instance_type": "db.m5.large",
+                        "saving_amount": "3076.0"
+                    }
+                ],
+                "days_to_check": 60,
+                "cpu_p99": 39.61,
+                "memory": 16,
+                "throughput_max_data": {
+                    "2024-06-30": 38370979.58,
+                    .
+                    .
+                    "2024-07-07": 27794169.52
+                },
+                "max_memory": 37.04,
+                "max_allocated_storage": 100,
+                "throughput_avg_data": {
+                    "2024-06-30": 862022.88,
+                    .
+                    .
+                    "2024-07-07": 918150.19
+                },
+                "network_avg_data": {
+                    "2024-06-30": 1117750.81,
+                    .
+                    .
+                    "2024-07-07": 1159182.59
+                },
+                "network_p95_data": {
+                    "2024-06-30": 4659980.28,
+                    .
+                    .
+                    "2024-07-07": 5326768.59
+                },
+                "throughput_p95_data": {
+                    "2024-06-30": 3482309.3,
+                    .
+                    .
+                    "2024-07-07": 3996757.08
+                },
+                "engine": "PostgreSQL",
+                "recommended_monthly_cost": 185.76,
+                "is_multi_az": 1,
+                "cpu_max_data": {
+                    "2024-06-30": 94.08,
+                    .
+                    .
+                    "2024-07-07": 27.69
+                },
+                "recommended_instance_type_family": "T4G",
+                "db_connections_max_data": {
+                    "2024-06-30": 105,
+                    .
+                    .
+                    "2024-07-07": 97
+                },
+                "max_iops": 4767.93,
+                "cpu_p95_data": {
+                    "2024-06-30": 6.49,
+                    .
+                    .
+                    "2024-07-07": 7.8
+                },
+                "physical_processor": "Intel Xeon Platinum 8175",
+                "network_max_data": {
+                    "2024-06-30": 31450749.09,
+                    .
+                    .
+                    "2024-07-07": 31391230.34
+                },
+                "instance_type_family": "M5",
+                "command_comment": "Before initiating an AWS RDS resizing, it is crucial to verify backup availability and minimize downtime to prevent any adverse effects on your application's availability.It’s important to acknowledge that a brief period of downtime might occur during the switch-over process.",
+                "iops_max_data": {
+                    "2024-06-30": 845.46,
+                    .
+                    .
+                    "2024-07-07": 825.15
+                },
+                "cpu_avg_data": {
+                    "2024-06-30": 3.84,
+                    .
+                    .
+                    "2024-07-07": 3.88
+                },
+                "engine_version": "15.5",
+                "instance_family": "General purpose",
+                "recommended_instance_type": "db.t4g.large"
+            }
+}
+```
 
 ### Deprecated - Get Recommendations
 
