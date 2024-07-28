@@ -40,6 +40,13 @@ curl --location --request GET 'https://api.mypileus.io/api/v2/usage/assets?start
 | isUblended | query | Should the returned data be unblended or not | Yes | Bool (true / false)
 | token | query | Pagination indicator. The next token to return in this call. This will be returned from the previous call to this API. | Optional | string
 
+<aside class="notice">
+The <code>columns</code> field lists the various available data columns for the assets.</br>
+The list can be viewed in the Anodot Cost App and is updated according to the Cloud Provider.</br>
+Recent fields added to the list of columns in AWS: Invoice Id, Bill type, Tax type, ProductName<br>
+</aside>
+
+
 **Responses**
 
 > Response Example - Cost Assets
@@ -88,7 +95,7 @@ The response is comprised of an array of assets, according to the following tabl
 | totalUsageQuantity | Number | All the accounts linked to this cost center |
 
 **Pagination information:**
-</br>
+
 If there is additional information to show, the *nextToken* field will be included in the response.</br>
 The value should be used in the *token* parameter of the next call.
 

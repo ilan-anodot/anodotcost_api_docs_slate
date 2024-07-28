@@ -229,3 +229,204 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/sso' \
 This request returns the client ID for an SSO domain based user
 The request returns NULL when an SSO domain is not defined
 
+## Roles
+
+> Endpoint **https://api.mypileus.io/api/v2/roles**
+
+
+The Roles endpoint enables Role CRUD actions as well updating user roles.
+
+### Get Roles
+
+> Request example: Get Roles
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v2/roles' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+> Response example:
+
+```json
+[{
+        "id": "test",
+        "name": "test role",
+        "creationTime": "2024-07-04",
+        "accounts": [
+            {
+                "linkedAccountIds": [
+                    "1234567"
+                    ],
+                "accountId": "213"
+            },
+           
+        ]
+    }
+]
+```
+
+**Summary:** Retrieve all roles
+
+**Description**: Retrieves all the roles available in the account
+
+**Parameters:**
+
+| Name | Located in | Required | 
+| ---- | ---------- | -------- | 
+| Authorization | header | Yes | 
+| apikey | header | Yes |
+
+
+### Create Role
+
+> Request example:
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v2/roles' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data '{
+	"name": "Role Name",
+    "type": "EDITOR",
+    "accounts": [{ "accountId": "123", "linkedAccountIds": "all"}]
+}'
+```
+
+> Response example:
+
+```json
+{
+	"id": "1234",
+    "name": "Role Name",
+    "type": "EDITOR",
+    "accounts": [{ "accountId": "123", "linkedAccountIds": "all"}]
+}
+```
+
+**Summary:** Create a Role
+
+**Parameters:**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| name | body | The role's name | Yes | String |
+| type | body | The role's type, Values: EDITOR /  VIEWER | Yes | String |
+| accounts | body | Payer and linked accounts accessible for the role | Yes | Array of Strings |
+
+
+**Response Fields:** The role's fields and the ID assigned by Anodot Cost.
+
+### Update Role
+
+> Request example:
+
+```shell
+curl --location --request PUT 'https://api.mypileus.io/api/v2/roles/{RoleID}' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data '{
+	"name": "Role Name",
+    "type": "Viewer",
+    "accounts": [{ "accountId": "123", "linkedAccountIds": "all"}]
+}'
+```
+
+> Response example:
+
+```json
+{
+	"id": "1234",
+    "name": "Role Name",
+    "type": "Viewer",
+    "accounts": [{ "accountId": "123", "linkedAccountIds": "all"}]
+}
+```
+
+**Summary:** Update role by ID
+
+**Desription:** Refer to a role by its ID and change relevant fields.
+
+The request uses the roleID in the header (see the example) and is otherwise identical to the Create role request.
+
+### Create user in Role
+
+> Request example:
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v2/roles/{RoleID}/user' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "test@test.com"
+}'
+```
+
+**Summary:** Add a user to role by roleID and user email
+
+**Description:** Assign a user to a role
+
+**Parameters:**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| roleID | header | The role's ID | Yes | String |
+| email | body | The user's email | Yes | String |
+
+### Change user Role
+
+> Request example:
+
+```shell
+curl --location --request PUT 'https://api.mypileus.io/api/v2/roles/{RoleID}/user' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "email": "test@test.com"
+}'
+```
+
+**Summary:** Change user role by roleID
+
+**Description:** Change a user's assigned role
+
+**Parameters:**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| roleID | header | The role's ID | Yes | String |
+| email | body | The user's email | Yes | String |
+
+
+### Delete Role
+
+> Request example:
+
+```shell
+curl --location --request DELETE 'https://api.mypileus.io/api/v2/roles/{RoleID}' \
+--header 'apikey: {{apikey}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'Content-Type: application/json' \
+--data ''
+```
+
+**Summary:** Delete role by roleID
+
+**Parameters:**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| roleID | header | The role's ID | Yes | String |
+
