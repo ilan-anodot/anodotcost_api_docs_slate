@@ -22,7 +22,7 @@ Today, Each API call is limited to returning **5000** rows. In case you need to 
 }
 ```
 
-In order to get the full date (in case **next_token** is not null), you need to make the same API request with **token=next_token_value** until **nexToken** returns with a null value.
+In order to get the full data (in case **next_token** is not null), you need to make the same API request with **token=next_token_value** until **nextToken** returns with a null value.
 
 The following APIs currently support pagination:
 
