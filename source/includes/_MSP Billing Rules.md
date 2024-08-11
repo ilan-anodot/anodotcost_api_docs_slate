@@ -89,7 +89,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/msp/billing-rules
    "frequency": "recurring",
    "name": "Billing Rule 1",
    "linkedAccounts": "ALL",
-   "customers": ["<customer code>"],
+   "customers": ["<customerNameId>"],
    "startMonth": "2022-06",
    "endMonth": "2022-07",
    "marginType": "calc-cost",
@@ -111,6 +111,10 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/msp/billing-rules
 | ---- | ---------- | ----------- | -------- | ---- |
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
+
+<aside class="notice">
+Use the <i>customerNameId</i> field in the <i>customers</i> array.</br>
+</aside>
 
 **Responses**
 
