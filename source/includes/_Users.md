@@ -172,6 +172,15 @@ Use this  to onboard an AWS account in Anodot Cost.</br>
 As an enterprise customer, provide the account id and name.</br>
 The MSP request contains slightly more information.<br>
 
+<aside class="notice">
+Your first account must be onboarded using The Anodot Cost user interface.<br/>
+Additional accounts can be onboarded using API requests.</br>
+</aside>
+
+<aside class="notice">
+Note the <i>account API key</i> must contain account and division for all requests.</br>
+To onboard a new account. Use an existing account key and division.</br>
+</aside>
 
 **Parameters**
 
