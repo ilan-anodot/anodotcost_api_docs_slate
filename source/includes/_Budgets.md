@@ -30,13 +30,7 @@ You can define multi-cloud budgets in Anodot Cost Intelligence
 
 ### Get Budget 
 
-> Request Example: Getting a budget (v1 Or v2)
-
-```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/budgets' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}'
-```
+> Request Example: Getting a budget
 
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v2/budgets' \
@@ -57,57 +51,9 @@ curl --location --request GET 'https://api.mypileus.io/api/v2/budgets' \
 
 **Responses**
 
-The response is an array of budgets defined in the account.</br>
-V2 responses include additional fields that are available in the budget object.
+The response is an array of budgets defined in the account.
 
-> Response Example v1
-
-```json
-[
-    {
-        "budgetId": "f30de497a71f45b7a5dd5e0953bc43e6",
-        "budget_amounts": [],
-        "end_date": "2023-06-01 00:00:00",
-        "creation_time": "2022-07-03 11:48:33",
-        "user_key": "ff55ffaf-42d7-402d-95c8-bdd6488392f3",
-        "budget_amount_type": "fixed",
-        "budget_type": "recurring",
-        "flexible": 1,
-        "alerts": [
-            {
-                "budget_percent_to_alert_from": 80,
-                "alert_granularity": [
-                    "daily"
-                ],
-                "recipients": [
-                    "yariv@anodot.com"
-                ],
-                "when_to_alert": [
-                    "forecasted"
-                ]
-            }
-        ],
-        "filters": {
-            "include": {
-                "linkedaccname": [
-                    "Anodot Customer Success"
-                ]
-            },
-            "exclude": {}
-        },
-        "account_id": "340481513670",
-        "start_date": "2022-06-01 00:00:00",
-        "division_id": "0",
-        "budget_amount": 50000,
-        "is_active": 1,
-        "account_key": "649",
-        "budget_name": "Customer Success",
-        "is_valid": "1"
-    }
-]
-```
-
-> Response Example v2
+> Response Example
 
 ```json
 [{
@@ -316,54 +262,7 @@ V2 responses include additional fields that are available in the budget object.
 
 **Description:** The call is used to create budgets
 
-> Example: Create budget v1
-
-```shell
-curl --location --request POST 'https://api.mypileus.io/api/v1/budgets' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "budgetName": "string",
-  "budgetAmount": 0,
-  "budgetAmounts": [
-    {
-      "date": "string",
-      "amount": 0
-    }
-  ],
-  "budgetAlerts": [
-    {
-      "alertPercent": 0,
-      "alertEmail": "string",
-      "whenToAlert": [
-        "actualUsage"
-      ],
-      "alertGranularity": [
-        "daily"
-      ]
-    }
-  ],
-  "includeFilters": {
-    "filter_name": [
-      "linkedaccid"
-    ]
-  },
-  "excludeFilters": {
-    "filter_name": [
-      "linkedaccid"
-    ]
-  },
-  "budgetType": "expiring",
-  "budgetAmountType": "fixed",
-  "startDate": "string",
-  "endDate": "string",
-  "isFlexible": true,
-  "budgetId": "string"
-}'
-```
-
-> Example: Create Budget v2
+> Example: Create Budget
 
 ```shell
 curl --location --request POST 'https://api.mypileus.io/api/v2/budgets' \
@@ -517,56 +416,7 @@ Option 2 (budgetType = “expiring” and budgetAmountType=”planned”)  will 
 
 **Description:** The call is used to update a budget
 
-
-
-> Request Example: Update a budget v1
-
-```shell
-curl --location --request PUT 'https://api.mypileus.io/api/v1/budgets?budgetId={{budgetId}}' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "budgetName": "string",
-  "budgetAmount": 0,
-  "budgetAmounts": [
-    {
-      "date": "string",
-      "amount": 0
-    }
-  ],
-  "budgetAlerts": [
-    {
-      "alertPercent": 0,
-      "alertEmail": "string",
-      "whenToAlert": [
-        "actualUsage"
-      ],
-      "alertGranularity": [
-        "daily"
-      ]
-    }
-  ],
-  "includeFilters": {
-    "filter_name": [
-      "linkedaccid"
-    ]
-  },
-  "excludeFilters": {
-    "filter_name": [
-      "linkedaccid"
-    ]
-  },
-  "budgetType": "expiring",
-  "budgetAmountType": "fixed",
-  "startDate": "string",
-  "endDate": "string",
-  "isFlexible": true,
-  "budgetId": "string"
-}'
-```
-
-> Request Example: Update a budget v2
+> Request Example: Update a budget
 
 ```shell
 curl --location --request PUT 'https://api.mypileus.io/api/v2/budgets?budgetId={{budgetId}}' \
@@ -653,8 +503,7 @@ curl --location --request PUT 'https://api.mypileus.io/api/v2/budgets?budgetId={
   "includeFilters": {},
   "budgetType": "expiring",
   "budgetAmountType": "planned",
-  "period": 0,
-  "userKey": "82f99b85-e85a-436e-a8eb-d4ed989b9456"
+  "period": 0
 }'
 ```
 
@@ -685,18 +534,7 @@ Note that only active budgets can be updated.
 
 **Description:** The call is used to delete a budget
 
-> Request Example: Delete a budget v1
-
-```shell
-curl --location --request DELETE 'https://api.mypileus.io/api/v1/budgets?budgetId={{budget-id}}' \
---header 'apikey: {{account-api-key}}' \
---header 'Authorization: {{bearer-token}}' \
---header 'commonParams: {"isPpApplied":false}' \
---header 'Content-Type: application/json' \
---data-raw ''
-```
-
-> Request Example: Delete a budget v2
+> Request Example: Delete a budget
 
 ```shell
 curl --location --request DELETE 'https://api.mypileus.io/api/v2/budgets?budgetId={{budget-id}}' \

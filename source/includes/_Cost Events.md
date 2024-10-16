@@ -41,7 +41,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/users/events?start
         "accountId": "accountID",
         "description": "Its time to get the API going!",
         "title": "The Big API Palooza",
-        "estimation": "100"
+        "estimation": 100
 
     }
 ]
@@ -89,7 +89,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/events' \
   "description": "Its time to get the API going!",
   "date": "2022-07-07",
   "createdBy": "Anodot User",
-  "estimation" : "100"
+  "estimation" : 100
 }'
 ```
 
@@ -103,7 +103,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/events' \
 | description | body | Event description | Yes | String |
 | date | body | Event date | Yes | date |
 | createdBy | body | Name of user creating the event | Yes | String |
-| estimation | body | $ value of the event | Optional | String |
+| estimation | body | $ value of the event | Optional | Number |
 
 **Responses**
 
@@ -121,7 +121,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/users/events' \
     "title": "The Big API Palooza II",
     "description": "Its time to get the API going!",
     "date": "2022-07-07",
-    "estimation": "100"
+    "estimation": 100
 }
 ```
 

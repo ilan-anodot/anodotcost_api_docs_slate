@@ -4,8 +4,8 @@ Mapping the organizational structure in filters, recommendations and CUE is made
 Your enrichment tags are stored as a single csv file.
 To update the CSV file using the API, you need to:
 
-1. GET the current configuration
-2. Update the entries in your spreadsheet or text editor
+1. GET the current configuration file
+2. In a text editor - Update the entries as needed
 3. POST the updated file to replace the existing configuration in your account
 
 ### GET Enrichment tags

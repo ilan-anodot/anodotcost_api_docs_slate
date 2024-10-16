@@ -1,5 +1,19 @@
 ## MSP Billing Rules
 
+**Margin Types**
+
+The following margin types are used in all Billing Rules requests.</br>
+Use them to when creating billing rules and to understand existing billing rules.
+
+| Type | Code |
+|------|------|
+| Percentage | percentage |
+| Fixed Cost | fix |
+| Fixed rate | rate |
+| Custom Service Aggregated  % | custom-service-calc-cost |
+| AWS Support | calc-cost |
+| Remove AWS Support | remove-support |
+
 ### Get MSP Billing Rules
 
 **Summary:** Retrieves list of MSP Billing Rules
