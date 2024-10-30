@@ -27,7 +27,7 @@ curl --location --request POST 'https://api.mypileus.io/api/v2/recommendations/l
     ],
     "page_size": 500,
     "pagination_token": null
-}
+}'
 ```
 
 **Summary:** Retrieves recommendations according to status and other filters
@@ -923,3 +923,182 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/recommendations/hi
 | 400 | Invalid Parameters value |
 | 500 | Server error |
 
+
+### Recommendation Actions
+
+Use these API calls to update user actions.</br>
+Integrate Anodot Cost with 3rd party workflow/ticketing platforms and update the progress back to Anodot Cost.
+
+### Set recommendation user status
+
+**Summary:** Set the user status of a specific recommendation.
+
+**Description:** Set the user status according to the action in the request
+
+> Request Example: Mark recommendation as done
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v2/recommendationsNew/user-action' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'\
+--data '{
+    "action" : "done",
+    "recId" : "{recommendationId}"
+}'
+```
+
+> Request Example: Exclude recommendation
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v2/recommendationsNew/user-action' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'\
+--data '{
+    "action" : "exclude",
+    "recId" : "{recommendationId}",
+    "actionParams" : {
+        "data" : {
+            "comment" : “Your comment here”, 
+            "until" : “2025-03-30T11:23:56+03:00”
+        }
+    }
+}'
+```
+
+> Request Example: Add and Remove labels from recommendation
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v2/recommendationsNew/user-action' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'\
+--data '{
+    "action" : "exclude",
+    "recId" : "{recommendationId}",
+    "actionParams" : {
+        "data" : {
+            "label_add" : “label 1, label 2, label 3”, 
+            "label_delete" : “label a, label b”
+        }
+    }
+}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| action | body | Values:</br> - done / undone</br> - exclude / include</br> - star / unstar</br> - label | Yes | string |
+| recId | body | Recommendation Id to be updated with the relevant action | Yes | string |
+
+**Exclude Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| actionParams | body | Additional information in case the action is "exclude" | Conditional | object |
+| data | body | Additional information within actionParams | Conditional | object |
+| comment | body | when the action is "exclude" - add a comment to explain it | Conditional |  string |
+| until | body | when the action is "exclude" - set the until date field. Example: 2025-03-30T11:23:56+03:00 | Conditional | date string |
+
+**labels Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| actionParams | body | Additional information in case the action is "label" | Conditional | object |
+| data | body | Additional information within actionParams | Conditional | object |
+| label_add | body | Comma separated list of labels to add to the recommendation | Conditional | string |
+| label_delete | body | Comma separated list of labels to remove from the recommendation, if they exist | Conditional | string |
+
+
+### Add, update and remove comments from a recommendation
+
+**Summary:** Add, update or remove comments.
+
+**Description:** Update the recommendation comments
+
+> Request Example: Add a comment to a recommendation
+
+```shell
+curl --location --request POST 'https://api.mypileus.io/api/v2/recommendationsNew/{recId}/comments' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'\
+--data '{
+    "comment" : "your comment here",
+    "createdBy" : "{userName}"
+}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| recId | header | Recommendation Id to be updated with the relevant action | Yes | string |
+| comment | body | Free text comment | Yes | string |
+| createdBy | body | user name to be attached to the comment | Yes | string |
+
+> Comment object as part of a recommendation
+
+```json
+[{
+"comment" : "My demo comment",
+"commentId": 47,
+"createdAt": 1727699807,
+"createdBy": "82f99b85-e85a-436e-a8eb-d4ed91234456",
+"createdByDisplayName": "AnodotTest"
+}]
+```
+
+The response will include the created comment id.</br>
+Once comments are linked to a recommendation, they will be included in the recommentation object when calling "GET recommendations".
+
+
+> Request Example: Update comment in a recommendation
+
+```shell
+curl --location --request PUT 'https://api.mypileus.io/api/v2/recommendationsNew/{recId}/comments' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'\
+--data '{
+    "comment" : "your new comment here",
+    "commentId" : "{commentId}"
+}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| recId | header | Recommendation Id to be updated with the relevant action | Yes | string |
+| comment | body | The updated comment text | Yes | string |
+| commentId | body | The comment Id we need to update | Yes | string |
+
+> Request Example: Delete comment in a recommendation
+
+```shell
+curl --location --request DELETE 'https://api.mypileus.io/api/v2/recommendationsNew/{recId}/comments' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}' \
+--header 'commonParams: {"isPpApplied":false}'\
+--data '{
+    "commentId" : "{commentId}"
+}'
+```
+
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+| recId | header | Recommendation Id to be updated with the relevant action | Yes | string |
+| commentId | body | The comment Id we need to delete | Yes | string |
