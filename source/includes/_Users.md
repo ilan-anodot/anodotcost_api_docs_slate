@@ -111,27 +111,6 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/users/with-roles' 
 
 This section lists calls that are related to automated onboarding.
 
-### Get external ID
-
-> Request example: Get external ID
-
-```shell
-curl --location --request GET 'https://api.mypileus.io/api/v1/users/on-boarding/external-id/:cloudAccountId' \
---header 'apikey: {{apikey}}' \
---header 'Authorization: {{bearer-token}}'
-```
-
-**Summary:** Retrieve external ID
-
-**Parameters**
-
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Authorization | header |  | Yes |  |
-| apikey | header |  | Yes |  |
-| cloudAccoundID | Query params | The account we want the external ID for | Yes | String |
-
-
 ### Onboard AWS Account
 
 > Request example: Onboard AWS account by an enterprise
@@ -159,7 +138,8 @@ curl --location '{DOMAIN}/api/v2/onboarding/aws/{ACCOUNT_ID}' \
     "accountName": "{ACCOUNT_NAME}",
     "bucketName":"custom-bucket10", 
     "bucketRegion": "us-east-1", 
-    "resellerCustomer": "test", 
+    "resellerCustomerId": "01234",
+    "resellerCustomerName": "test", 
     "resellerCustomerDomain": "test.com", 
     "autoAssignLinkedAccounts": 1, 
     "accountType": "dedicated", 
@@ -171,6 +151,10 @@ curl --location '{DOMAIN}/api/v2/onboarding/aws/{ACCOUNT_ID}' \
 Use this  to onboard an AWS account in Anodot Cost.</br>
 As an enterprise customer, provide the account id and name.</br>
 The MSP request contains slightly more information.<br>
+
+The output from running these commands are two files. These files should be run within AWS.</br>
+The process is described in [Anodot documentation](https://cloudcost.anodot.com/hc/en-us/articles/10273724354076-AWS-Automatic-and-Manual-Onboarding#h_01J1WG131M7GSAKXWM0S7ER079)
+
 
 <aside class="notice">
 Your first account must be onboarded using The Anodot Cost user interface.<br/>
@@ -195,7 +179,8 @@ To onboard a new account. Use an existing account key and division.</br>
 | Name | Located In | Description | Required |
 | ---- | -----------| ----------- | ---------|
 | accountType | body | Values: "dedicated" (default) or "shared" | optional |
-| resellerCustomer | body |  Display name for the reseller customer. In case accountType = dedicated | optional |
+| resellerCustomerId | body |  Reseller customer code. In case accountType = dedicated | optional |
+| resellerCustomerName | body |  Display name for the reseller customer. In case accountType = dedicated | optional |
 | isCustomerSelfManaged | body | Relevant for accountType = dedicated, Values: 1 - Self managed, 0 - not self managed | optional |
 | resellerCustomerDomain | body | Domain for reseller customer. Will be used for SSO. The domain should match existing domains for the customer, or be a new domain in Anodot's records | optional |
 | autoAssignLinkedAccounts | body |  Relevant for accountType = dedicated. Values: 1 - auto assign, 0 - do not auto assign | optional |
