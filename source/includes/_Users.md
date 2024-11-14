@@ -180,7 +180,7 @@ To onboard a new account. Use an existing account key and division.</br>
 | ---- | -----------| ----------- | ---------|
 | accountType | body | Values: "dedicated" (default) or "shared" | optional |
 | resellerCustomerId | body |  Reseller customer code. In case accountType = dedicated | optional |
-| resellerCustomerName | body |  Display name for the reseller customer. In case accountType = dedicated | optional |
+| resellerCustomerName | body |  Display name for the reseller customer. Required in case accountType = dedicated | optional |
 | isCustomerSelfManaged | body | Relevant for accountType = dedicated, Values: 1 - Self managed, 0 - not self managed | optional |
 | resellerCustomerDomain | body | Domain for reseller customer. Will be used for SSO. The domain should match existing domains for the customer, or be a new domain in Anodot's records | optional |
 | autoAssignLinkedAccounts | body |  Relevant for accountType = dedicated. Values: 1 - auto assign, 0 - do not auto assign | optional |
