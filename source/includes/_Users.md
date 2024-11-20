@@ -62,7 +62,7 @@ curl --location --request GET 'https://api.mypileus.io/api/v1/users' \
 
 **Responses**
 
-The response is comprised of an array of users, according to the following table:
+The response is comprised of an array of users.
 
 **Response Codes**
 
@@ -175,6 +175,17 @@ To onboard a new account. Use an existing account key and division.</br>
 | bucketRegion | body | Region for bucket creation. Default is "us-east-1" | optional |
 
 **Parameters for MSPs**
+
+<aside class="notice">
+<b>Dedicated accounts</b></br>
+When the <i>accountType = dedicated</i></br>
+</br>
+These parameters are mandatory:</br>
+</br>
+* resellerCustomerName</br>
+* isCustomerSelfManaged</br>
+* autoAssignLinkedAccounts</br>
+</aside>
 
 | Name | Located In | Description | Required |
 | ---- | -----------| ----------- | ---------|
