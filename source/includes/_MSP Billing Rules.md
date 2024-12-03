@@ -1,18 +1,19 @@
 ## MSP Billing Rules
 
-**Margin Types**
+**Margin Type Names**
 
 The following margin types are used in all Billing Rules requests.</br>
 Use them to when creating billing rules and to understand existing billing rules.
 
-| Type | Code |
-|------|------|
-| Percentage | percentage |
-| Fixed Cost | fix |
-| Fixed rate | rate |
-| Custom Service Aggregated  % | custom-service-calc-cost |
-| AWS Support | calc-cost |
-| Remove AWS Support | remove-support |
+| UI Name | API Value | Note |
+| - | - | - |
+| Percentage | update_cost_with_factor | |
+| Fixed Cost | add_fixed_cost ||
+| Fixed Rate | add_fixed_rate ||
+| Custom Service Aggregated % | add_cost_with_factor ||
+| AWS Support | add_aws_support | For AWS accounts only |
+| Remove AWS Support | remove_aws_support | For AWS accounts only |
+| Data Exclusion | remove_cost ||
 
 ### Get MSP Billing Rules
 
@@ -20,7 +21,15 @@ Use them to when creating billing rules and to understand existing billing rules
 
 **Description:** The call is used to retrieve list of billing rules for an MSP
 
-> Request Example: Get MSP Billing Relues
+> Request Example v2 (new): Get MSP Billing Relues
+
+```shell
+curl --location --request GET 'https://api.mypileus.io/api/v2/msp/billing-rules/v2' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{bearer-token}}'
+```
+
+> Request Example v1 (Deprecated): Get MSP Billing Relues
 
 ```shell
 curl --location --request GET 'https://api.mypileus.io/api/v1/msp/billing-rules' \
@@ -92,7 +101,95 @@ The response is an array of rules for the MSP.
 
 **Description:** The call is used to create a new billing rule for an MSP
 
-> Request Example: Create MSP Billing Rule
+> Request Example v2 (new): Create MSP Billing Rule
+
+```shell
+curl --location --request POST  
+'https://api.mypileus.io/api/v2/msp/billing-rules/v2' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-Token}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "scope":{
+        "startMonth":"2024-11",
+        "endMonth":"2024-11",
+        "customerNames":["Customer5"],
+        "level":"customer"
+        },
+    "filters":{
+        "excludeFilters":{
+            "costtype":["Credit"],
+            "service":["AWS Support [Enterprise]"]
+            },
+        "excludeAwsMarketplace":true,
+        "includeFilters":{
+            "cloudfrontregion":["United States"],
+            "region":["us-east-1"],
+            "usagetype":["AP-DataTransfer-Out-OBytes"],
+            "purchaseoption":["on demand","savings_plan"],
+            "customtags":["Customer: no_tag"],
+            "quantitytype":["Hours"],
+            "chargetype":["Usage"],
+            "familytype":["Compute"],
+            "operation":["EC2 Compute"],
+            "instancetype":["Amazon Elastic Compute Cloud"],
+            "linkedaccid":["369369"]
+            },
+        "likeFilters":{
+            "itemdescription":["aws"]
+            }
+        },
+    "description":{
+        "name":"rule name",
+        "description":"rule description"
+        },
+    "margin":{
+        "type":"add_aws_support",
+        "resolution":"customer",
+        "disableMinimumFee":true,
+        "plan":"AWS Premium Support"
+        }
+    }
+}'
+```
+
+**Filtering Options**
+
+| Filter Name | Type | Optional Operators | AWS | Azure | Notes |
+|-------------|------|--------------------|-----|-------|-------|
+| chargetype | list | is | Yes | | |
+| cloudfrontregion | list | is | Yes | | |
+| costtype | list | is | Yes | Yes | |
+| customtags | ["key":"value"] | is | Yes | Yes | |
+| Familytype | list | is | Yes | Yes (refers to 'meter category') | |
+| instancetype | list | is | Yes | | |
+| Linkedaccid | list | is | Yes | Yes (refers to 'subscription') | |
+| Operation | list | is | Yes | Yes (refers to 'meter name') | |
+| purchaseoption | list | is | Yes | Yes | |
+| quantitytype | List - single value | is | Yes | Yes | |
+| region | list | is | Yes | Yes | |
+| service | list | is | Yes | Yes | |
+| usagetype | list | is / Contains(LIKE) | Yes | Yes | |
+| itemdescription | list | Contains (LIKE) | Yes || |
+| disable_minimum_fee | Bool (true/false) | is | Yes || In the request it should be visible under the margin|
+| excludeAwsMarketplace | Bool (true/false) | is | Yes | ||
+| Familytypeusage | list | is ||Yes (refers to 'sub meter category')| 
+
+<aside class="notice">
+<b>Note</b></br>
+Depending on the marging type, filter availability might change.
+</aside>
+
+| Parameter | Availability in |
+| ----------| ----------------|
+| plan | Relevant for margin type “AWS support plan”. Optional values are: </br>AWS Support [Developer]</br>AWS Support [Enterprise]</br>AWS Support [Business]</br>AWS Premium Support|
+| disableMinimumFee | Boolean. Relevant for margin type “AWS support plan”. |
+| customService | String. Represents the custom service name.</br>Relevant for margin types:</br>* Fixed Cost</br>* Custom Service Aggregated % |
+| factor | Decimal representation of a percentage discount/charge |
+| amount | Discount amount |
+
+
+> Request Example v1 (Deprecated): Create MSP Billing Rule
 
 ```shell
 curl --location --request POST 'https://api.mypileus.io/api/v1/msp/billing-rules' \
@@ -126,14 +223,96 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/msp/billing-rules
 | Authorization | header |  | Yes |  |
 | apikey | header |  | Yes |  |
 
+
+
+
 <aside class="notice">
 Use the <i>customerNameId</i> field in the <i>customers</i> array.</br>
 </aside>
 
 **Responses**
 
-> Response Example
+> Response Example v2 (new)
 
+```json
+{
+   "ruleId": "d2d71e2a-8e5c-4473-92f4-e0fecce30000",
+   "orgId": "88",
+   "accountKey": 19,
+   "description": {
+       "name": "rule name 1",
+       "description": "rule description"
+   },
+   "margin": {
+       "type": "add_aws_support",
+       "disableMinimumFee": true,
+       "plan": "AWS Premium Support",
+       "resolution": "customer"
+   },
+   "filters": {
+       "includeFilters": {
+           "cloudfrontregion": [
+               "United States"
+           ],
+           "region": [
+               "us-east-1"
+           ],
+           "usagetype": [
+               "AP-DataTransfer-Out-Bytes"
+           ],
+           "purchaseoption": [
+               "on demand",
+               "savings_plan"
+           ],
+           "customtags": [
+               "Customer: no_tag"
+           ],
+           "quantitytype": [
+               "Hours"
+           ],
+           "chargetype": [
+               "Usage"
+           ],
+           "familytype": [
+               "Compute"
+           ],
+           "operation": [
+               "Windows"
+           ],
+           "instancetype": [
+               "Amazon Elastic Compute Cloud"
+           ],
+           "linkedaccid": [
+               "369369"
+           ]
+       },
+       "excludeFilters": {
+           "costtype": [
+               "Credit"
+           ],
+           "service": [
+               "AWS Support [Enterprise]",
+               "AWS Premium Support"
+           ]
+       },
+       "likeFilters": {
+           "itemdescription": [
+               "aws"
+           ]
+       },
+       "excludeAwsMarketplace": true
+   },
+   "sourceTemplateId": null,
+   "accountId": "369369",
+   "scope": {
+       "level": "customer",
+       "customerNames": ["Customer5"],
+       "linkedAccountIds": [],
+       "startMonth": "2024-11",
+       "endMonth": "2024-11"
+   }
+}
+```
 
 | Code | Description |
 | ---- | ----------- |
@@ -148,7 +327,33 @@ Use the <i>customerNameId</i> field in the <i>customers</i> array.</br>
 **Description:** The call is used to update an existing MSP Billing Rule using its ID</br>
 The billing rule ID is retrieved by the GET billing rules request.
 
-> Request Example - Edit an MSP Billing Rule
+> Request Example v2 (new) - Edit an MSP Billing Rule
+
+```shell
+curl --location --request PUT 'https://api-front.mypileus.io/api/v2/msp/billing-rules/v2' \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-Token}}' \
+--data '{
+    "ruleId": "123123",
+    "description": {
+        "name": "test_v2",
+        "description": null
+    },
+    "margin": {
+        "type": "update_cost_with_factor",
+        "factor": 0.14,
+        "costType": "relative"
+    },
+    "scope": {
+        "level": "customer",
+        "customerNames": ["Customer5"],
+        "startMonth": "2024-11",
+        "endMonth": "2024-11"
+    }
+}'
+```
+
+> Request Example v1 (Deprecated) - Edit an MSP Billing Rule
 
 ```shell
 curl --location --request PUT 'https://api.mypileus.io/api/v1/msp/billing-rules/23454' \
@@ -185,6 +390,30 @@ curl --location --request PUT 'https://api.mypileus.io/api/v1/msp/billing-rules/
 
 **Responses**
 
+> Response Example v2 (new)
+
+```json
+{
+  "ruleId": "123123",
+  "orgId": "432423",
+  "accountKey": 432432,
+  "description": { "name": "test_v2", "description": null },
+  "margin": {
+    "type": "update_cost_with_factor",
+    "factor": 0.14,
+    "costType": "relative"
+  },
+  "filters": {},
+  "sourceTemplateId": null,
+  "accountId": "***",
+  "scope": {
+    "level": "customer",
+    "customerNames": ["Customer5"],
+    "startMonth": "2024-11",
+    "endMonth": "2024-11"
+  }
+}
+```
 
 | Code | Description |
 | ---- | ----------- |
@@ -199,7 +428,15 @@ curl --location --request PUT 'https://api.mypileus.io/api/v1/msp/billing-rules/
 **Description:** The call is used to delete an MSP Billing Rule using its ID</br>
 The billing rule ID is retrieved by the GET billing rules request.
 
-> Request Example: Delete MSP Billing rule
+> Request Example v2 (New): Delete MSP Billing rule
+
+```shell
+curl --location --request DELETE 'https://api.mypileus.io/api/v2/msp/billing-rules/v2/{rule-id} \
+--header 'apikey: {{account-api-key}}' \
+--header 'Authorization: {{Bearer-token}}' \
+```
+
+> Request Example v1 (Deprecated): Delete MSP Billing rule
 
 ```shell
 curl --location --request DELETE 'https://api.mypileus.io/api/v1/msp/billing-rules/234254' \
