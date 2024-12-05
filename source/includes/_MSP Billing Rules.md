@@ -153,40 +153,117 @@ curl --location --request POST
 }'
 ```
 
+**Parameters**
+
+| Name | Located in | Description | Required | Type |
+| ---- | ---------- | ----------- | -------- | ---- |
+| Authorization | header |  | Yes |  |
+| apikey | header |  | Yes |  |
+
+</br>
+
 **Filtering Options**
 
-| Filter Name | Type | Optional Operators | AWS | Azure | Notes |
-|-------------|------|--------------------|-----|-------|-------|
-| chargetype | list | is | Yes | | |
-| cloudfrontregion | list | is | Yes | | |
-| costtype | list | is | Yes | Yes | |
-| customtags | ["key":"value"] | is | Yes | Yes | |
-| Familytype | list | is | Yes | Yes (refers to 'meter category') | |
-| instancetype | list | is | Yes | | |
-| Linkedaccid | list | is | Yes | Yes (refers to 'subscription') | |
-| Operation | list | is | Yes | Yes (refers to 'meter name') | |
-| purchaseoption | list | is | Yes | Yes | |
-| quantitytype | List - single value | is | Yes | Yes | |
-| region | list | is | Yes | Yes | |
-| service | list | is | Yes | Yes | |
-| usagetype | list | is / Contains(LIKE) | Yes | Yes | |
-| itemdescription | list | Contains (LIKE) | Yes || |
-| disable_minimum_fee | Bool (true/false) | is | Yes || In the request it should be visible under the margin|
-| excludeAwsMarketplace | Bool (true/false) | is | Yes | ||
+| Filter Name | Type | Optional Operators | AWS | Azure | 
+|-------------|------|--------------------|-----|-------|
+| chargetype | list | is | Yes | | 
+| cloudfrontregion | list | is | Yes | | 
+| costtype | list | is | Yes | Yes | 
+| customtags | ["key":"value"] | is | Yes | Yes | 
+| Familytype | list | is | Yes | Yes (refers to 'meter category') | 
+| instancetype | list | is | Yes | | 
+| Linkedaccid | list | is | Yes | Yes (refers to 'subscription') | 
+| Operation | list | is | Yes | Yes (refers to 'meter name') | 
+| purchaseoption | list | is | Yes | Yes | 
+| quantitytype | List - single value | is | Yes | Yes | 
+| region | list | is | Yes | Yes | 
+| service | list | is | Yes | Yes | 
+| usagetype | list | is / Contains(LIKE) | Yes | Yes | 
+| itemdescription | list | Contains (LIKE) | Yes || 
+| excludeAwsMarketplace | Bool (true/false) | is | Yes | |
 | Familytypeusage | list | is ||Yes (refers to 'sub meter category')| 
+
 
 <aside class="notice">
 <b>Note</b></br>
-Depending on the marging type, filter availability might change.
+Depending on the marging type, filter availability might change. View it in the Anodot UI.
 </aside>
 
-| Parameter | Availability in |
+> margin Example
+
+```json
+{
+"margin":{
+        "type":"add_aws_support",
+        "resolution":"customer",
+        "disableMinimumFee":true,
+        "plan":"AWS Premium Support"
+        }
+}
+```
+
+**Margin type AWS support plan**
+
+| Parameter | Description |
 | ----------| ----------------|
-| plan | Relevant for margin type “AWS support plan”. Optional values are: </br>AWS Support [Developer]</br>AWS Support [Enterprise]</br>AWS Support [Business]</br>AWS Premium Support|
-| disableMinimumFee | Boolean. Relevant for margin type “AWS support plan”. |
-| customService | String. Represents the custom service name.</br>Relevant for margin types:</br>* Fixed Cost</br>* Custom Service Aggregated % |
-| factor | Decimal representation of a percentage discount/charge |
+| plan | Values are: </br>AWS Support [Developer]</br>AWS Support [Enterprise]</br>AWS Support [Business]</br>AWS Premium Support|
+| disableMinimumFee | Boolean |
+| resolution | Values are: Customer - total / link_account - Per linked account |
+| Filters | See list of filters above |
+
+</br>
+
+**Margin type Remove AWS support**
+
+| Parameter | Description |
+| ----------| ----------------|
+| plan | Values are: </br>AWS Support [Developer]</br>AWS Support [Enterprise]</br>AWS Support [Business]</br>AWS Premium Support|
+
+</br>
+
+**Margin type Fixed Cost**
+
+| Parameter | Description |
+| ----------| ----------------|
+| customService | String. Represents the custom service name.|
 | amount | Discount amount |
+
+</br>
+
+**Margin type Fixed Rate**
+
+| Parameter | Description |
+| ----------| ----------------|
+| customService | String. Represents the custom service name.|
+| amount | Discount amount |
+| Filters | See list of filters above |
+
+</br>
+
+**Margin type Custom Service Aggregated %**
+
+| Parameter | Description |
+| ----------| ----------------|
+| customService | String. Represents the custom service name.|
+| factor | Decimal representation of a percentage discount/charge |
+| Filters | See list of filters above |
+
+</br>
+
+**Margin type Percentage**
+
+| Parameter | Description |
+| ----------| ----------------|
+| factor | Decimal representation of a percentage discount/charge |
+| Filters | See list of filters above |
+
+</br>
+
+**Margin type Data Exclusion**
+
+| Parameter | Description |
+| ----------| ----------------|
+| Filters | See list of filters above |
 
 
 > Request Example v1 (Deprecated): Create MSP Billing Rule
@@ -215,16 +292,6 @@ curl --location --request POST 'https://api.mypileus.io/api/v1/msp/billing-rules
    "services": ["AWS Premium Support"]
 }'
 ```
-
-**Parameters**
-
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| Authorization | header |  | Yes |  |
-| apikey | header |  | Yes |  |
-
-
-
 
 <aside class="notice">
 Use the <i>customerNameId</i> field in the <i>customers</i> array.</br>
