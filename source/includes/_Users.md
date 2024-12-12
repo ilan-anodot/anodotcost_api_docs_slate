@@ -322,6 +322,16 @@ curl --location --request POST 'https://api.mypileus.io/api/v2/roles' \
 | type | body | The role's type, Values: EDITOR /  VIEWER | Yes | String |
 | accounts | body | Payer and linked accounts accessible for the role | Yes | Array of Strings |
 
+<aside class="notice">
+<b>How to specify the accounts</b></br>
+Use AWS terminololgy in the account fields: accountId, linkedAccountIds</br>
+accountId represents: AWS - Payer Account, Azure - Billing Account, GCP - Billing Account</br>
+linkedAccountIds: AWS - Linked Accounts, Azure - subscriptions, GCP - projects</br>
+</br>
+Each Payar or billing account, and its related accounts are enclosed in curly braces.</br>
+</br>
+The linkedAccountIds field may contain an array of linked acccounts, or the string "all".
+</aside>
 
 **Response Fields:** The role's fields and the ID assigned by Anodot Cost.
 
@@ -337,7 +347,8 @@ curl --location --request PUT 'https://api.mypileus.io/api/v2/roles/{RoleID}' \
 --data '{
 	"name": "Role Name",
     "type": "Viewer",
-    "accounts": [{ "accountId": "123", "linkedAccountIds": "all"}]
+    "accounts": [{ "accountId": "Payer1", "linkedAccountIds": ["laID1", "laID2", "laID3"]}, 
+                { "accountId": "Payer2", "linkedAccountIds": ["laID21", "laID22"]}]
 }'
 ```
 
@@ -357,6 +368,17 @@ curl --location --request PUT 'https://api.mypileus.io/api/v2/roles/{RoleID}' \
 **Desription:** Refer to a role by its ID and change relevant fields.
 
 The request uses the roleID in the header (see the example) and is otherwise identical to the Create role request.
+
+<aside class="notice">
+<b>How to specify the accounts</b></br>
+Use AWS terminololgy in the account fields: accountId, linkedAccountIds</br>
+accountId represents: AWS - Payer Account, Azure - Billing Account, GCP - Billing Account</br>
+linkedAccountIds: AWS - Linked Accounts, Azure - subscriptions, GCP - projects</br>
+</br>
+Each Payar or billing account, and its related accounts are enclosed in curly braces. See the example on the right.</br>
+</br>
+The linkedAccountIds field may contain an array of linked acccounts, or the string "all".
+</aside>
 
 ### Create user in Role
 
