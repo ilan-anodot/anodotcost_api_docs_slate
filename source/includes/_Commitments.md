@@ -13,7 +13,7 @@ This request is applicable in AWS and Microsoft Azure accounts
 
 
 ```shell
-curl --location -g --request GET 'https://api.mypileus.io/api/v1/commitment/utilization/?date=2022-07-29&linkedAccount={{linked-account-id}}?commitmentService=ec2&commitmentType=ri' \
+curl --location -g --request GET 'https://api.mypileus.io/api/v1/commitment/utilization/?date=2022-07-29&linkedAccount={{linked-account-id}}&commitmentService=ec2&commitmentType=ri' \
 --header 'apikey: {{account-api-key}}' \
 --header 'Authorization: {{bearer-token}}' \
 --header 'commonParams: {"isPpApplied":false}'
