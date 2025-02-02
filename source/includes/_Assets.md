@@ -4,7 +4,10 @@
 
 **Summary:** Retrieve the list of assets defined in the account
 
-Notice that you can use this API to get 'regular' cost assets as well as Kubernetes assets. The possible combinations of the columns / cost types vary between the two use cases. 
+<aside class="success">
+Use this API to get K8s and non-K8s cost assets.</br>Set the isK8S parameter to "1" to get K8s assets.</br>The possible combinations of the columns / cost types vary between the two use cases.
+</aside>
+
 
 > Request example: Getting assets 
 
